@@ -320,7 +320,8 @@ def cancel(update: Update, _: CallbackContext) -> int:
     )
     return ConversationHandler.END
 
-def mods():
+def getmods(update: Update, _: CallbackContext) -> int:
+    pass
 
 
 # def response(update, context):
@@ -384,6 +385,15 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
 
     dispatcher.add_handler(account_initialisation)
+
+    account_initialisation = ConversationHandler(
+        entry_points=[CommandHandler('mods', mods)],
+        states={
+            ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
+            FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine)$'), faculty)],
+            COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
+        },
+        fallbacks=[CommandHandler('cancel', cancel)],)
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

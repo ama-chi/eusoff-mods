@@ -1,0 +1,67 @@
+{
+    "accounts": {
+        "chernanigans": {
+            "roomnumber": "D112",
+            "faculty": "Science",
+            "course": "COMPUTATIONAL BIOLOGY",
+            "mods": {
+                "Science": [
+                    "MA1101R",
+                    "MA1102R",
+                    "SP1541",
+                    "CM1401"
+                ],
+                "Computing": [
+                    "CS1231"
+                ],
+                "GE Mods": [
+                    "GER1000"
+                ]
+            }
+        },
+        "feliteoh": {
+            "roomnumber": "D321",
+            "faculty": "Science",
+            "course": "LIFE SCIENCE",
+            "mods": {
+                "Science": [
+                    "LSM1102",
+                    "LSM1105",
+                    "LSM1106",
+                    "CM1401",
+                    "GER1000"
+                ],
+                "GE Mods": []
+            }
+        }
+    },
+    "Faculties": {
+        "Science": {
+            "MA1101R": [
+                "@chernanigans"
+            ],
+            "MA1102R": [
+                "@chernanigans"
+            ],
+            "SP1541": [
+                "@chernanigans"
+            ],
+            "CM1401": [
+                "@chernanigans"
+            ]
+        },
+        "Biz": {},
+        "Computing": {
+            "CS1231": [
+                "@chernanigans"
+            ]
+        },
+        "Engineering": {},
+        "FASS": {},
+        "GE Mods": {
+            "GER1000": [
+                "@chernanigans"
+            ]
+        }
+    }
+}

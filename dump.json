@@ -1,0 +1,29 @@
+{
+    "accounts": {
+        "chernanigans": {
+            "roomnumber": "D112",
+            "faculty": "Science",
+            "course": "COMP BIO",
+            "mods": {
+                "Science": [
+                    "MA1101R",
+                    "MA1102R"
+                ],
+                "Computing": [
+                    "CS1231"
+                ],
+                "GE Mods": [
+                    "GER1000"
+                ]
+            }
+        }
+    },
+    "Faculties": {
+        "Science": {},
+        "Biz": {},
+        "Computing": {},
+        "Engineering": {},
+        "FASS": {},
+        "GE Mods": {}
+    }
+}

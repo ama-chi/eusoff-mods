@@ -1,5 +1,4 @@
 import json
-
 from telegram import *
 from telegram.ext import *
 import logging
@@ -30,8 +29,6 @@ class Account():
         self.faculty = faculty
         self.course = course
         self.mods = mods
-
-
 
 
 updater = Updater(token, use_context=True)
@@ -320,20 +317,46 @@ def cancel(update: Update, _: CallbackContext) -> int:
     )
     return ConversationHandler.END
 
-def getmods(update: Update, _: CallbackContext) -> int:
+def button(update: Update, _: CallbackContext) -> None:
+    query = update.callback_query
+    query.answer()
+    query.edit_message_text(text=f"Selected option: {query.data}")
+
+GETFACULTIES, GETMODS = range(2)
+
+
+def mods(update: Update, _: CallbackContext) -> None:
+    with open('data.json', 'r+') as f:
+        data = json.load(f)
+        faculty = []
+        for fac in data['Faculties']:
+            faculty.append(fac)
+        keyboard = []
+        for i in faculty:
+            keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    return GETFACULTIES
+
+
+def getfaculties(update: Update, _: CallbackContext) -> int:
+    faculty_chosen = update.callback_query
+    print(type(faculty_chosen))
+    with open('data.json', 'r+') as f:
+        data = json.load(f)
+        mods = []
+        for mod in data['Faculties'][faculty_chosen]:
+            mods.append(mod)
+        keyboard = []
+        for i in mods:
+            keyboard.append([InlineKeyboardButton(i, callback_data = i)])
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    return GETMODS
+
+
+def getmods():
     pass
-
-
-# def response(update, context):
-#     #if account not in JSON file: carry on, basically you can only type nonsense if you are registering, else you will just clickeroo
-#     data = update.effective_chat
-#     username = data['username']
-#     name = data['first_name']
-#     newaccount = Account(username = username, name = name)
-#     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text + ' ' + name)
-
-
-
 
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
@@ -385,15 +408,21 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
 
     dispatcher.add_handler(account_initialisation)
+    dispatcher.add_handler(CallbackQueryHandler(button))
 
-    account_initialisation = ConversationHandler(
+    module_recall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={
-            ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
-            FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine)$'), faculty)],
+            GETFACULTIES: [CallbackQueryHandler(getfaculties,)],
+            GETMODS: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine)$'), getmods)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],)
+
+    dispatcher.add_handler(module_recall)
+
+    test_handler = CommandHandler('test', getfaculties)
+    dispatcher.add_handler(test_handler)
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

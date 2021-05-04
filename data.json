@@ -33,6 +33,36 @@
                 ],
                 "GE Mods": []
             }
+        },
+        "kxjiuhao": {
+            "roomnumber": "D311",
+            "faculty": "FASS",
+            "course": "COMMS AND NEW MEDIA",
+            "mods": {
+                "FASS": [
+                    "NM2207",
+                    "SC1101",
+                    "CH1101E",
+                    "NM2220"
+                ],
+                "GE Mods": [
+                    "GET1008"
+                ]
+            }
+        },
+        "tpengg": {
+            "roomnumber": "B402",
+            "faculty": "Science",
+            "course": "DSA",
+            "mods": {
+                "Science": [
+                    "KKK",
+                    "LLL"
+                ],
+                "Computing": [
+                    "JJJ"
+                ]
+            }
         }
     },
     "Faculties": {
@@ -48,19 +78,44 @@
             ],
             "CM1401": [
                 "@chernanigans"
+            ],
+            "KKK": [
+                "@tpengg"
+            ],
+            "LLL": [
+                "@tpengg"
             ]
         },
         "Biz": {},
         "Computing": {
             "CS1231": [
                 "@chernanigans"
+            ],
+            "JJJ": [
+                "@tpengg"
             ]
         },
         "Engineering": {},
-        "FASS": {},
+        "FASS": {
+            "NM2207": [
+                "@kxjiuhao"
+            ],
+            "SC1101": [
+                "@kxjiuhao"
+            ],
+            "CH1101E": [
+                "@kxjiuhao"
+            ],
+            "NM2220": [
+                "@kxjiuhao"
+            ]
+        },
         "GE Mods": {
             "GER1000": [
                 "@chernanigans"
+            ],
+            "GET1008": [
+                "@kxjiuhao"
             ]
         }
     }

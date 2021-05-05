@@ -82,7 +82,7 @@ def start(update: Update, _: CallbackContext) -> int:
 
 
 def roomnumber(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'Dentistry', 'Engineering'],['FASS', 'Science', 'Law', 'Medicine', ]]
+    reply_keyboard = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health']]
     user = update.message.from_user
     logger.info("Room Number of %s: %s", user.first_name, update.message.text.upper())
     newaccount.roomnumber = update.message.text.upper()
@@ -105,7 +105,7 @@ def faculty(update: Update, _: CallbackContext) -> int:
 
 
 def course(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     user = update.message.from_user
     logger.info("Course of %s: %s", user.first_name, update.message.text.upper())
     newaccount.course = update.message.text.upper()
@@ -131,7 +131,7 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 1 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -154,7 +154,7 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 2 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -177,7 +177,7 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 3 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -200,7 +200,7 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 4 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -223,7 +223,7 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 5 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -245,7 +245,7 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 6 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -267,7 +267,7 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 7 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -289,7 +289,7 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 def mods8(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'Engineering'], ['FASS', 'Science', 'GE Mods']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 8 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -331,6 +331,7 @@ def mods(update: Update, _: CallbackContext) -> None:
         faculty = []
         for fac in data['Faculties']:
             faculty.append(fac)
+        faculty.sort()
         keyboard = []
         for i in faculty:
             keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
@@ -350,6 +351,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
         mods = []
         for mod in data['Faculties'][faculty_chosen]:
             mods.append(mod)
+        mods.sort()
         keyboard = []
         for i in mods:
             keyboard.append([InlineKeyboardButton(i, callback_data = i)])
@@ -386,36 +388,45 @@ def unknown(update, context):
 # dispatcher.add_handler(start_handler)
 
 # Add conversation handler with the states ROOM NUMBER, FACULTY, COURSE and MODS
-
+[['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
 def main():
     account_initialisation = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
             ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
-            FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine)$'), faculty)],
+            FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health)$'), faculty)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
-            MODS1_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods1_f),
+            MODS1_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods1_f),
                       CommandHandler('done', done)],
             MODS1: [MessageHandler(Filters.text & ~Filters.command, mods1), CommandHandler('done', done)],
-            MODS2_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods2_f),
+            MODS2_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods2_f),
                       CommandHandler('done', done)],
             MODS2: [MessageHandler(Filters.text & ~Filters.command, mods2),CommandHandler('done', done)],
-            MODS3_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods3_f),
+            MODS3_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods3_f),
                       CommandHandler('done', done)],
             MODS3: [MessageHandler(Filters.text & ~Filters.command, mods3),CommandHandler('done', done)],
-            MODS4_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods4_f),
+            MODS4_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods4_f),
                       CommandHandler('done', done)],
             MODS4: [MessageHandler(Filters.text & ~Filters.command, mods4), CommandHandler('done', done)],
-            MODS5_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods5_f),
+            MODS5_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods5_f),
                       CommandHandler('done', done)],
             MODS5: [MessageHandler(Filters.text & ~Filters.command, mods5), CommandHandler('done', done)],
-            MODS6_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods6_f),
+            MODS6_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods6_f),
                       CommandHandler('done', done)],
             MODS6: [MessageHandler(Filters.text & ~Filters.command, mods6), CommandHandler('done', done)],
-            MODS7_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods7_f),
+            MODS7_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods7_f),
                       CommandHandler('done', done)],
             MODS7: [MessageHandler(Filters.text & ~Filters.command, mods7), CommandHandler('done', done)],
-            MODS8_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|GE Mods)$'), mods8_f),
+            MODS8_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
+                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods8_f),
                       CommandHandler('done', done)
     ],
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],

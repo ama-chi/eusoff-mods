@@ -5,33 +5,7 @@
             "faculty": "Science",
             "course": "COMPUTATIONAL BIOLOGY",
             "mods": {
-                "Science": [
-                    "MA1101R",
-                    "MA1102R",
-                    "SP1541",
-                    "CM1401"
-                ],
-                "Computing": [
-                    "CS1231"
-                ],
-                "GE Mods": [
-                    "GER1000"
-                ]
-            }
-        },
-        "feliteoh": {
-            "roomnumber": "D321",
-            "faculty": "Science",
-            "course": "LIFE SCIENCE",
-            "mods": {
-                "Science": [
-                    "LSM1102",
-                    "LSM1105",
-                    "LSM1106",
-                    "CM1401",
-                    "GER1000"
-                ],
-                "GE Mods": []
+                "Science": []
             }
         },
         "kxjiuhao": {
@@ -49,6 +23,25 @@
                     "GET1008"
                 ]
             }
+        },
+        "kay_jayo": {
+            "roomnumber": "D403",
+            "faculty": "FASS",
+            "course": "PSYCHOLOGY",
+            "mods": {
+                "FASS": [
+                    "PL3236",
+                    "EL1101E",
+                    "FAS1103"
+                ],
+                "GE Mods": [
+                    "GES1004",
+                    "GER1000"
+                ],
+                "Science": [
+                    "SPH2401"
+                ]
+            }
         }
     },
     "Faculties": {
@@ -64,6 +57,9 @@
             ],
             "CM1401": [
                 "@chernanigans"
+            ],
+            "SPH2401": [
+                "@kay_jayo"
             ]
         },
         "Biz": {},
@@ -85,15 +81,37 @@
             ],
             "NM2220": [
                 "@kxjiuhao"
+            ],
+            "PL3236": [
+                "@kay_jayo"
+            ],
+            "EL1101E": [
+                "@kay_jayo"
+            ],
+            "FAS1103": [
+                "@kay_jayo"
             ]
         },
         "GE Mods": {
             "GER1000": [
-                "@chernanigans"
+                "@chernanigans",
+                "@kay_jayo"
             ],
             "GET1008": [
                 "@kxjiuhao"
+            ],
+            "GES1004": [
+                "@kay_jayo"
             ]
-        }
+        },
+        "SDE": {
+        },
+        "ISE": {
+        },
+        "Law": {
+        },
+        "Music": {},
+        "Public Health": {},
+        "Public Policy": {}
     }
 }

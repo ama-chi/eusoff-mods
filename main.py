@@ -36,9 +36,7 @@ dispatcher = updater.dispatcher
 print(Bot.get_me(bot))
 ''''commands'''
 
-# def start(update, context):
-#     context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to Eusoff Mods Community, please register with your room "
-#                                                                     "number, e.g. D418")
+
 ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(19)
 
 def initialise_account(user):
@@ -78,7 +76,7 @@ def start(update: Update, _: CallbackContext) -> int:
     newaccount.username = username
     newaccount.name = name
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, please register with your room number')
+        'Welcome to Eusoff Mods Community, please register with your room number, if you make a mistake anytime, restart by typing /cancel')
     return ROOMNUMBER
 
 

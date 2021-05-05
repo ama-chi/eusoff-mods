@@ -42,6 +42,23 @@
                     "SPH2401"
                 ]
             }
+        },
+        "Joelephants": {
+            "roomnumber": "D113",
+            "faculty": "Science",
+            "course": "PHS",
+            "mods": {
+                "GE Mods": [
+                    "GEQ1000",
+                    "GEH1030"
+                ],
+                "Science": [
+                    "PHS1120",
+                    "PHS1130",
+                    "SP1541",
+                    "PHS1114"
+                ]
+            }
         }
     },
     "Faculties": {
@@ -53,13 +70,23 @@
                 "@chernanigans"
             ],
             "SP1541": [
-                "@chernanigans"
+                "@chernanigans",
+                "@Joelephants"
             ],
             "CM1401": [
                 "@chernanigans"
             ],
             "SPH2401": [
                 "@kay_jayo"
+            ],
+            "PHS1120": [
+                "@Joelephants"
+            ],
+            "PHS1130": [
+                "@Joelephants"
+            ],
+            "PHS1114": [
+                "@Joelephants"
             ]
         },
         "Biz": {},
@@ -102,14 +129,17 @@
             ],
             "GES1004": [
                 "@kay_jayo"
+            ],
+            "GEQ1000": [
+                "@Joelephants"
+            ],
+            "GEH1030": [
+                "@Joelephants"
             ]
         },
-        "SDE": {
-        },
-        "ISE": {
-        },
-        "Law": {
-        },
+        "SDE": {},
+        "ISE": {},
+        "Law": {},
         "Music": {},
         "Public Health": {},
         "Public Policy": {}

@@ -338,10 +338,13 @@ def mods(update: Update, _: CallbackContext) -> None:
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETFACULTIES
 
-
+temp_faculty_chosen = ''
 def getfaculties(update: Update, _: CallbackContext) -> int:
-    faculty_chosen = update.callback_query
-    print(type(faculty_chosen))
+    faculty_chosen = str(update.callback_query.data)
+    query = update.callback_query
+    query.edit_message_text(text=f"Selected option: {query.data}")
+    global temp_faculty_chosen
+    temp_faculty_chosen = query.data
     with open('data.json', 'r+') as f:
         data = json.load(f)
         mods = []
@@ -351,12 +354,24 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
         for i in mods:
             keyboard.append([InlineKeyboardButton(i, callback_data = i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    update.effective_message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETMODS
 
 
-def getmods():
-    pass
+def getmods(update: Update, _: CallbackContext):
+    mod_chosen = str(update.callback_query.data)
+    query = update.callback_query
+    query.edit_message_text(text=f"Selected option: {query.data}")
+    with open('data.json', 'r+') as f:
+        data = json.load(f)
+        names = []
+        for username in data['Faculties'][temp_faculty_chosen][mod_chosen]:
+            names.append(username)
+    namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n'
+    for name in names:
+        namelist += name + '\n'
+    update.effective_message.reply_text(namelist)
+    return ConversationHandler.END
 
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
@@ -408,14 +423,12 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
 
     dispatcher.add_handler(account_initialisation)
-    dispatcher.add_handler(CallbackQueryHandler(button))
 
     module_recall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={
-            GETFACULTIES: [CallbackQueryHandler(getfaculties,)],
-            GETMODS: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine)$'), getmods)],
-            COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
+            GETFACULTIES: [CallbackQueryHandler(getfaculties)],
+            GETMODS: [CallbackQueryHandler(getmods)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],)
 

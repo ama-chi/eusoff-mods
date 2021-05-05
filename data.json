@@ -49,20 +49,6 @@
                     "GET1008"
                 ]
             }
-        },
-        "tpengg": {
-            "roomnumber": "B402",
-            "faculty": "Science",
-            "course": "DSA",
-            "mods": {
-                "Science": [
-                    "KKK",
-                    "LLL"
-                ],
-                "Computing": [
-                    "JJJ"
-                ]
-            }
         }
     },
     "Faculties": {
@@ -78,21 +64,12 @@
             ],
             "CM1401": [
                 "@chernanigans"
-            ],
-            "KKK": [
-                "@tpengg"
-            ],
-            "LLL": [
-                "@tpengg"
             ]
         },
         "Biz": {},
         "Computing": {
             "CS1231": [
                 "@chernanigans"
-            ],
-            "JJJ": [
-                "@tpengg"
             ]
         },
         "Engineering": {},

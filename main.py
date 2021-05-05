@@ -389,8 +389,8 @@ def groupchatcreated(update: Update, _: CallbackContext):
     with open('data.json', 'r+') as f:
         data = json.load(f)
         data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)
-        f.seek(0)
-        json.dump(data, f, indent=4)
+    f.seek(0)
+    json.dump(data, f, indent=4)
 
 
 def unknown(update, context):

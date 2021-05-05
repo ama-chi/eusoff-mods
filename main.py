@@ -469,6 +469,7 @@ def main():
             GETMODS: [CallbackQueryHandler(groupchatcreated)],
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
+    dispatcher.add_handler(create_group)
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

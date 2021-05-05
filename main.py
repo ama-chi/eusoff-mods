@@ -12,12 +12,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class Account():
+class Account:
     def __init__(
             self,
-            username = None,
-            name = None,
-            roomnumber = None,
+            username=None,
+            name=None,
+            roomnumber=None,
             faculty = None,
             course = None,
             mods=None):
@@ -53,6 +53,7 @@ def initialise_account(user):
         data['accounts'][username]['mods'] = newaccount.mods
         f.seek(0)
         json.dump(data, f, indent=4)
+
 
 def initialise_modules(user):
     username = str(user)
@@ -287,7 +288,7 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
     return MODS8
 
 
-def mods8(update: Update, _: CallbackContext) -> int:
+def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
     logger.info(temp_faculty + " Mod 8 of %s: %s", user.first_name, update.message.text.upper())
@@ -322,6 +323,7 @@ def button(update: Update, _: CallbackContext) -> None:
     query.answer()
     query.edit_message_text(text=f"Selected option: {query.data}")
 
+
 GETFACULTIES, GETMODS = range(2)
 
 
@@ -339,7 +341,10 @@ def mods(update: Update, _: CallbackContext) -> None:
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETFACULTIES
 
+
 temp_faculty_chosen = ''
+
+
 def getfaculties(update: Update, _: CallbackContext) -> int:
     faculty_chosen = str(update.callback_query.data)
     query = update.callback_query
@@ -375,6 +380,19 @@ def getmods(update: Update, _: CallbackContext):
     update.effective_message.reply_text(namelist)
     return ConversationHandler.END
 
+
+def groupchatcreated(update: Update, _: CallbackContext):
+    mod_chosen = str(update.callback_query.data)
+    query = update.callback_query
+    query.edit_message_text(text=f"Selected option: {query.data}")
+    link = bot.exportChatInviteLink
+    with open('data.json', 'r+') as f:
+        data = json.load(f)
+        data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)
+        f.seek(0)
+        json.dump(data, f, indent=4)
+
+
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
 
@@ -388,7 +406,7 @@ def unknown(update, context):
 # dispatcher.add_handler(start_handler)
 
 # Add conversation handler with the states ROOM NUMBER, FACULTY, COURSE and MODS
-[['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+
 def main():
     account_initialisation = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
@@ -442,11 +460,15 @@ def main():
             GETMODS: [CallbackQueryHandler(getmods)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],)
-
     dispatcher.add_handler(module_recall)
 
-    test_handler = CommandHandler('test', getfaculties)
-    dispatcher.add_handler(test_handler)
+    create_group = ConversationHandler(
+        entry_points=[CommandHandler('groupchatcreated', mods)],
+        states={
+            GETFACULTIES: [CallbackQueryHandler(getfaculties)],
+            GETMODS: [CallbackQueryHandler(groupchatcreated)],
+        },
+        fallbacks=[CommandHandler('cancel', cancel)], )
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

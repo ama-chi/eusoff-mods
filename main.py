@@ -469,14 +469,14 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
     dispatcher.add_handler(module_recall)
 
-    create_group = ConversationHandler(
-        entry_points=[CommandHandler('groupchatcreated', mods)],
-        states={
-            GETFACULTIES: [CallbackQueryHandler(getfaculties)],
-            GETMODS: [CallbackQueryHandler(groupchatcreated)],
-        },
-        fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(create_group)
+    # create_group = ConversationHandler(
+    #     entry_points=[CommandHandler('groupchatcreated', mods)],
+    #     states={
+    #         GETFACULTIES: [CallbackQueryHandler(getfaculties)],
+    #         GETMODS: [CallbackQueryHandler(groupchatcreated)],
+    #     },
+    #     fallbacks=[CommandHandler('cancel', cancel)], )
+    # dispatcher.add_handler(create_group)
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

@@ -4,8 +4,8 @@ from telegram.ext import *
 import logging
 
 '''config'''
-token = "1410333251:AAGNcx1rGtrVBAdgvwGPIlrxaia2QCvU5Fo"
-bot = Bot("1410333251:AAGNcx1rGtrVBAdgvwGPIlrxaia2QCvU5Fo")
+token = "1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4"
+bot = Bot("1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4")
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )

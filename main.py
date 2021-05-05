@@ -125,7 +125,7 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your first mod e.g. CS1010S',
+        'Please indicate the name of your first mod e.g. CS1010S or /done when you have enumerated all your courses or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS1
 
@@ -148,7 +148,8 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your second mod e.g. CS1010S',
+        'Please indicate the name of your second mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS2
 
@@ -171,7 +172,8 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your third mod e.g. CS1010S',
+        'Please indicate the name of your third mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS3
 
@@ -194,7 +196,8 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your fourth mod e.g. CS1010S',
+        'Please indicate the name of your fourth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS4
 
@@ -217,7 +220,8 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your fifth mod e.g. CS1010S or /done when you have enumerated all your courses',
+        'Please indicate the name of your fifth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS5
 
@@ -239,7 +243,8 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your sixth mod e.g. CS1010S or /done when you have enumerated all your courses',
+        'Please indicate the name of your sixth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS6
 
@@ -261,7 +266,8 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your seventh mod e.g. CS1010S or /done when you have enumerated all your courses',
+        'Please indicate the name of your seventh mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS7
 
@@ -283,7 +289,8 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
     if temp_faculty not in newaccount.mods:
         newaccount.mods[temp_faculty] = []
     update.message.reply_text(
-        'Please indicate the name of your eigth mod e.g. CS1010S or /done when you have enumerated all your courses',
+        'Please indicate the name of your eigth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS8
 
@@ -314,7 +321,7 @@ def cancel(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.first_name)
     update.message.reply_text(
-        'Registration cancelled', reply_markup=ReplyKeyboardRemove()
+        'Cancelled, you may run another command \n /start to register \n /mods to check mods', reply_markup=ReplyKeyboardRemove()
     )
     return ConversationHandler.END
 
@@ -385,12 +392,14 @@ def groupchatcreated(update: Update, _: CallbackContext):
     mod_chosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    link = bot.exportChatInviteLink
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)
-    f.seek(0)
-    json.dump(data, f, indent=4)
+    link = bot.createChatInviteLink
+    print(type(link))
+    print(str(link))
+    # with open('data.json', 'r+') as f:
+    #     data = json.load(f)
+    #     data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)
+    #     f.seek(0)
+    #     json.dump(data, f, indent=4)
 
 
 def unknown(update, context):

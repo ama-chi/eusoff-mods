@@ -388,13 +388,13 @@ def getmods(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
-def groupchatcreated(update: Update, _: CallbackContext):
-    mod_chosen = str(update.callback_query.data)
-    query = update.callback_query
-    query.edit_message_text(text=f"Selected option: {query.data}")
-    link = bot.createChatInviteLink
-    print(type(link))
-    print(str(link))
+# def groupchatcreated(update: Update, _: CallbackContext):
+#     mod_chosen = str(update.callback_query.data)
+#     query = update.callback_query
+#     query.edit_message_text(text=f"Selected option: {query.data}")
+#     link = ChatInviteLink.invite_link
+#     print(type(link))
+#     print(str(link))
     # with open('data.json', 'r+') as f:
     #     data = json.load(f)
     #     data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)

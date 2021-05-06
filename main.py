@@ -65,9 +65,14 @@ def initialise_modules(user):
         f.seek(0)
         json.dump(data, f, indent=4)
                     
-                    
 
-def start(update: Update, _: CallbackContext) -> int:
+def start(update: Update, _: CallbackContext):
+    update.message.reply_text(
+        'Welcome to Eusoff Mods Community, this is a bot to identify Eusoffians taking the same mods, especially GE '
+        'mods, as well as the group chats created, firstly, please register with /register.')
+
+
+def register(update: Update, _: CallbackContext) -> int:
     data = update.effective_chat
     username = data['username']
     name = data['first_name']
@@ -76,7 +81,8 @@ def start(update: Update, _: CallbackContext) -> int:
     newaccount.username = username
     newaccount.name = name
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, please register with your room number, if you make a mistake anytime, restart by typing /cancel')
+        'Welcome to Eusoff Mods Community, please register with your room number, if you make a mistake anytime, '
+        'restart by typing /cancel, if you are the group chat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 
 
@@ -92,8 +98,6 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
 
 
 def faculty(update: Update, _: CallbackContext) -> int:
-    #here we intend to extract all the course that has been input by
-    #users, but for testing sake lets just manually input, use the if not in method
     user = update.message.from_user
     logger.info("Faculty of %s: %s", user.first_name, update.message.text)
     newaccount.faculty = update.message.text
@@ -319,9 +323,11 @@ def cancel(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.first_name)
     update.message.reply_text(
-        'Cancelled, you may run another command \n /start to register \n /mods to check mods', reply_markup=ReplyKeyboardRemove()
+        'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
+        'to insert link', reply_markup=ReplyKeyboardRemove()
     )
     return ConversationHandler.END
+
 
 def button(update: Update, _: CallbackContext) -> None:
     query = update.callback_query
@@ -329,7 +335,7 @@ def button(update: Update, _: CallbackContext) -> None:
     query.edit_message_text(text=f"Selected option: {query.data}")
 
 
-GETFACULTIES, GETMODS = range(2)
+GETFACULTIES, GETMODS, LINK = range(3)
 
 
 def mods(update: Update, _: CallbackContext) -> None:
@@ -385,19 +391,38 @@ def getmods(update: Update, _: CallbackContext):
     update.effective_message.reply_text(namelist)
     return ConversationHandler.END
 
+''''''''''''''''''''''''
+''''''''''''''''''''
 
-# def groupchatcreated(update: Update, _: CallbackContext):
-#     mod_chosen = str(update.callback_query.data)
-#     query = update.callback_query
-#     query.edit_message_text(text=f"Selected option: {query.data}")
-#     link = ChatInviteLink.invite_link
-#     print(type(link))
-#     print(str(link))
-    # with open('data.json', 'r+') as f:
-    #     data = json.load(f)
-    #     data['Faculties'][temp_faculty_chosen][mod_chosen].insert(0,link)
-    #     f.seek(0)
-    #     json.dump(data, f, indent=4)
+temp_mod_chosen = ''
+def groupchatcreated(update: Update, _: CallbackContext):
+    mod_chosen = str(update.callback_query.data)
+    global temp_mod_chosen
+    temp_mod_chosen = mod_chosen
+    query = update.callback_query
+    query.edit_message_text(text=f"Selected option: {query.data}")
+    update.effective_message.reply_text('Please copy and paste the group link here.')
+    return LINK
+
+
+def link(update: Update, _: CallbackContext):
+    link_submitted = update.message.text
+    with open('data.json', 'r+') as f:
+        data = json.load(f)
+        data['Faculties'][temp_faculty_chosen][temp_mod_chosen].insert(0,link_submitted)
+        names = []
+        for username in data['Faculties'][temp_faculty_chosen][temp_mod_chosen]:
+            names.append(username)
+        f.seek(0)
+        json.dump(data, f, indent=4)
+    namelist = 'Usernames of Eusoffians taking' + ' ' + temp_mod_chosen + '\n'
+    for name in names:
+        namelist += name + '\n'
+    update.effective_message.reply_text(namelist)
+    return ConversationHandler.END
+
+
+
 
 
 def unknown(update, context):
@@ -409,14 +434,13 @@ def unknown(update, context):
 # response_handler = MessageHandler(Filters.text & (~Filters.command), response)
 # dispatcher.add_handler(response_handler)
 
-# start_handler = CommandHandler('start', start)
-# dispatcher.add_handler(start_handler)
+
 
 # Add conversation handler with the states ROOM NUMBER, FACULTY, COURSE and MODS
 
 def main():
     account_initialisation = ConversationHandler(
-        entry_points=[CommandHandler('start', start)],
+        entry_points=[CommandHandler('register', register)],
         states={
             ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
             FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
@@ -469,15 +493,18 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
     dispatcher.add_handler(module_recall)
 
-    # create_group = ConversationHandler(
-    #     entry_points=[CommandHandler('groupchatcreated', mods)],
-    #     states={
-    #         GETFACULTIES: [CallbackQueryHandler(getfaculties)],
-    #         GETMODS: [CallbackQueryHandler(groupchatcreated)],
-    #     },
-    #     fallbacks=[CommandHandler('cancel', cancel)], )
-    # dispatcher.add_handler(create_group)
+    create_group = ConversationHandler(
+        entry_points=[CommandHandler('groupchatcreated', mods)],
+        states={
+            GETFACULTIES: [CallbackQueryHandler(getfaculties)],
+            GETMODS: [CallbackQueryHandler(groupchatcreated)],
+            LINK: [MessageHandler(Filters.text & ~Filters.command, link)]
+        },
+        fallbacks=[CommandHandler('cancel', cancel)], )
+    dispatcher.add_handler(create_group)
 
+    start_handler = CommandHandler('start', start)
+    dispatcher.add_handler(start_handler)
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)
     updater.start_polling()

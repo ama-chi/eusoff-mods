@@ -365,7 +365,7 @@ def mods(update: Update, _: CallbackContext) -> None:
             faculty.append(key.capitalize())
         if key not in temp_dict:
             temp_dict[key.capitalize()] = []
-        temp_dict[key.capitalize()] = [value]
+        temp_dict[key.capitalize()].append(value)
     faculty.sort()
     keyboard = []
     for i in faculty:

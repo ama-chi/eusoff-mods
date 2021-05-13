@@ -13,14 +13,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 ''''''''
+
+
 class Account:
     def __init__(
             self,
             username=None,
             name=None,
             roomnumber=None,
-            faculty = None,
-            course = None,
+            faculty=None,
+            course=None,
             mods=None):
         if mods is None:
             mods = {}
@@ -37,19 +39,20 @@ dispatcher = updater.dispatcher
 print(Bot.get_me(bot))
 ''''commands'''
 
-
-ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(19)
+ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(
+    19)
 
 
 def initialise_account():
-    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
     cur = conn.cursor()
-    insert_account= '''
+    insert_account = '''
            INSERT INTO accounts(username,name,roomnumber,faculty,course)
             VALUES (%s,%s,%s,%s,%s)
             ON CONFLICT (username) DO NOTHING
             '''
-    cur.execute(insert_account, (newaccount.username, newaccount.name, newaccount.roomnumber, newaccount.faculty, newaccount.course))
+    cur.execute(insert_account,
+                (newaccount.username, newaccount.name, newaccount.roomnumber, newaccount.faculty, newaccount.course))
     for fac in newaccount.mods:
         for mod in newaccount.mods[fac]:
             insert_to_all_modules = '''
@@ -58,7 +61,7 @@ def initialise_account():
                         WHERE faculty_name = %s))
                         ON CONFLICT (mod_name) DO NOTHING
                          '''
-            cur.execute(insert_to_all_modules,(mod,fac.lower()))
+            cur.execute(insert_to_all_modules, (mod, fac.lower()))
     conn.commit()
     for fac in newaccount.mods:
         for mod in newaccount.mods[fac]:
@@ -73,7 +76,6 @@ def initialise_account():
     conn.commit()
     conn.close()
 
-                    
 
 def start(update: Update, _: CallbackContext):
     update.message.reply_text(
@@ -90,13 +92,14 @@ def register(update: Update, _: CallbackContext) -> int:
     newaccount.username = username
     newaccount.name = name
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, please key in your room number. \n If you make a mistake anytime, '
+        'Welcome to Eusoff Mods Community, please register with your room number, if you make a mistake anytime, '
         'restart by typing /cancel, if you are the group chat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 
 
 def roomnumber(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health']]
+    reply_keyboard = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health']]
     user = update.message.from_user
     logger.info("Room Number of %s: %s", user.first_name, update.message.text.upper())
     newaccount.roomnumber = update.message.text.upper()
@@ -117,7 +120,8 @@ def faculty(update: Update, _: CallbackContext) -> int:
 
 
 def course(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     user = update.message.from_user
     logger.info("Course of %s: %s", user.first_name, update.message.text.upper())
     newaccount.course = update.message.text.upper()
@@ -143,7 +147,8 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 1 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -167,7 +172,8 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 2 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -191,7 +197,8 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 3 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -215,7 +222,8 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 4 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -239,7 +247,8 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 5 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -262,7 +271,8 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 6 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -285,7 +295,8 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 7 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
@@ -308,7 +319,8 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods' , 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ], ['ISE', 'Music', 'Public Health','SDE']]
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
     logger.info(temp_faculty + " Mod 8 of %s: %s", user.first_name, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
@@ -348,8 +360,10 @@ def button(update: Update, _: CallbackContext) -> None:
 GETFACULTIES, GETMODS, LINK = range(3)
 
 temp_dict = {}
+
+
 def mods(update: Update, _: CallbackContext) -> None:
-    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
     cur = conn.cursor()
     getfaculty = '''
     SELECT faculty_name, mod_name FROM all_modules
@@ -369,7 +383,7 @@ def mods(update: Update, _: CallbackContext) -> None:
     faculty.sort()
     keyboard = []
     for i in faculty:
-        keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
+        keyboard.append([InlineKeyboardButton(i, callback_data=str(i))])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETFACULTIES
@@ -387,7 +401,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
     mods.sort()
     keyboard = []
     for i in mods:
-        keyboard.append([InlineKeyboardButton(i, callback_data = i)])
+        keyboard.append([InlineKeyboardButton(i, callback_data=i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.effective_message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETMODS
@@ -398,7 +412,7 @@ def getmods(update: Update, _: CallbackContext):
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     names = []
-    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
 
     cur = conn.cursor()
     get_namelist = '''
@@ -409,7 +423,7 @@ def getmods(update: Update, _: CallbackContext):
             mod_id = (SELECT mod_id FROM all_modules
             WHERE mod_name = %s)
     '''
-    cur.execute(get_namelist,(mod_chosen,))
+    cur.execute(get_namelist, (mod_chosen,))
     data = cur.fetchall()
     get_link = '''
             SELECT link FROM all_modules
@@ -430,10 +444,13 @@ def getmods(update: Update, _: CallbackContext):
     update.effective_message.reply_text(namelist)
     return ConversationHandler.END
 
+
 ''''''''''''''''''''''''
 ''''''''''''''''''''
 
 temp_mod_chosen = ''
+
+
 def groupchatcreated(update: Update, _: CallbackContext):
     mod_chosen = str(update.callback_query.data)
     global temp_mod_chosen
@@ -446,7 +463,7 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
-    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
     cur = conn.cursor()
     createlink = '''
                 UPDATE all_modules
@@ -455,13 +472,10 @@ def link(update: Update, _: CallbackContext):
     '''
     print(link_submitted)
     print(type(temp_mod_chosen))
-    cur.execute(createlink, (link_submitted,temp_mod_chosen))
+    cur.execute(createlink, (link_submitted, temp_mod_chosen))
     conn.commit()
     update.effective_message.reply_text('Link has been added, /mods to check')
     return ConversationHandler.END
-
-
-
 
 
 def unknown(update, context):
@@ -470,9 +484,9 @@ def unknown(update, context):
 
 ''''''''
 
+
 # response_handler = MessageHandler(Filters.text & (~Filters.command), response)
 # dispatcher.add_handler(response_handler)
-
 
 
 # Add conversation handler with the states ROOM NUMBER, FACULTY, COURSE and MODS
@@ -492,11 +506,11 @@ def main():
             MODS2_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
                                                    'Policy|ISE|Music|Public Health|GE Mods)$'), mods2_f),
                       CommandHandler('done', done)],
-            MODS2: [MessageHandler(Filters.text & ~Filters.command, mods2),CommandHandler('done', done)],
+            MODS2: [MessageHandler(Filters.text & ~Filters.command, mods2), CommandHandler('done', done)],
             MODS3_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
                                                    'Policy|ISE|Music|Public Health|GE Mods)$'), mods3_f),
                       CommandHandler('done', done)],
-            MODS3: [MessageHandler(Filters.text & ~Filters.command, mods3),CommandHandler('done', done)],
+            MODS3: [MessageHandler(Filters.text & ~Filters.command, mods3), CommandHandler('done', done)],
             MODS4_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
                                                    'Policy|ISE|Music|Public Health|GE Mods)$'), mods4_f),
                       CommandHandler('done', done)],
@@ -516,20 +530,20 @@ def main():
             MODS8_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
                                                    'Policy|ISE|Music|Public Health|GE Mods)$'), mods8_f),
                       CommandHandler('done', done)
-    ],
+                      ],
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
         },
-        fallbacks=[CommandHandler('cancel', cancel)],)
+        fallbacks=[CommandHandler('cancel', cancel)], )
 
     dispatcher.add_handler(account_initialisation)
-    #gy
+    # gy
     module_recall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={
             GETFACULTIES: [CallbackQueryHandler(getfaculties)],
             GETMODS: [CallbackQueryHandler(getmods)],
         },
-        fallbacks=[CommandHandler('cancel', cancel)],)
+        fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(module_recall)
 
     create_group = ConversationHandler(
@@ -547,6 +561,7 @@ def main():
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)
     updater.start_polling()
+
 
 if __name__ == '__main__':
     main()

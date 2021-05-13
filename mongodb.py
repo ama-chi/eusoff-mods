@@ -1,7 +1,8 @@
 from pymongo import *
 import psycopg2 as pg2
 
-conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx',
+                   password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
 cur = conn.cursor()
 
 account_create = '''
@@ -38,7 +39,13 @@ create_mods = '''
         );
         '''
 
-cur.execute(create_mods)
+insert_faculties = '''
+        INSERT INTO faculties(faculty_name)
+        VALUES ('public policy')
+        
+        '''
+
+cur.execute(insert_faculties)
 conn.commit()
 
 

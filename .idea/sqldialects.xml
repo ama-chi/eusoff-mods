@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/main.py" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/mongodb.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/testfile.py" dialect="GenericSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
   <component name="SqlResolveMappings">

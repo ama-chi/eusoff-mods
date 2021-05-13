@@ -2,6 +2,7 @@ import json
 from telegram import *
 from telegram.ext import *
 import logging
+import psycopg2 as pg2
 
 '''config'''
 token = "1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4"
@@ -11,7 +12,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
+''''''''
 class Account:
     def __init__(
             self,
@@ -39,31 +40,38 @@ print(Bot.get_me(bot))
 
 ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(19)
 
-def initialise_account(user):
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        username = str(user)
-        if username not in data['accounts']:
-            data['accounts'][username] = {}
-        data['accounts'][username]['roomnumber'] = newaccount.roomnumber
-        data['accounts'][username]['faculty'] = newaccount.faculty
-        data['accounts'][username]['course'] = newaccount.course
-        data['accounts'][username]['mods'] = newaccount.mods
-        f.seek(0)
-        json.dump(data, f, indent=4)
 
+def initialise_account():
+    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
+    cur = conn.cursor()
+    insert_account= '''
+           INSERT INTO accounts(username,name,roomnumber,faculty,course)
+            VALUES (%s,%s,%s,%s,%s)
+            ON CONFLICT (username) DO NOTHING
+            '''
+    cur.execute(insert_account, (newaccount.username, newaccount.name, newaccount.roomnumber, newaccount.faculty, newaccount.course))
+    for fac in newaccount.mods:
+        for mod in newaccount.mods[fac]:
+            insert_to_all_modules = '''
+                        INSERT INTO all_modules(mod_name,faculty_id)
+                        VALUES(%s,(SELECT faculty_id FROM faculties
+                        WHERE faculty_name = %s))
+                        ON CONFLICT (mod_name) DO NOTHING
+                         '''
+            cur.execute(insert_to_all_modules,(mod,fac.lower()))
+    conn.commit()
+    for fac in newaccount.mods:
+        for mod in newaccount.mods[fac]:
+            insert_to_mods = '''
+                        INSERT INTO mods(account_id,mod_id,faculty_id)
+                        VALUES((SELECT id FROM accounts
+                        WHERE username = %s),(SELECT mod_id FROM all_modules
+                        WHERE mod_name = %s), (SELECT faculty_id FROM all_modules
+                        WHERE mod_name = %s))
+                         '''
+            cur.execute(insert_to_mods, (newaccount.username, mod, mod))
+    conn.commit()
 
-def initialise_modules(user):
-    username = str(user)
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        for fac in newaccount.mods:
-            for mod in newaccount.mods[fac]:
-                if mod not in data['Faculties'][fac]:
-                    data['Faculties'][fac][mod] = []
-                data['Faculties'][fac][mod].append('@' + username)
-        f.seek(0)
-        json.dump(data, f, indent=4)
                     
 
 def start(update: Update, _: CallbackContext):
@@ -310,8 +318,9 @@ def mods8(update: Update, _: CallbackContext):
 
 def done(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    initialise_account(user.username)
-    initialise_modules(user.username)
+    update.message.reply_text(
+        'Your data is being stored in the system, this may take a while')
+    initialise_account()
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are taking the same'
         ' mods as you do'
@@ -483,7 +492,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)],)
 
     dispatcher.add_handler(account_initialisation)
-
+    #gy
     module_recall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={

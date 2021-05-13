@@ -90,7 +90,7 @@ def register(update: Update, _: CallbackContext) -> int:
     newaccount.username = username
     newaccount.name = name
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, please key in your room number. \n If you make a mistake anytime, '
+        'Welcome to Eusoff Mods Community, please key in your room number. \nIf you make a mistake anytime, '
         'restart by typing /cancel, if you are the group chat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 

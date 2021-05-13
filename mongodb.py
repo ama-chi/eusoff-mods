@@ -1,21 +1,9 @@
 from pymongo import *
 import psycopg2 as pg2
 
-conn = pg2.connect(database='eusoffmods', user= 'postgres', password= 'password')
+conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
 cur = conn.cursor()
 
-# query1 = '''
-#         CREATE TABLE modules (
-#             account_id integer references accounts(id)
-#             ,faculty_id integer references faculty(faculty_id)
-#             ,faculty_id integer references faculties(faculty_id)
-#         );
-#         '''
-
-query1 = '''
-        SELECT faculty_id FROM faculties
-        WHERE faculty_name = 'science'
-        '''
 account_create = '''
         CREATE TABLE accounts (
             id SERIAL PRIMARY KEY
@@ -27,9 +15,72 @@ account_create = '''
         );
         '''
 
-cur.execute(account_create)
+create_faculty = '''
+        CREATE TABLE faculties (
+            faculty_id SERIAL PRIMARY KEY
+            ,faculty_name varchar(50) NOT NULL
+        );
+        '''
 
+create_all_modules = '''
+        CREATE TABLE all_modules (
+            mod_id SERIAL PRIMARY KEY
+            ,mod_name varchar(50) UNIQUE
+            ,faculty_id integer references faculties(faculty_id) NOT NULL
+            ,link varchar(512)
+        );
+        '''
+create_mods = '''
+        CREATE TABLE mods (
+            account_id integer references accounts(id)
+            ,mod_id integer references all_modules(mod_id)
+            ,faculty_id integer references faculties(faculty_id)
+        );
+        '''
+
+cur.execute(create_mods)
 conn.commit()
+
+
+# query1 = '''
+#         CREATE TABLE modules (
+#             account_id integer references accounts(id)
+#             ,faculty_id integer references faculty(faculty_id)
+#             ,faculty_id integer references faculties(faculty_id)
+#         );
+#         '''
+
+# query1 = '''
+#         SELECT faculty_id FROM faculties
+#         WHERE faculty_name = 'science'
+#         '''
+# query1 = '''
+#         SELECT faculty_name, mod_name FROM all_modules
+#         INNER JOIN faculties
+#         ON all_modules.faculty_id = faculties.faculty_id
+#         '''
+
+
+# temp_dict = {}
+# for key,value in data:
+#     if key.upper() not in temp_list:
+#         temp_list.append(key.upper())
+# print(temp_list)
+
+# faculty = []
+# for key, value in data:
+#     if key.upper() not in faculty:
+#         faculty.append(key.upper())
+#     if key not in temp_dict:
+#         temp_dict[key.upper()] = []
+#     temp_dict[key.upper()] = [value]
+
+# # print(data)
+# print(temp_dict)
+# print(faculty)
+
+
+# conn.commit()
 
 # MONGODB = 'mongodb+srv://yeechern123:t3y9adg2@cluster0.h45sj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # cluster = MongoClient(MONGODB)
@@ -90,6 +141,7 @@ create_modules = '''
             mod_id SERIAL PRIMARY KEY
             ,mod_name varchar(50) NOT NULL
             ,faculty_id integer references faculties(faculty_id) UNIQUE (mod_name)
+            ,link varchar(512)
         );
         '''
 

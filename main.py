@@ -42,7 +42,7 @@ ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MOD
 
 
 def initialise_account():
-    conn = pg2.connect(database='eusoffmods', user='postgres', password='password')
+    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
     cur = conn.cursor()
     insert_account= '''
            INSERT INTO accounts(username,name,roomnumber,faculty,course)
@@ -71,6 +71,7 @@ def initialise_account():
                          '''
             cur.execute(insert_to_mods, (newaccount.username, mod, mod))
     conn.commit()
+    conn.close()
 
                     
 
@@ -346,17 +347,29 @@ def button(update: Update, _: CallbackContext) -> None:
 
 GETFACULTIES, GETMODS, LINK = range(3)
 
-
+temp_dict = {}
 def mods(update: Update, _: CallbackContext) -> None:
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        faculty = []
-        for fac in data['Faculties']:
-            faculty.append(fac)
-        faculty.sort()
-        keyboard = []
-        for i in faculty:
-            keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
+    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    cur = conn.cursor()
+    getfaculty = '''
+    SELECT faculty_name, mod_name FROM all_modules
+    INNER JOIN faculties
+    ON all_modules.faculty_id = faculties.faculty_id
+    '''
+    cur.execute(getfaculty)
+    data = cur.fetchall()
+    faculty = []
+    global temp_dict
+    for key, value in data:
+        if key.capitalize() not in faculty:
+            faculty.append(key.capitalize())
+        if key not in temp_dict:
+            temp_dict[key.capitalize()] = []
+        temp_dict[key.capitalize()] = [value]
+    faculty.sort()
+    keyboard = []
+    for i in faculty:
+        keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETFACULTIES
@@ -366,20 +379,15 @@ temp_faculty_chosen = ''
 
 
 def getfaculties(update: Update, _: CallbackContext) -> int:
-    faculty_chosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     global temp_faculty_chosen
     temp_faculty_chosen = query.data
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        mods = []
-        for mod in data['Faculties'][faculty_chosen]:
-            mods.append(mod)
-        mods.sort()
-        keyboard = []
-        for i in mods:
-            keyboard.append([InlineKeyboardButton(i, callback_data = i)])
+    mods = temp_dict[temp_faculty_chosen]
+    mods.sort()
+    keyboard = []
+    for i in mods:
+        keyboard.append([InlineKeyboardButton(i, callback_data = i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.effective_message.reply_text('Please choose:', reply_markup=reply_markup)
     return GETMODS
@@ -389,14 +397,36 @@ def getmods(update: Update, _: CallbackContext):
     mod_chosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        names = []
-        for username in data['Faculties'][temp_faculty_chosen][mod_chosen]:
-            names.append(username)
-    namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n'
-    for name in names:
-        namelist += name + '\n'
+    names = []
+    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+
+    cur = conn.cursor()
+    get_namelist = '''
+            SELECT username FROM mods
+            INNER JOIN accounts
+            ON mods.account_id = accounts.id
+            AND
+            mod_id = (SELECT mod_id FROM all_modules
+            WHERE mod_name = %s)
+    '''
+    cur.execute(get_namelist,(mod_chosen,))
+    data = cur.fetchall()
+    get_link = '''
+            SELECT link FROM all_modules
+            WHERE mod_name = %s
+    '''
+    cur.execute(get_link, (mod_chosen,))
+    temp_link = cur.fetchone()
+    mod_link = ''
+    for link in temp_link:
+        mod_link = link
+    if mod_link is not None:
+        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + mod_link + '\n'
+    else:
+        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + '/groupchatcreated to add link' + '\n'
+    for i in data:
+        for x in i:
+            namelist += ('@' + x + '\n')
     update.effective_message.reply_text(namelist)
     return ConversationHandler.END
 
@@ -416,18 +446,18 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
-    with open('data.json', 'r+') as f:
-        data = json.load(f)
-        data['Faculties'][temp_faculty_chosen][temp_mod_chosen].insert(0,link_submitted)
-        names = []
-        for username in data['Faculties'][temp_faculty_chosen][temp_mod_chosen]:
-            names.append(username)
-        f.seek(0)
-        json.dump(data, f, indent=4)
-    namelist = 'Usernames of Eusoffians taking' + ' ' + temp_mod_chosen + '\n'
-    for name in names:
-        namelist += name + '\n'
-    update.effective_message.reply_text(namelist)
+    conn = pg2.connect(host = 'ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx', password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    cur = conn.cursor()
+    createlink = '''
+                UPDATE all_modules
+                SET link = %s
+                WHERE mod_name = %s
+    '''
+    print(link_submitted)
+    print(type(temp_mod_chosen))
+    cur.execute(createlink, (link_submitted,temp_mod_chosen))
+    conn.commit()
+    update.effective_message.reply_text('Link has been added, /mods to check')
     return ConversationHandler.END
 
 

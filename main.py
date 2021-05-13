@@ -363,10 +363,11 @@ def mods(update: Update, _: CallbackContext) -> None:
     for key, value in data:
         if key.capitalize() not in faculty:
             faculty.append(key.capitalize())
-        if key not in temp_dict:
+        if key.capitalize() not in temp_dict:
             temp_dict[key.capitalize()] = []
         temp_dict[key.capitalize()].append(value)
     faculty.sort()
+    print(temp_dict)
     keyboard = []
     for i in faculty:
         keyboard.append([InlineKeyboardButton(i, callback_data = str(i))])
@@ -382,8 +383,10 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     global temp_faculty_chosen
+    global temp_dict
     temp_faculty_chosen = query.data
     mods = temp_dict[temp_faculty_chosen]
+    temp_dict = {}
     mods.sort()
     keyboard = []
     for i in mods:
@@ -394,6 +397,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
 
 
 def getmods(update: Update, _: CallbackContext):
+    update.effective_message.reply_text('Fetching data from database, may take a while...')
     mod_chosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
@@ -465,7 +469,8 @@ def link(update: Update, _: CallbackContext):
 
 
 def unknown(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
+                                                                    "type /cancel to restart this.")
 
 
 ''''''''

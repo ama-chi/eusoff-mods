@@ -381,18 +381,18 @@ def mods(update: Update, _: CallbackContext) -> None:
     faculty = []
     global temp_dict
     for key, value in data:
-        if key.capitalize() not in faculty:
-            faculty.append(key.capitalize())
-        if key.capitalize() not in temp_dict:
-            temp_dict[key.capitalize()] = []
-        temp_dict[key.capitalize()].append(value)
+        if key.title() not in faculty:
+            faculty.append(key.title())
+        if key.title() not in temp_dict:
+            temp_dict[key.title()] = []
+        temp_dict[key.title()].append(value)
     faculty.sort()
     print(temp_dict)
     keyboard = []
     for i in faculty:
         keyboard.append([InlineKeyboardButton(i, callback_data=str(i))])
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    update.message.reply_text('Please choose the faculty:', reply_markup=reply_markup)
     return GETFACULTIES
 
 
@@ -412,7 +412,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
     for i in mods:
         keyboard.append([InlineKeyboardButton(i, callback_data=i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.effective_message.reply_text('Please choose:', reply_markup=reply_markup)
+    update.effective_message.reply_text('Please choose the module:', reply_markup=reply_markup)
     return GETMODS
 
 

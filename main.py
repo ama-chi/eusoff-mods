@@ -479,7 +479,7 @@ def link(update: Update, _: CallbackContext):
     createlink = '''
                 UPDATE all_modules
                 SET link = %s
-                SET link_sender = %s
+                ,link_sender = %s
                 WHERE mod_name = %s
     '''
     cur.execute(createlink, (link_submitted, str(account_username), temp_mod_chosen))

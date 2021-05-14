@@ -1,4 +1,3 @@
-import json
 from telegram import *
 from telegram.ext import *
 import logging
@@ -95,7 +94,7 @@ def register(update: Update, _: CallbackContext) -> int:
     newaccount.name = name
     update.message.reply_text(
         'Welcome to Eusoff Mods Community, please key in your room number. \nIf you make a mistake anytime, '
-        'restart by typing /cancel, if you are the group chat admin, type /groupchatcreated after registration.')
+        'restart by typing /cancel. \nIf you are a groupchat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 
 
@@ -350,7 +349,7 @@ def cancel(update: Update, _: CallbackContext) -> int:
     logger.info("User %s canceled the conversation.", user.username)
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
-        'to insert link', reply_markup=ReplyKeyboardRemove()
+        'to insert groupchat link', reply_markup=ReplyKeyboardRemove()
     )
     return ConversationHandler.END
 
@@ -448,7 +447,8 @@ def getmods(update: Update, _: CallbackContext):
     if mod_link is not None:
         namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + mod_link + '\n'
     else:
-        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + '/groupchatcreated to add link' + '\n'
+        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + '/groupchatcreated to add groupchat ' \
+                                                                                'link' + '\n '
     for i in data:
         for x in i:
             namelist += ('@' + x + '\n')

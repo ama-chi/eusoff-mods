@@ -339,8 +339,8 @@ def done(update: Update, _: CallbackContext) -> int:
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '
-        ' mods as you do'
-    )
+        'mods as you do')
+
     return ConversationHandler.END
 
 
@@ -579,10 +579,13 @@ def main():
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
+
     delete_handler = CommandHandler('deleteaccount', delete_account)
     dispatcher.add_handler(delete_handler)
+
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)
+
     updater.start_polling()
 
 

@@ -471,7 +471,7 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
-    account_username = update.message.from_user
+    account_username = update.message.from_user.username
     conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
                        user='rlvttkkwxngrdx',
                        password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')

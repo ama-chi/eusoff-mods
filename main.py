@@ -579,7 +579,7 @@ def main():
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
-    delete_handler = CommandHandler('deleteaccount', start)
+    delete_handler = CommandHandler('deleteaccount', delete_account)
     dispatcher.add_handler(delete_handler)
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

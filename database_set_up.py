@@ -29,6 +29,7 @@ create_all_modules = '''
             ,mod_name varchar(50) UNIQUE
             ,faculty_id integer references faculties(faculty_id) NOT NULL
             ,link varchar(512)
+            ,Link_sender varchar(50)
         );
         '''
 create_mods = '''
@@ -45,12 +46,8 @@ insert_faculties = '''
         
         '''
 
-query1 = '''
-ALTER TABLE all_modules
-ADD Link_sender varchar(50)
-'''
 
-cur.execute(query1)
+cur.execute()
 conn.commit()
 
 

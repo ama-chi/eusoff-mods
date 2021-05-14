@@ -489,6 +489,22 @@ def link(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
+def delete_account(update: Update, _: CallbackContext):
+    username = update.message.from_user.username
+    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
+                       user='rlvttkkwxngrdx',
+                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    cur = conn.cursor()
+    query = '''
+            DELETE FROM mods
+            WHERE mods.account_id = (SELECT id 
+            FROM accounts
+            WHERE accounts.username = %s)
+    '''
+    cur.execute(query, (username,))
+    conn.commit()
+    conn.close()
+
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
                                                                     "type /cancel to restart this.")
@@ -561,6 +577,8 @@ def main():
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
+    delete_handler = CommandHandler('deleteaccount', start)
+    dispatcher.add_handler(delete_handler)
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)
     updater.start_polling()

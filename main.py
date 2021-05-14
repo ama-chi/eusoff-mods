@@ -504,6 +504,8 @@ def delete_account(update: Update, _: CallbackContext):
     cur.execute(query, (username,))
     conn.commit()
     conn.close()
+    update.effective_message.reply_text('Account has been deleted, please complete registration again if you wish to '
+                                        'continue using the bot. \n/register')
 
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "

@@ -45,7 +45,12 @@ insert_faculties = '''
         
         '''
 
-cur.execute()
+query1 = '''
+ALTER TABLE all_modules
+ADD Link_sender varchar(50)
+'''
+
+cur.execute(query1)
 conn.commit()
 
 

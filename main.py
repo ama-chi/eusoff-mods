@@ -471,6 +471,7 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
+    account_username = update.message.from_user
     conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
                        user='rlvttkkwxngrdx',
                        password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
@@ -478,9 +479,10 @@ def link(update: Update, _: CallbackContext):
     createlink = '''
                 UPDATE all_modules
                 SET link = %s
+                SET link_sender = %s
                 WHERE mod_name = %s
     '''
-    cur.execute(createlink, (link_submitted, temp_mod_chosen))
+    cur.execute(createlink, (link_submitted, account_username, temp_mod_chosen))
     conn.commit()
     conn.close()
     update.effective_message.reply_text('Link has been added, /mods to check')

@@ -456,9 +456,6 @@ def getmods(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
-''''''''''''''''''''''''
-''''''''''''''''''''
-
 temp_mod_chosen = ''
 
 
@@ -485,6 +482,7 @@ def link(update: Update, _: CallbackContext):
     '''
     cur.execute(createlink, (link_submitted, temp_mod_chosen))
     conn.commit()
+    conn.close()
     update.effective_message.reply_text('Link has been added, /mods to check')
     return ConversationHandler.END
 
@@ -493,15 +491,6 @@ def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
                                                                     "type /cancel to restart this.")
 
-
-''''''''
-
-
-# response_handler = MessageHandler(Filters.text & (~Filters.command), response)
-# dispatcher.add_handler(response_handler)
-
-
-# Add conversation handler with the states ROOM NUMBER, FACULTY, COURSE and MODS
 
 def main():
     account_initialisation = ConversationHandler(

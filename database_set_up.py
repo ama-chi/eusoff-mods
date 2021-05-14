@@ -45,7 +45,7 @@ insert_faculties = '''
         
         '''
 
-cur.execute(insert_faculties)
+cur.execute()
 conn.commit()
 
 

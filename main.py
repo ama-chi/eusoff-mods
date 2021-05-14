@@ -103,7 +103,7 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
     reply_keyboard = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health']]
     user = update.message.from_user
-    logger.info("Room Number of %s: %s", user.first_name, update.message.text.upper())
+    logger.info("Room Number of %s: %s", user.username, update.message.text.upper())
     newaccount.roomnumber = update.message.text.upper()
     update.message.reply_text(
         'Please indicate your faculty',
@@ -113,7 +113,7 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
 
 def faculty(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    logger.info("Faculty of %s: %s", user.first_name, update.message.text)
+    logger.info("Faculty of %s: %s", user.username, update.message.text)
     newaccount.faculty = update.message.text
     update.message.reply_text(
         'Please indicate your course',
@@ -125,7 +125,7 @@ def course(update: Update, _: CallbackContext) -> int:
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
     user = update.message.from_user
-    logger.info("Course of %s: %s", user.first_name, update.message.text.upper())
+    logger.info("Course of %s: %s", user.username, update.message.text.upper())
     newaccount.course = update.message.text.upper()
     update.message.reply_text(
         'Please indicate the faculty of your first mod',
@@ -152,7 +152,7 @@ def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 1 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 1 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -177,7 +177,7 @@ def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 2 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 2 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -202,7 +202,7 @@ def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 3 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 3 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -227,7 +227,7 @@ def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 4 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 4 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -252,7 +252,7 @@ def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 5 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 5 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your sixth mod',
@@ -276,7 +276,7 @@ def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 6 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 6 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your seventh mod',
@@ -300,7 +300,7 @@ def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 7 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 7 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your eighth mod',
@@ -324,7 +324,7 @@ def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 8 of %s: %s", user.first_name, update.message.text.upper())
+    logger.info(temp_faculty + " Mod 8 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -347,7 +347,7 @@ def done(update: Update, _: CallbackContext) -> int:
 
 def cancel(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    logger.info("User %s canceled the conversation.", user.first_name)
+    logger.info("User %s canceled the conversation.", user.username)
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
         'to insert link', reply_markup=ReplyKeyboardRemove()
@@ -387,7 +387,6 @@ def mods(update: Update, _: CallbackContext) -> None:
             temp_dict[key.title()] = []
         temp_dict[key.title()].append(value)
     faculty.sort()
-    print(temp_dict)
     keyboard = []
     for i in faculty:
         keyboard.append([InlineKeyboardButton(i, callback_data=str(i))])
@@ -484,8 +483,6 @@ def link(update: Update, _: CallbackContext):
                 SET link = %s
                 WHERE mod_name = %s
     '''
-    print(link_submitted)
-    print(type(temp_mod_chosen))
     cur.execute(createlink, (link_submitted, temp_mod_chosen))
     conn.commit()
     update.effective_message.reply_text('Link has been added, /mods to check')

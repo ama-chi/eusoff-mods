@@ -482,7 +482,7 @@ def link(update: Update, _: CallbackContext):
                 SET link_sender = %s
                 WHERE mod_name = %s
     '''
-    cur.execute(createlink, (link_submitted, account_username, temp_mod_chosen))
+    cur.execute(createlink, (link_submitted, str(account_username), temp_mod_chosen))
     conn.commit()
     conn.close()
     update.effective_message.reply_text('Link has been added, /mods to check')

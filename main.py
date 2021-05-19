@@ -11,6 +11,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+host = 'ec2-34-195-143-54.compute-1.amazonaws.com'
+database = 'd3pb9jkfc1jkat'
+user_database = 'ckwbcsfhmslojp'
+password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
+
 ''''''''
 
 
@@ -43,9 +48,9 @@ ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MOD
 
 
 def initialise_account():
-    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
-                       user='rlvttkkwxngrdx',
-                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(host= host, database= database,
+                       user= user_database,
+                       password=password)
     cur = conn.cursor()
     insert_account = '''
            INSERT INTO accounts(username,name,roomnumber,faculty,course)
@@ -366,9 +371,9 @@ temp_dict = {}
 
 
 def mods(update: Update, _: CallbackContext) -> None:
-    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
-                       user='rlvttkkwxngrdx',
-                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(host= host, database= database,
+                       user= user_database,
+                       password=password)
     cur = conn.cursor()
     getfaculty = '''
     SELECT faculty_name, mod_name FROM all_modules
@@ -420,9 +425,9 @@ def getmods(update: Update, _: CallbackContext):
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     names = []
-    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
-                       user='rlvttkkwxngrdx',
-                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(host= host, database= database,
+                       user= user_database,
+                       password=password)
 
     cur = conn.cursor()
     get_namelist = '''
@@ -472,9 +477,9 @@ def groupchatcreated(update: Update, _: CallbackContext):
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
     account_username = update.message.from_user.username
-    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
-                       user='rlvttkkwxngrdx',
-                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(host= host, database= database,
+                       user= user_database,
+                       password=password)
     cur = conn.cursor()
     createlink = '''
                 UPDATE all_modules
@@ -491,9 +496,9 @@ def link(update: Update, _: CallbackContext):
 
 def delete_account(update: Update, _: CallbackContext):
     username = update.message.from_user.username
-    conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b',
-                       user='rlvttkkwxngrdx',
-                       password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+    conn = pg2.connect(host= host, database= database,
+                       user= user_database,
+                       password=password)
     cur = conn.cursor()
     query = '''
             DELETE FROM mods
@@ -506,6 +511,7 @@ def delete_account(update: Update, _: CallbackContext):
     conn.close()
     update.effective_message.reply_text('Account has been deleted, please complete registration again if you wish to '
                                         'continue using the bot. \n/register')
+
 
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "

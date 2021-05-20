@@ -132,7 +132,9 @@ def course(update: Update, _: CallbackContext) -> int:
     logger.info("Course of %s: %s", user.username, update.message.text.upper())
     newaccount.course = update.message.text.upper()
     update.message.reply_text(
-        'Please indicate the faculty of your first mod',
+        'Please indicate the faculty of your first MOD, "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
+        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
+        'mistake.',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return MODS1_F
 

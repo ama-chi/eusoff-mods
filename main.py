@@ -515,6 +515,17 @@ def delete_account(update: Update, _: CallbackContext):
                                         'continue using the bot. \n/register')
 
 
+def help(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="/start - Register with your room, faculty, mods "
+                                                                    "etc \n/done - Run after you are done entering all "
+                                                                    "your mods \n/cancel - Cancel to type another "
+                                                                    "command \n/mods - Obtain list of people studying "
+                                                                    "the particular mod \n/groupchatcreated - Run if "
+                                                                    "you have created a group chat for a mod "
+                                                                    "\n/deleteaccount - Deletes your account \nPM "
+                                                                    "@chernanigans for any help")
+
+
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
                                                                     "type /cancel to restart this.")

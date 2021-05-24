@@ -599,6 +599,9 @@ def main():
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
 
+    help_handler = CommandHandler('help', help)
+    dispatcher.add_handler(help_handler)
+
     delete_handler = CommandHandler('deleteaccount', delete_account)
     dispatcher.add_handler(delete_handler)
 

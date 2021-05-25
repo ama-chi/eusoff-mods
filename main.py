@@ -85,7 +85,7 @@ def initialise_account():
 
 def start(update: Update, _: CallbackContext):
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, this is a bot to identify Eusoffians taking the same mods, especially GE '
+        'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, especially GE '
         'mods, as well as the group chats created, firstly, please register with /register.')
 
 
@@ -98,8 +98,9 @@ def register(update: Update, _: CallbackContext) -> int:
     newaccount.username = username
     newaccount.name = name
     update.message.reply_text(
-        'Welcome to Eusoff Mods Community, please key in your room number. \nIf you make a mistake anytime, '
-        'restart by typing /cancel. \nIf you are a groupchat admin, type /groupchatcreated after registration.')
+        'Please key in your ROOM NUMBER. \nIf you make a mistake anytime, '
+        'restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after registration. '
+        '\nIf you are a groupchat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 
 
@@ -642,6 +643,7 @@ def help(update, context):
                               "command \n/mods - Obtain list of people studying "
                               "the particular mod \n/groupchatcreated - Run if "
                               "you have created a group chat for a mod "
+                              "\n/addmod - Add additional mod \n/deletemod - Delete mods that are wrongly added "
                               "\n/deleteaccount - Deletes your account \nPM "
                               "@chernanigans for any help", reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
 

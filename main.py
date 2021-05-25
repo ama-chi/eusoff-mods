@@ -48,8 +48,8 @@ ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MOD
 
 
 def initialise_account():
-    conn = pg2.connect(host= host, database= database,
-                       user= user_database,
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
                        password=password)
     cur = conn.cursor()
     insert_account = '''
@@ -377,8 +377,8 @@ temp_dict = {}
 
 
 def mods(update: Update, _: CallbackContext) -> None:
-    conn = pg2.connect(host= host, database= database,
-                       user= user_database,
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
                        password=password)
     cur = conn.cursor()
     getfaculty = '''
@@ -431,8 +431,8 @@ def getmods(update: Update, _: CallbackContext):
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     names = []
-    conn = pg2.connect(host= host, database= database,
-                       user= user_database,
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
                        password=password)
 
     cur = conn.cursor()
@@ -482,8 +482,8 @@ def groupchatcreated(update: Update, _: CallbackContext):
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
     account_username = update.message.from_user.username
-    conn = pg2.connect(host= host, database= database,
-                       user= user_database,
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
                        password=password)
     cur = conn.cursor()
     createlink = '''
@@ -499,10 +499,11 @@ def link(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
+
 def delete_account(update: Update, _: CallbackContext):
     username = update.message.from_user.username
-    conn = pg2.connect(host= host, database= database,
-                       user= user_database,
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
                        password=password)
     cur = conn.cursor()
     query = '''
@@ -516,6 +517,59 @@ def delete_account(update: Update, _: CallbackContext):
     conn.close()
     update.effective_message.reply_text('Account has been deleted, please complete registration again if you wish to '
                                         'continue using the bot. \n/register')
+
+
+CHOOSEMODULE = range(1)
+module_dict = {}
+account_id = 0
+def deletemod(update: Update, _: CallbackContext):
+    username = update.message.from_user.username
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
+                       password=password)
+    cur = conn.cursor()
+    query = '''
+            SELECT mod_name, mods.mod_id, accounts.id FROM mods
+            INNER JOIN accounts ON mods.account_id = accounts.id
+            INNER JOIN all_modules ON all_modules.mod_id = mods.mod_id
+            WHERE username = %s
+
+    '''
+    cur.execute(query, (username,))
+    modules = cur.fetchall()
+    for i,j,k in modules:
+        module_dict[i] = j
+        global account_id
+        account_id = k
+    keyboard = []
+    for i,j in module_dict:
+        keyboard.append([InlineKeyboardButton(i, callback_data=i)])
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.effective_message.reply_text('Please choose the module you wish to delete', reply_markup=reply_markup)
+    return CHOOSEMODULE
+
+
+def choosemodule(update, context):
+    mod_chosen = str(update.callback_query.data)
+    global module_dict
+    mod_id = module_dict[mod_chosen]
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
+                       password=password)
+    cur = conn.cursor()
+    global module_dict
+    global account_id
+    query = '''
+            DELETE FROM mods
+            WHERE mods.id = %s 
+            AND account_id = %s
+            '''
+    cur.execute(query, (mod_chosen, account_id))
+    module_dict ={}
+    account_id = 0
+    conn.commit()
+    conn.close()
+    return ConversationHandler.END
 
 
 def help(update, context):
@@ -535,6 +589,7 @@ def unknown(update, context):
 
 
 def main():
+    ## account creator
     account_initialisation = ConversationHandler(
         entry_points=[CommandHandler('register', register)],
         states={
@@ -577,9 +632,9 @@ def main():
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-
     dispatcher.add_handler(account_initialisation)
-    # gy
+
+    # getting the mods from database
     module_recall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={
@@ -589,6 +644,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(module_recall)
 
+    ## inserting link for group chat into database
     create_group = ConversationHandler(
         entry_points=[CommandHandler('groupchatcreated', mods)],
         states={
@@ -598,6 +654,15 @@ def main():
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(create_group)
+
+    ##delete_mod
+    delete_mod = ConversationHandler(
+        entry_points=[CommandHandler('deletemod', deletemod)],
+        states={
+            CHOOSEMODULE: [CallbackQueryHandler(choosemodule)]
+        },
+        fallbacks=[CommandHandler('cancel', cancel)], )
+    dispatcher.add_handler(delete_mod)
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)

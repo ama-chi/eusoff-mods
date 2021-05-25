@@ -457,8 +457,7 @@ def getmods(update: Update, _: CallbackContext):
         namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + '/groupchatcreated to add groupchat ' \
                                                                                 'link' + '\n '
     for i in data:
-        for x in i:
-            namelist += ('@' + x + '\n')
+        namelist += ('@' + i[0] + '\n')
     update.effective_message.reply_text(namelist)
     return ConversationHandler.END
 

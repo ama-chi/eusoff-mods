@@ -343,10 +343,12 @@ def done(update: Update, _: CallbackContext) -> int:
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
     initialise_account()
+    reply_keyboard = [['/mods'], ['/groupchatcreated'],
+                      ['/cancel'], ['/register']]
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '
-        'mods as you do')
+        'mods as you do', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
 
     return ConversationHandler.END
 
@@ -356,7 +358,7 @@ def cancel(update: Update, _: CallbackContext) -> int:
     logger.info("User %s canceled the conversation.", user.username)
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
-        'to insert groupchat link', reply_markup=ReplyKeyboardRemove()
+        'to insert groupchat link'
     )
     return ConversationHandler.END
 

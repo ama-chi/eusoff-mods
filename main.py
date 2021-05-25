@@ -459,7 +459,7 @@ def getmods(update: Update, _: CallbackContext):
     if mod_link is not None:
         namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + mod_link + '\n'
     else:
-        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + '/groupchatcreated to add groupchat ' \
+        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + 'No groupchat created yet \n/groupchatcreated to add groupchat ' \
                                                                                 'link' + '\n '
     for i in data:
         namelist += ('@' + i[0] + '\n')

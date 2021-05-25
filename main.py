@@ -343,8 +343,8 @@ def done(update: Update, _: CallbackContext) -> int:
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
     initialise_account()
-    reply_keyboard = [['/mods', '/cancel'],
-                      ['/help', '/groupchatcreated']]
+    reply_keyboard = [['/mods', '/cancel', '/help'],
+                      ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '
@@ -356,8 +356,8 @@ def done(update: Update, _: CallbackContext) -> int:
 def cancel(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.username)
-    reply_keyboard = [['/mods', '/cancel'],
-                      ['/help', '/groupchatcreated']]
+    reply_keyboard = [['/mods', '/cancel', '/help'],
+                      ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
         'to insert groupchat link', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
@@ -499,7 +499,6 @@ def link(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
-
 def delete_account(update: Update, _: CallbackContext):
     username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
@@ -522,6 +521,8 @@ def delete_account(update: Update, _: CallbackContext):
 CHOOSEMODULE = range(1)
 module_dict = {}
 account_id = 0
+
+
 def deletemod(update: Update, _: CallbackContext):
     username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
@@ -537,12 +538,12 @@ def deletemod(update: Update, _: CallbackContext):
     '''
     cur.execute(query, (username,))
     modules = cur.fetchall()
-    for i,j,k in modules:
+    for i, j, k in modules:
         module_dict[i] = j
         global account_id
         account_id = k
     keyboard = []
-    for i,j in module_dict:
+    for i in module_dict:
         keyboard.append([InlineKeyboardButton(i, callback_data=i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.effective_message.reply_text('Please choose the module you wish to delete', reply_markup=reply_markup)
@@ -552,35 +553,97 @@ def deletemod(update: Update, _: CallbackContext):
 def choosemodule(update, context):
     mod_chosen = str(update.callback_query.data)
     global module_dict
+    global account_id
     mod_id = module_dict[mod_chosen]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
     cur = conn.cursor()
-    global module_dict
-    global account_id
     query = '''
             DELETE FROM mods
-            WHERE mods.id = %s 
+            WHERE mods.mod_id = %s 
             AND account_id = %s
             '''
-    cur.execute(query, (mod_chosen, account_id))
-    module_dict ={}
+    cur.execute(query, (mod_id, account_id))
+    module_dict = {}
     account_id = 0
     conn.commit()
     conn.close()
+    update.effective_message.reply_text('Module has been deleted from your account')
+    return ConversationHandler.END
+
+
+STATEFACULTIES, STATEMODULE = range(2)
+
+
+def add_module(update, context):
+    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                      ['ISE', 'Music', 'Public Health', 'SDE']]
+    update.message.reply_text(
+        'Please indicate the faculty of your MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
+        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
+        'mistake.',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    return STATEFACULTIES
+
+
+def statefaculties(update: Update, _: CallbackContext):
+    global temp_faculty
+    temp_faculty = update.message.text.upper()
+    print(temp_faculty)
+    update.message.reply_text(
+        'Please indicate the name of your mod e.g. CS1010S',
+        reply_markup=ReplyKeyboardRemove())
+    return STATEMODULE
+
+
+def statemodule(update: Update, _: CallbackContext):
+    module = update.message.text.upper()
+    user = update.message.from_user.username
+    global temp_faculty
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
+                       password=password)
+    cur = conn.cursor()
+    insert_to_all_modules = '''
+                INSERT INTO all_modules(mod_name,faculty_id)
+                VALUES(%s,(SELECT faculty_id FROM faculties
+                WHERE faculty_name = %s))
+                ON CONFLICT (mod_name) DO NOTHING
+                 '''
+    cur.execute(insert_to_all_modules, (module, temp_faculty.lower()))
+    query = '''
+            INSERT INTO mods(account_id,mod_id,faculty_id)
+            VALUES((SELECT id FROM accounts
+                    WHERE username = %s),
+                    (SELECT mod_id FROM all_modules
+                    WHERE mod_name = %s), 
+                    (SELECT faculty_id FROM all_modules
+                    WHERE mod_name = %s))
+    '''
+    cur.execute(query, (user, module, module))
+    update.message.reply_text(
+        'Your data is being stored in the system, this may take a while')
+    reply_keyboard = [['/mods', '/cancel', '/help'],
+                      ['/groupchatcreated', '/deletemod', '/addmod']]
+    conn.commit()
+    update.message.reply_text(
+        'Your data has been stored into the system, please type /addmod to add another module',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
     return ConversationHandler.END
 
 
 def help(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="/start - Register with your room, faculty, mods "
-                                                                    "etc \n/done - Run after you are done entering all "
-                                                                    "your mods \n/cancel - Cancel to type another "
-                                                                    "command \n/mods - Obtain list of people studying "
-                                                                    "the particular mod \n/groupchatcreated - Run if "
-                                                                    "you have created a group chat for a mod "
-                                                                    "\n/deleteaccount - Deletes your account \nPM "
-                                                                    "@chernanigans for any help")
+    reply_keyboard = [['/mods', '/cancel', '/help'],
+                      ['/groupchatcreated', '/deletemod', '/addmod']]
+    update.message.reply_text("/start - Register with your room, faculty, mods "
+                              "etc \n/done - Run after you are done entering all "
+                              "your mods \n/cancel - Cancel to type another "
+                              "command \n/mods - Obtain list of people studying "
+                              "the particular mod \n/groupchatcreated - Run if "
+                              "you have created a group chat for a mod "
+                              "\n/deleteaccount - Deletes your account \nPM "
+                              "@chernanigans for any help", reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
 
 
 def unknown(update, context):
@@ -663,6 +726,16 @@ def main():
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(delete_mod)
+
+    # add mod
+    add_mod = ConversationHandler(
+        entry_points=[CommandHandler('addmod', add_module)],
+        states={
+            STATEFACULTIES: [MessageHandler(Filters.text & ~Filters.command, statefaculties)],
+            STATEMODULE: [MessageHandler(Filters.text & ~Filters.command, statemodule)]
+        },
+        fallbacks=[CommandHandler('cancel', cancel)], )
+    dispatcher.add_handler(add_mod)
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)

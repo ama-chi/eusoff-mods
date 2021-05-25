@@ -605,6 +605,9 @@ def main():
     delete_handler = CommandHandler('deleteaccount', delete_account)
     dispatcher.add_handler(delete_handler)
 
+    cancel_handler = CommandHandler('cancel', cancel)
+    dispatcher.add_handler(cancel_handler)
+
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)
 

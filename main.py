@@ -484,6 +484,8 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 def link(update: Update, _: CallbackContext):
     link_submitted = update.message.text
+    user = update.effective_message.from_user
+    logger.info("User %s has added the link of %s", user.username, link_submitted)
     account_username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,

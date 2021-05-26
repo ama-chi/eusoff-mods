@@ -471,7 +471,7 @@ temp_mod_chosen = ''
 
 
 def groupchatcreated(update: Update, _: CallbackContext):
-    user = update.message.from_user
+    user = update.effective_message.from_user
     logger.info("User %s has run /groupchatcreated", user.username)
     mod_chosen = str(update.callback_query.data)
     global temp_mod_chosen

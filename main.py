@@ -84,7 +84,7 @@ def initialise_account():
 
 
 def start(update: Update, _: CallbackContext):
-    reply_keyboard = ['/register']
+    reply_keyboard = [['/register']]
     update.message.reply_text(
         'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, especially GE '
         'mods, as well as the group chats created, firstly, please register with /register.', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))

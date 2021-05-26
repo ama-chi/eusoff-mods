@@ -84,6 +84,8 @@ def initialise_account():
 
 
 def start(update: Update, _: CallbackContext):
+    user = update.message.from_user
+    logger.info("User %s started the bot", user.username)
     reply_keyboard = [['/register']]
     update.message.reply_text(
         'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, especially GE '
@@ -91,6 +93,8 @@ def start(update: Update, _: CallbackContext):
 
 
 def register(update: Update, _: CallbackContext) -> int:
+    user = update.message.from_user
+    logger.info("User %s is registering", user.username)
     data = update.effective_chat
     username = data['username']
     name = data['first_name']
@@ -500,7 +504,7 @@ def link(update: Update, _: CallbackContext):
 
 def delete_account(update: Update, _: CallbackContext):
     user = update.message.from_user
-    logger.info("User %s has run /deleteaccount", user.username)
+    logger.info("User %s has deleted account", user.username)
     username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,

@@ -160,7 +160,6 @@ def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 1 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -185,7 +184,6 @@ def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 2 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -210,7 +208,6 @@ def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 3 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -235,7 +232,6 @@ def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 4 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -260,7 +256,6 @@ def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 5 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your sixth mod',
@@ -284,7 +279,6 @@ def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 6 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your seventh mod',
@@ -308,7 +302,6 @@ def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 7 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your eighth mod',
@@ -332,7 +325,6 @@ def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
-    logger.info(temp_faculty + " Mod 8 of %s: %s", user.username, update.message.text.upper())
     newaccount.mods[temp_faculty].append(update.message.text.upper())
     print(newaccount.mods)
     update.message.reply_text(
@@ -351,6 +343,7 @@ def done(update: Update, _: CallbackContext) -> int:
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '
         'mods as you do', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+    logger.info("%s has initialised their account", user.username)
 
     return ConversationHandler.END
 
@@ -379,6 +372,8 @@ temp_dict = {}
 
 
 def mods(update: Update, _: CallbackContext) -> None:
+    user = update.message.from_user
+    logger.info("User %s has run /mods", user.username)
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -472,6 +467,8 @@ temp_mod_chosen = ''
 
 
 def groupchatcreated(update: Update, _: CallbackContext):
+    user = update.message.from_user
+    logger.info("User %s has run /groupchatcreated", user.username)
     mod_chosen = str(update.callback_query.data)
     global temp_mod_chosen
     temp_mod_chosen = mod_chosen
@@ -502,6 +499,8 @@ def link(update: Update, _: CallbackContext):
 
 
 def delete_account(update: Update, _: CallbackContext):
+    user = update.message.from_user
+    logger.info("User %s has run /deleteaccount", user.username)
     username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
@@ -526,6 +525,8 @@ account_id = 0
 
 
 def deletemod(update: Update, _: CallbackContext):
+    user = update.message.from_user
+    logger.info("User %s has run /deletemod", user.username)
     username = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
@@ -580,6 +581,8 @@ STATEFACULTIES, STATEMODULE = range(2)
 
 
 def add_module(update, context):
+    user = update.message.from_user
+    logger.info("User %s has run /addmod", user.username)
     reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                       ['ISE', 'Music', 'Public Health', 'SDE']]
     update.message.reply_text(
@@ -637,6 +640,8 @@ def statemodule(update: Update, _: CallbackContext):
 
 
 def help(update, context):
+    user = update.message.from_user
+    logger.info("User %s has run /help", user.username)
     reply_keyboard = [['/mods', '/cancel', '/help'],
                       ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text("/start - Register with your room, faculty, mods "

@@ -521,6 +521,7 @@ def delete_account(update: Update, _: CallbackContext):
 
 CHOOSEMODULE = range(1)
 module_dict = {}
+module_dict.clear()
 account_id = 0
 
 

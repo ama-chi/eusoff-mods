@@ -566,10 +566,10 @@ def choosemodule(update, context):
             AND account_id = %s
             '''
     cur.execute(query, (mod_id, account_id))
-    module_dict = {}
-    account_id = 0
     conn.commit()
     conn.close()
+    module_dict = {}
+    account_id = 0
     update.effective_message.reply_text('Module has been deleted from your account')
     return ConversationHandler.END
 

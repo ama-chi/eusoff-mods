@@ -89,7 +89,8 @@ def start(update: Update, _: CallbackContext):
     reply_keyboard = [['/register']]
     update.message.reply_text(
         'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, especially GE '
-        'mods, as well as the group chats created, firstly, please register with /register.', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        'mods, as well as the group chats created, firstly, please register with /register.',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
 
 def register(update: Update, _: CallbackContext) -> int:
@@ -391,6 +392,7 @@ def mods(update: Update, _: CallbackContext) -> None:
     data = cur.fetchall()
     faculty = []
     global temp_dict
+    temp_dict.clear()
     for key, value in data:
         if key.title() not in faculty:
             faculty.append(key.title())
@@ -416,7 +418,6 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
     global temp_dict
     temp_faculty_chosen = query.data
     mods = temp_dict[temp_faculty_chosen]
-    temp_dict = {}
     mods.sort()
     keyboard = []
     for i in mods:
@@ -431,7 +432,6 @@ def getmods(update: Update, _: CallbackContext):
     mod_chosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    names = []
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -658,7 +658,8 @@ def help(update, context):
                               "you have created a group chat for a mod "
                               "\n/addmod - Add additional mod \n/deletemod - Delete mods that are wrongly added "
                               "\n/deleteaccount - Deletes your account \nPM "
-                              "@chernanigans for any help", reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+                              "@chernanigans for any help",
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
 
 
 def unknown(update, context):
@@ -667,7 +668,7 @@ def unknown(update, context):
 
 
 def main():
-    ## account creator
+    # account creator
     account_initialisation = ConversationHandler(
         entry_points=[CommandHandler('register', register)],
         states={
@@ -722,7 +723,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(module_recall)
 
-    ## inserting link for group chat into database
+    # inserting link for group chat into database
     create_group = ConversationHandler(
         entry_points=[CommandHandler('groupchatcreated', mods)],
         states={
@@ -733,7 +734,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(create_group)
 
-    ##delete_mod
+    #delete_mod
     delete_mod = ConversationHandler(
         entry_points=[CommandHandler('deletemod', deletemod)],
         states={

@@ -521,7 +521,6 @@ def delete_account(update: Update, _: CallbackContext):
 
 CHOOSEMODULE = range(1)
 module_dict = {}
-module_dict.clear()
 account_id = 0
 
 
@@ -540,6 +539,7 @@ def deletemod(update: Update, _: CallbackContext):
     '''
     cur.execute(query, (username,))
     modules = cur.fetchall()
+    module_dict.clear()
     for i, j, k in modules:
         module_dict[i] = j
         global account_id

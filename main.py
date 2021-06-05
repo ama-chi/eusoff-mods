@@ -22,6 +22,8 @@ replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
 replyKeyboardFaculties = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
                   ['ISE', 'Music', 'Public Health']]
 
+replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                  ['ISE', 'Music', 'Public Health', 'SDE']]
 ''''''''
 
 
@@ -144,7 +146,7 @@ def course(update: Update, _: CallbackContext) -> int:
         'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
         'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
         'mistake.',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS1_F
 
 
@@ -169,7 +171,7 @@ def mods1(update: Update, _: CallbackContext) -> int:
     print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your second mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS2_F
 
 
@@ -191,7 +193,7 @@ def mods2(update: Update, _: CallbackContext) -> int:
     print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your third mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS3_F
 
 
@@ -213,7 +215,7 @@ def mods3(update: Update, _: CallbackContext) -> int:
     print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fourth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS4_F
 
 
@@ -235,7 +237,7 @@ def mods4(update: Update, _: CallbackContext) -> int:
     print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fifth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS5_F
 
 
@@ -256,7 +258,7 @@ def mods5(update: Update, _: CallbackContext) -> int:
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your sixth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS6_F
 
 
@@ -277,7 +279,7 @@ def mods6(update: Update, _: CallbackContext) -> int:
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your seventh mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS7_F
 
 
@@ -298,7 +300,7 @@ def mods7(update: Update, _: CallbackContext) -> int:
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your eighth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS8_F
 
 
@@ -320,7 +322,7 @@ def mods8(update: Update, _: CallbackContext):
     print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your mods',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
 
 
 def done(update: Update, _: CallbackContext) -> int:
@@ -575,7 +577,7 @@ def add_module(update, context):
         'Please indicate the faculty of your MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
         'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
         'mistake.',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return STATEFACULTIES
 
 
@@ -625,6 +627,8 @@ def statemodule(update: Update, _: CallbackContext):
 
 def help(update, context):
     user = update.message.from_user
+    replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
+                             ['/groupchatcreated', '/deletemod', '/addmod']]
     logger.info("User %s has run /help", user.username)
     update.message.reply_text("/start - Register with your room, faculty, mods "
                               "etc \n/done - Run after you are done entering all "

@@ -662,6 +662,34 @@ def help(update, context):
                               reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
 
 
+def mymods(update: Update, _: CallbackContext):
+    user = update.message.from_user.username
+    conn = pg2.connect(host=host, database=database,
+                       user=user_database,
+                       password=password)
+    cur = conn.cursor()
+    getMyMods = '''
+                select mod_name from mods 
+                inner join all_modules
+                on mods.mod_id = all_modules.mod_id
+                WHERE mods.account_id = (SELECT id 
+                FROM accounts
+                WHERE accounts.username = %s)
+                 '''
+    data = cur.execute(getMyMods, (user))
+
+    reply_keyboard = [['/mods', '/cancel', '/help'],
+                      ['/groupchatcreated', '/deletemod', '/addmod']]
+    mods = ""
+    for i in data:
+        mods += i[0] + '\n'
+
+    update.message.reply_text(
+        mods,
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+    return ConversationHandler.END
+
+
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
                                                                     "type /cancel to restart this.")
@@ -764,6 +792,9 @@ def main():
 
     cancel_handler = CommandHandler('cancel', cancel)
     dispatcher.add_handler(cancel_handler)
+
+    myMods_handler = CommandHandler('mymods', mymods)
+    dispatcher.add_handler(myMods_handler)
 
     unknown_handler = MessageHandler(Filters.command, unknown)
     dispatcher.add_handler(unknown_handler)

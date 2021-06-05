@@ -16,6 +16,12 @@ database = 'd3pb9jkfc1jkat'
 user_database = 'ckwbcsfhmslojp'
 password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
 
+replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
+                  ['/groupchatcreated', '/deletemod', '/addmod']]
+
+replyKeyboardFaculties = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                  ['ISE', 'Music', 'Public Health']]
+
 ''''''''
 
 
@@ -32,7 +38,7 @@ class Account:
             mods = {}
         self.name = name
         self.username = username
-        self.roomnumber = roomnumber
+        self.roomNumber = roomnumber
         self.faculty = faculty
         self.course = course
         self.mods = mods
@@ -58,9 +64,9 @@ def initialise_account():
             ON CONFLICT (username) DO NOTHING
             '''
     cur.execute(insert_account,
-                (newaccount.username, newaccount.name, newaccount.roomnumber, newaccount.faculty, newaccount.course))
-    for fac in newaccount.mods:
-        for mod in newaccount.mods[fac]:
+                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course))
+    for fac in newAccount.mods:
+        for mod in newAccount.mods[fac]:
             insert_to_all_modules = '''
                         INSERT INTO all_modules(mod_name,faculty_id)
                         VALUES(%s,(SELECT faculty_id FROM faculties
@@ -69,8 +75,8 @@ def initialise_account():
                          '''
             cur.execute(insert_to_all_modules, (mod, fac.lower()))
     conn.commit()
-    for fac in newaccount.mods:
-        for mod in newaccount.mods[fac]:
+    for fac in newAccount.mods:
+        for mod in newAccount.mods[fac]:
             insert_to_mods = '''
                         INSERT INTO mods(account_id,mod_id,faculty_id)
                         VALUES((SELECT id FROM accounts
@@ -78,7 +84,7 @@ def initialise_account():
                         WHERE mod_name = %s), (SELECT faculty_id FROM all_modules
                         WHERE mod_name = %s))
                          '''
-            cur.execute(insert_to_mods, (newaccount.username, mod, mod))
+            cur.execute(insert_to_mods, (newAccount.username, mod, mod))
     conn.commit()
     conn.close()
 
@@ -99,10 +105,10 @@ def register(update: Update, _: CallbackContext) -> int:
     data = update.effective_chat
     username = data['username']
     name = data['first_name']
-    global newaccount
-    newaccount = Account()
-    newaccount.username = username
-    newaccount.name = name
+    global newAccount
+    newAccount = Account()
+    newAccount.username = username
+    newAccount.name = name
     update.message.reply_text(
         'Please key in your ROOM NUMBER. \nIf you make a mistake anytime, '
         'restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after registration. '
@@ -111,21 +117,19 @@ def register(update: Update, _: CallbackContext) -> int:
 
 
 def roomnumber(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health']]
     user = update.message.from_user
     logger.info("Room Number of %s: %s", user.username, update.message.text.upper())
-    newaccount.roomnumber = update.message.text.upper()
+    newAccount.roomNumber = update.message.text.upper()
     update.message.reply_text(
         'Please indicate your faculty',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return FACULTY
 
 
 def faculty(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("Faculty of %s: %s", user.username, update.message.text)
-    newaccount.faculty = update.message.text
+    newAccount.faculty = update.message.text
     update.message.reply_text(
         'Please indicate your course',
         reply_markup=ReplyKeyboardRemove())
@@ -133,27 +137,25 @@ def faculty(update: Update, _: CallbackContext) -> int:
 
 
 def course(update: Update, _: CallbackContext) -> int:
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
     user = update.message.from_user
     logger.info("Course of %s: %s", user.username, update.message.text.upper())
-    newaccount.course = update.message.text.upper()
+    newAccount.course = update.message.text.upper()
     update.message.reply_text(
         'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
         'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
         'mistake.',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS1_F
 
 
-temp_faculty = ''
+tempFaculty = ''
 
 
 def mods1_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your first mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -163,21 +165,19 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
-    print(newaccount.mods)
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
+    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your second mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS2_F
 
 
 def mods2_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your second mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -187,21 +187,19 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
-    print(newaccount.mods)
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
+    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your third mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS3_F
 
 
 def mods3_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your third mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -211,21 +209,19 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
-    print(newaccount.mods)
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
+    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fourth mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS4_F
 
 
 def mods4_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your fourth mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -235,21 +231,19 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
-    print(newaccount.mods)
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
+    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fifth mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS5_F
 
 
 def mods5_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your fifth mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -259,20 +253,18 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your sixth mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS6_F
 
 
 def mods6_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your sixth mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -282,20 +274,18 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your seventh mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS7_F
 
 
 def mods7_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your seventh mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -305,20 +295,18 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your eighth mod',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return MODS8_F
 
 
 def mods8_f(update: Update, _: CallbackContext) -> int:
-    global temp_faculty
-    temp_faculty = update.message.text
-    if temp_faculty not in newaccount.mods:
-        newaccount.mods[temp_faculty] = []
+    global tempFaculty
+    tempFaculty = update.message.text
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your eigth mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
@@ -328,13 +316,11 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
-    newaccount.mods[temp_faculty].append(update.message.text.upper())
-    print(newaccount.mods)
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
+    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your mods',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
 
 
 def done(update: Update, _: CallbackContext) -> int:
@@ -342,12 +328,10 @@ def done(update: Update, _: CallbackContext) -> int:
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
     initialise_account()
-    reply_keyboard = [['/mods', '/cancel', '/help'],
-                      ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '
-        'mods as you do', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+        'mods as you do', reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))
     logger.info("%s has initialised their account", user.username)
 
     return ConversationHandler.END
@@ -356,11 +340,9 @@ def done(update: Update, _: CallbackContext) -> int:
 def cancel(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.username)
-    reply_keyboard = [['/mods', '/cancel', '/help'],
-                      ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
-        'to insert groupchat link', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
+        'to insert groupchat link', reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False)
     )
     return ConversationHandler.END
 
@@ -373,7 +355,7 @@ def button(update: Update, _: CallbackContext) -> None:
 
 GETFACULTIES, GETMODS, LINK = range(3)
 
-temp_dict = {}
+tempDict = {}
 
 
 def mods(update: Update, _: CallbackContext) -> None:
@@ -383,22 +365,22 @@ def mods(update: Update, _: CallbackContext) -> None:
                        user=user_database,
                        password=password)
     cur = conn.cursor()
-    getfaculty = '''
+    getFaculty = '''
     SELECT faculty_name, mod_name FROM all_modules
     INNER JOIN faculties
     ON all_modules.faculty_id = faculties.faculty_id
     '''
-    cur.execute(getfaculty)
+    cur.execute(getFaculty)
     data = cur.fetchall()
     faculty = []
-    global temp_dict
-    temp_dict.clear()
+    global tempDict
+    tempDict.clear()
     for key, value in data:
         if key.title() not in faculty:
             faculty.append(key.title())
-        if key.title() not in temp_dict:
-            temp_dict[key.title()] = []
-        temp_dict[key.title()].append(value)
+        if key.title() not in tempDict:
+            tempDict[key.title()] = []
+        tempDict[key.title()].append(value)
     faculty.sort()
     keyboard = []
     for i in faculty:
@@ -408,16 +390,16 @@ def mods(update: Update, _: CallbackContext) -> None:
     return GETFACULTIES
 
 
-temp_faculty_chosen = ''
+tempFacultyChosen = ''
 
 
 def getfaculties(update: Update, _: CallbackContext) -> int:
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    global temp_faculty_chosen
-    global temp_dict
-    temp_faculty_chosen = query.data
-    mods = temp_dict[temp_faculty_chosen]
+    global tempFacultyChosen
+    global tempDict
+    tempFacultyChosen = query.data
+    mods = tempDict[tempFacultyChosen]
     mods.sort()
     keyboard = []
     for i in mods:
@@ -429,7 +411,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
 
 def getmods(update: Update, _: CallbackContext):
     update.effective_message.reply_text('Fetching data from database, may take a while...')
-    mod_chosen = str(update.callback_query.data)
+    modChosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     conn = pg2.connect(host=host, database=database,
@@ -437,7 +419,7 @@ def getmods(update: Update, _: CallbackContext):
                        password=password)
 
     cur = conn.cursor()
-    get_namelist = '''
+    getNameList = '''
             SELECT username FROM mods
             INNER JOIN accounts
             ON mods.account_id = accounts.id
@@ -445,21 +427,21 @@ def getmods(update: Update, _: CallbackContext):
             mod_id = (SELECT mod_id FROM all_modules
             WHERE mod_name = %s)
     '''
-    cur.execute(get_namelist, (mod_chosen,))
+    cur.execute(getNameList, (modChosen,))
     data = cur.fetchall()
-    get_link = '''
+    getLink = '''
             SELECT link FROM all_modules
             WHERE mod_name = %s
     '''
-    cur.execute(get_link, (mod_chosen,))
-    temp_link = cur.fetchone()
-    mod_link = ''
-    for link in temp_link:
-        mod_link = link
-    if mod_link is not None:
-        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + mod_link + '\n'
+    cur.execute(getLink, (modChosen,))
+    tempLink = cur.fetchone()
+    modLink = ''
+    for link in tempLink:
+        modLink = link
+    if modLink is not None:
+        namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + modLink + '\n'
     else:
-        namelist = 'Usernames of Eusoffians taking' + ' ' + mod_chosen + '\n' + 'No groupchat created yet \n/groupchatcreated to add groupchat ' \
+        namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + 'No groupchat created yet \n/groupchatcreated to add groupchat ' \
                                                                                 'link' + '\n '
     for i in data:
         namelist += ('@' + i[0] + '\n')
@@ -467,15 +449,15 @@ def getmods(update: Update, _: CallbackContext):
     return ConversationHandler.END
 
 
-temp_mod_chosen = ''
+tempModChosen = ''
 
 
 def groupchatcreated(update: Update, _: CallbackContext):
     user = update.effective_message.from_user
     logger.info("User %s has run /groupchatcreated", user.username)
-    mod_chosen = str(update.callback_query.data)
-    global temp_mod_chosen
-    temp_mod_chosen = mod_chosen
+    modChosen = str(update.callback_query.data)
+    global tempModChosen
+    tempModChosen = modChosen
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     update.effective_message.reply_text('Please copy and paste the group link here.')
@@ -483,21 +465,21 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 
 def link(update: Update, _: CallbackContext):
-    link_submitted = update.message.text
+    linkSubmitted = update.message.text
     user = update.effective_message.from_user
-    logger.info("User %s has added the link of %s", user.username, link_submitted)
-    account_username = update.message.from_user.username
+    logger.info("User %s has added the link of %s", user.username, linkSubmitted)
+    accountUsername = update.message.from_user.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
     cur = conn.cursor()
-    createlink = '''
+    createLink = '''
                 UPDATE all_modules
                 SET link = %s
                 ,link_sender = %s
                 WHERE mod_name = %s
     '''
-    cur.execute(createlink, (link_submitted, str(account_username), temp_mod_chosen))
+    cur.execute(createLink, (linkSubmitted, str(accountUsername), tempModChosen))
     conn.commit()
     conn.close()
     update.effective_message.reply_text('Link has been added, /mods to check')
@@ -526,8 +508,8 @@ def delete_account(update: Update, _: CallbackContext):
 
 
 CHOOSEMODULE = range(1)
-module_dict = {}
-account_id = 0
+moduleDict = {}
+accountId = 0
 
 
 def deletemod(update: Update, _: CallbackContext):
@@ -547,13 +529,13 @@ def deletemod(update: Update, _: CallbackContext):
     '''
     cur.execute(query, (username,))
     modules = cur.fetchall()
-    module_dict.clear()
+    moduleDict.clear()
     for i, j, k in modules:
-        module_dict[i] = j
-        global account_id
-        account_id = k
+        moduleDict[i] = j
+        global accountId
+        accountId = k
     keyboard = []
-    for i in module_dict:
+    for i in moduleDict:
         keyboard.append([InlineKeyboardButton(i, callback_data=i)])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.effective_message.reply_text('Please choose the module you wish to delete', reply_markup=reply_markup)
@@ -561,10 +543,10 @@ def deletemod(update: Update, _: CallbackContext):
 
 
 def choosemodule(update, context):
-    mod_chosen = str(update.callback_query.data)
-    global module_dict
-    global account_id
-    mod_id = module_dict[mod_chosen]
+    modChosen = str(update.callback_query.data)
+    global moduleDict
+    global accountId
+    modId = moduleDict[modChosen]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -574,11 +556,11 @@ def choosemodule(update, context):
             WHERE mods.mod_id = %s 
             AND account_id = %s
             '''
-    cur.execute(query, (mod_id, account_id))
+    cur.execute(query, (modId, accountId))
     conn.commit()
     conn.close()
-    module_dict.clear()
-    account_id = 0
+    moduleDict.clear()
+    accountId = 0
     update.effective_message.reply_text('Module has been deleted from your account')
     return ConversationHandler.END
 
@@ -589,20 +571,18 @@ STATEFACULTIES, STATEMODULE = range(2)
 def add_module(update, context):
     user = update.message.from_user
     logger.info("User %s has run /addmod", user.username)
-    reply_keyboard = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                      ['ISE', 'Music', 'Public Health', 'SDE']]
     update.message.reply_text(
         'Please indicate the faculty of your MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
         'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
         'mistake.',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardFaculties, one_time_keyboard=True))
     return STATEFACULTIES
 
 
 def statefaculties(update: Update, _: CallbackContext):
-    global temp_faculty
-    temp_faculty = update.message.text.upper()
-    print(temp_faculty)
+    global tempFaculty
+    tempFaculty = update.message.text.upper()
+    print(tempFaculty)
     update.message.reply_text(
         'Please indicate the name of your mod e.g. CS1010S',
         reply_markup=ReplyKeyboardRemove())
@@ -612,18 +592,18 @@ def statefaculties(update: Update, _: CallbackContext):
 def statemodule(update: Update, _: CallbackContext):
     module = update.message.text.upper()
     user = update.message.from_user.username
-    global temp_faculty
+    global tempFaculty
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
     cur = conn.cursor()
-    insert_to_all_modules = '''
+    insertToAllModules = '''
                 INSERT INTO all_modules(mod_name,faculty_id)
                 VALUES(%s,(SELECT faculty_id FROM faculties
                 WHERE faculty_name = %s))
                 ON CONFLICT (mod_name) DO NOTHING
                  '''
-    cur.execute(insert_to_all_modules, (module, temp_faculty.lower()))
+    cur.execute(insertToAllModules, (module, tempFaculty.lower()))
     query = '''
             INSERT INTO mods(account_id,mod_id,faculty_id)
             VALUES((SELECT id FROM accounts
@@ -636,20 +616,16 @@ def statemodule(update: Update, _: CallbackContext):
     cur.execute(query, (user, module, module))
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
-    reply_keyboard = [['/mods', '/cancel', '/help'],
-                      ['/groupchatcreated', '/deletemod', '/addmod']]
     conn.commit()
     update.message.reply_text(
         'Your data has been stored into the system, please type /addmod to add another module',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))
     return ConversationHandler.END
 
 
 def help(update, context):
     user = update.message.from_user
     logger.info("User %s has run /help", user.username)
-    reply_keyboard = [['/mods', '/cancel', '/help'],
-                      ['/groupchatcreated', '/deletemod', '/addmod']]
     update.message.reply_text("/start - Register with your room, faculty, mods "
                               "etc \n/done - Run after you are done entering all "
                               "your mods \n/cancel - Cancel to type another "
@@ -659,7 +635,7 @@ def help(update, context):
                               "\n/addmod - Add additional mod \n/deletemod - Delete mods that are wrongly added "
                               "\n/deleteaccount - Deletes your account \nPM "
                               "@chernanigans for any help",
-                              reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+                              reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))
 
 
 def mymods(update: Update, _: CallbackContext):
@@ -676,17 +652,15 @@ def mymods(update: Update, _: CallbackContext):
                 FROM accounts
                 WHERE accounts.username = %s)
                  '''
-    data = cur.execute(getMyMods, (user))
-
-    reply_keyboard = [['/mods', '/cancel', '/help'],
-                      ['/groupchatcreated', '/deletemod', '/addmod']]
-    mods = ""
+    cur.execute(getMyMods, (user,))
+    data = cur.fetchall()
+    mods = "The mods that you are taking this semester are \n"
     for i in data:
         mods += i[0] + '\n'
 
     update.message.reply_text(
         mods,
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False))
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))
     return ConversationHandler.END
 
 
@@ -697,7 +671,7 @@ def unknown(update, context):
 
 def main():
     # account creator
-    account_initialisation = ConversationHandler(
+    accountInitialisation = ConversationHandler(
         entry_points=[CommandHandler('register', register)],
         states={
             ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
@@ -739,20 +713,20 @@ def main():
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(account_initialisation)
+    dispatcher.add_handler(accountInitialisation)
 
     # getting the mods from database
-    module_recall = ConversationHandler(
+    moduleRecall = ConversationHandler(
         entry_points=[CommandHandler('mods', mods)],
         states={
             GETFACULTIES: [CallbackQueryHandler(getfaculties)],
             GETMODS: [CallbackQueryHandler(getmods)],
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(module_recall)
+    dispatcher.add_handler(moduleRecall)
 
     # inserting link for group chat into database
-    create_group = ConversationHandler(
+    createGroup = ConversationHandler(
         entry_points=[CommandHandler('groupchatcreated', mods)],
         states={
             GETFACULTIES: [CallbackQueryHandler(getfaculties)],
@@ -760,44 +734,44 @@ def main():
             LINK: [MessageHandler(Filters.text & ~Filters.command, link)]
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(create_group)
+    dispatcher.add_handler(createGroup)
 
     #delete_mod
-    delete_mod = ConversationHandler(
+    deleteMod = ConversationHandler(
         entry_points=[CommandHandler('deletemod', deletemod)],
         states={
             CHOOSEMODULE: [CallbackQueryHandler(choosemodule)]
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(delete_mod)
+    dispatcher.add_handler(deleteMod)
 
     # add mod
-    add_mod = ConversationHandler(
+    addMod = ConversationHandler(
         entry_points=[CommandHandler('addmod', add_module)],
         states={
             STATEFACULTIES: [MessageHandler(Filters.text & ~Filters.command, statefaculties)],
             STATEMODULE: [MessageHandler(Filters.text & ~Filters.command, statemodule)]
         },
         fallbacks=[CommandHandler('cancel', cancel)], )
-    dispatcher.add_handler(add_mod)
+    dispatcher.add_handler(addMod)
 
-    start_handler = CommandHandler('start', start)
-    dispatcher.add_handler(start_handler)
+    startHandler = CommandHandler('start', start)
+    dispatcher.add_handler(startHandler)
 
-    help_handler = CommandHandler('help', help)
-    dispatcher.add_handler(help_handler)
+    helpHandler = CommandHandler('help', help)
+    dispatcher.add_handler(helpHandler)
 
-    delete_handler = CommandHandler('deleteaccount', delete_account)
-    dispatcher.add_handler(delete_handler)
+    deleteHandler = CommandHandler('deleteaccount', delete_account)
+    dispatcher.add_handler(deleteHandler)
 
-    cancel_handler = CommandHandler('cancel', cancel)
-    dispatcher.add_handler(cancel_handler)
+    cancelHandler = CommandHandler('cancel', cancel)
+    dispatcher.add_handler(cancelHandler)
 
-    myMods_handler = CommandHandler('mymods', mymods)
-    dispatcher.add_handler(myMods_handler)
+    myModsHandler = CommandHandler('mymods', mymods)
+    dispatcher.add_handler(myModsHandler)
 
-    unknown_handler = MessageHandler(Filters.command, unknown)
-    dispatcher.add_handler(unknown_handler)
+    unknownHandler = MessageHandler(Filters.command, unknown)
+    dispatcher.add_handler(unknownHandler)
 
     updater.start_polling()
 

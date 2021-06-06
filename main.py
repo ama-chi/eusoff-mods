@@ -17,13 +17,14 @@ user_database = 'ckwbcsfhmslojp'
 password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
 
 replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
-                  ['/groupchatcreated', '/deletemod', '/addmod']]
+                         ['/groupchatcreated', '/deletemod', '/addmod']]
 
 replyKeyboardFaculties = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                  ['ISE', 'Music', 'Public Health']]
+                          ['ISE', 'Music', 'Public Health']]
 
-replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                  ['ISE', 'Music', 'Public Health', 'SDE']]
+replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'],
+                             ['FASS', 'Science', 'Law', 'Public Policy', ],
+                             ['ISE', 'Music', 'Public Health', 'SDE']]
 ''''''''
 
 
@@ -96,7 +97,7 @@ def start(update: Update, _: CallbackContext):
     logger.info("User %s started the bot", user.username)
     reply_keyboard = [['/register']]
     update.message.reply_text(
-        'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, especially GE '
+        'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, such as GE '
         'mods, as well as the group chats created, firstly, please register with /register.',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
@@ -156,6 +157,9 @@ tempFaculty = ''
 def mods1_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS1_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -168,7 +172,6 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     newAccount.mods[tempFaculty].append(update.message.text.upper())
-    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your second mod',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
@@ -178,6 +181,9 @@ def mods1(update: Update, _: CallbackContext) -> int:
 def mods2_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS2_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -190,7 +196,6 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     newAccount.mods[tempFaculty].append(update.message.text.upper())
-    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your third mod',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
@@ -200,6 +205,9 @@ def mods2(update: Update, _: CallbackContext) -> int:
 def mods3_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS3_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -212,7 +220,6 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     newAccount.mods[tempFaculty].append(update.message.text.upper())
-    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fourth mod',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
@@ -222,6 +229,9 @@ def mods3(update: Update, _: CallbackContext) -> int:
 def mods4_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS4_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -234,7 +244,6 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     newAccount.mods[tempFaculty].append(update.message.text.upper())
-    print(newAccount.mods)
     update.message.reply_text(
         'Please indicate the faculty of your fifth mod',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
@@ -244,6 +253,9 @@ def mods4(update: Update, _: CallbackContext) -> int:
 def mods5_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS5_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -265,6 +277,9 @@ def mods5(update: Update, _: CallbackContext) -> int:
 def mods6_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS6_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -286,6 +301,9 @@ def mods6(update: Update, _: CallbackContext) -> int:
 def mods7_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS7_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
@@ -307,10 +325,13 @@ def mods7(update: Update, _: CallbackContext) -> int:
 def mods8_f(update: Update, _: CallbackContext) -> int:
     global tempFaculty
     tempFaculty = update.message.text
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return MODS8_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
-        'Please indicate the name of your eigth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'Please indicate the name of your last mod e.g. CS1010S or /done when you have enumerated all your courses '
         'or /cancel to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS8
@@ -319,10 +340,9 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
     newAccount.mods[tempFaculty].append(update.message.text.upper())
-    print(newAccount.mods)
     update.message.reply_text(
-        'Please indicate the faculty of your mods',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
+        'This is the last mod you can input, please type /done',
+        reply_markup=ReplyKeyboardRemove())
 
 
 def done(update: Update, _: CallbackContext) -> int:
@@ -444,7 +464,7 @@ def getmods(update: Update, _: CallbackContext):
         namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + modLink + '\n'
     else:
         namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + 'No groupchat created yet \n/groupchatcreated to add groupchat ' \
-                                                                                'link' + '\n '
+                                                                               'link' + '\n '
     for i in data:
         namelist += ('@' + i[0] + '\n')
     update.effective_message.reply_text(namelist)
@@ -584,11 +604,14 @@ def add_module(update, context):
 def statefaculties(update: Update, _: CallbackContext):
     global tempFaculty
     tempFaculty = update.message.text.upper()
-    print(tempFaculty)
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return STATEFACULTIES
     update.message.reply_text(
         'Please indicate the name of your mod e.g. CS1010S',
         reply_markup=ReplyKeyboardRemove())
     return STATEMODULE
+
 
 
 def statemodule(update: Update, _: CallbackContext):
@@ -673,6 +696,17 @@ def unknown(update, context):
                                                                     "type /cancel to restart this.")
 
 
+def checkvalidfaculty(faculty, update):
+    validInput = ['BIZ', 'COMPUTING', 'GE MODS', 'ENGINEERING', 'FASS', 'SCIENCE', 'LAW', 'PUBLIC POLICY',
+                  'ISE', 'MUSIC', 'PUBLIC HEALTH', 'SDE']
+    if faculty not in validInput:
+        bot.send_message(chat_id=update.effective_chat.id,
+                         text="It appears you have input an invalid faculty, please only select faculty from "
+                              "the on-screen keyboard below.")
+        return False
+    return True
+
+
 def main():
     # account creator
     accountInitialisation = ConversationHandler(
@@ -682,36 +716,28 @@ def main():
             FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
                                                    'Policy|ISE|Music|Public Health)$'), faculty)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
-            MODS1_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods1_f),
+            MODS1_F: [MessageHandler(Filters.text & ~Filters.command, mods1_f),
                       CommandHandler('done', done)],
             MODS1: [MessageHandler(Filters.text & ~Filters.command, mods1), CommandHandler('done', done)],
-            MODS2_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods2_f),
+            MODS2_F: [MessageHandler(Filters.text & ~Filters.command, mods2_f),
                       CommandHandler('done', done)],
             MODS2: [MessageHandler(Filters.text & ~Filters.command, mods2), CommandHandler('done', done)],
-            MODS3_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods3_f),
+            MODS3_F: [MessageHandler(Filters.text & ~Filters.command, mods3_f),
                       CommandHandler('done', done)],
             MODS3: [MessageHandler(Filters.text & ~Filters.command, mods3), CommandHandler('done', done)],
-            MODS4_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods4_f),
+            MODS4_F: [MessageHandler(Filters.text & ~Filters.command, mods4_f),
                       CommandHandler('done', done)],
             MODS4: [MessageHandler(Filters.text & ~Filters.command, mods4), CommandHandler('done', done)],
-            MODS5_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods5_f),
+            MODS5_F: [MessageHandler(Filters.text & ~Filters.command, mods5_f),
                       CommandHandler('done', done)],
             MODS5: [MessageHandler(Filters.text & ~Filters.command, mods5), CommandHandler('done', done)],
-            MODS6_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods6_f),
+            MODS6_F: [MessageHandler(Filters.text & ~Filters.command, mods6_f),
                       CommandHandler('done', done)],
             MODS6: [MessageHandler(Filters.text & ~Filters.command, mods6), CommandHandler('done', done)],
-            MODS7_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods7_f),
+            MODS7_F: [MessageHandler(Filters.text & ~Filters.command, mods7_f),
                       CommandHandler('done', done)],
             MODS7: [MessageHandler(Filters.text & ~Filters.command, mods7), CommandHandler('done', done)],
-            MODS8_F: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health|GE Mods)$'), mods8_f),
+            MODS8_F: [MessageHandler(Filters.text & ~Filters.command, mods8_f),
                       CommandHandler('done', done)
                       ],
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
@@ -740,7 +766,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel)], )
     dispatcher.add_handler(createGroup)
 
-    #delete_mod
+    # delete_mod
     deleteMod = ConversationHandler(
         entry_points=[CommandHandler('deletemod', deletemod)],
         states={

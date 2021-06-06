@@ -657,7 +657,7 @@ def help(update, context):
                               "etc \n/done - Run after you are done entering all "
                               "your mods \n/cancel - Cancel to type another "
                               "command \n/mods - Obtain list of people studying "
-                              "the particular mod \n/groupchatcreated - Run if "
+                              "the particular mod \n/mymods- View your mods \n/groupchatcreated - Run if "
                               "you have created a group chat for a mod "
                               "\n/addmod - Add additional mod \n/deletemod - Delete mods that are wrongly added "
                               "\n/deleteaccount - Deletes your account \nPM "

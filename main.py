@@ -588,6 +588,7 @@ def deletemod(update: Update, _: CallbackContext):
 
 def choosemodule(update, context):
     modChosen = str(update.callback_query.data)
+    query.edit_message_text(text=f"Selected option: {update.callback_query.data}")
     global moduleDict
     global accountId
     modId = moduleDict[modChosen]

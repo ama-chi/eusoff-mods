@@ -2,6 +2,7 @@ from telegram import *
 from telegram.ext import *
 import logging
 import psycopg2 as pg2
+import re
 
 '''config'''
 token = "1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4"
@@ -195,6 +196,9 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS2
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your third mod',
@@ -219,6 +223,9 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS3
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your fourth mod',
@@ -243,6 +250,9 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS4
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your fifth mod',
@@ -267,6 +277,9 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS5
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your sixth mod',
@@ -291,6 +304,9 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS6
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your seventh mod',
@@ -315,6 +331,9 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS7
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your eighth mod',
@@ -339,6 +358,9 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS8
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'This is the last mod you can input, please type /done',
@@ -613,10 +635,12 @@ def statefaculties(update: Update, _: CallbackContext):
     return STATEMODULE
 
 
-
 def statemodule(update: Update, _: CallbackContext):
     module = update.message.text.upper()
     user = update.message.from_user.username
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return STATEMODULE
     global tempFaculty
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
@@ -705,6 +729,24 @@ def checkvalidfaculty(faculty, update):
                               "the on-screen keyboard below.")
         return False
     return True
+
+
+def checkvalidmod(mod,update):
+    m = re.match(r"(\D{2,3}\d{2,4}\D{0,2})", mod)
+    try:
+        start, stop = m.span()
+        if stop - start == len(mod):
+            return True
+        else:
+            bot.send_message(chat_id=update.effective_chat.id,
+                             text="It appears that you have inputted an invalid mod, please only enter a valid mod "
+                                  "code.")
+            return False
+    except:
+        bot.send_message(chat_id=update.effective_chat.id,
+                         text="It appears that you have inputted an invalid mod, please only enter a valid mod "
+                              "code.")
+        return False
 
 
 def main():

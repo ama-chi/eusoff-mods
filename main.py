@@ -98,7 +98,7 @@ def start(update: Update, _: CallbackContext):
     reply_keyboard = [['/register']]
     update.message.reply_text(
         'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, such as GE '
-        'mods, as well as the group chats created, firstly, please register with /register.',
+        'mods, as well as the group chats created, firstly, please register up to 8 mods with /register.',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
 
@@ -701,7 +701,7 @@ def checkvalidfaculty(faculty, update):
                   'ISE', 'MUSIC', 'PUBLIC HEALTH', 'SDE']
     if faculty not in validInput:
         bot.send_message(chat_id=update.effective_chat.id,
-                         text="It appears you have input an invalid faculty, please only select faculty from "
+                         text="It appears that you have inputted an invalid faculty, please only select faculty from "
                               "the on-screen keyboard below.")
         return False
     return True

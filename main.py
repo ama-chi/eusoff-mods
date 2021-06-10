@@ -786,8 +786,7 @@ def main():
         entry_points=[CommandHandler('register', register)],
         states={
             ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
-            FACULTY: [MessageHandler(Filters.regex('^(Biz|Computing|Engineering|FASS|Science|Law|Medicine|SDE|Public '
-                                                   'Policy|ISE|Music|Public Health)$'), faculty)],
+            FACULTY: [MessageHandler(Filters.text & ~Filters.command, faculty)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
             MODS1_F: [MessageHandler(Filters.text & ~Filters.command, mods1_f),
                       CommandHandler('done', done)],

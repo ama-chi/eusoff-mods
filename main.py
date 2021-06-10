@@ -135,7 +135,7 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
 
 def faculty(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    trueOrFalse = checkvalidfaculty(update.message.text.upper(), update)
     if trueOrFalse is False:
         return FACULTY
     logger.info("Faculty of %s: %s", user.username, update.message.text)
@@ -768,8 +768,8 @@ def checkvalidroomnumber(roomnumber, update):
             return True
         else:
             bot.send_message(chat_id=update.effective_chat.id,
-                             text="It appears that you have inputted an invalid roomnumber, please only enter a valid "
-                                  "roomnumber "
+                             text="It appears that you have inputted an invalid room number, please only enter a valid "
+                                  "room number "
                                   ".")
             return False
     except:

@@ -122,6 +122,9 @@ def register(update: Update, _: CallbackContext) -> int:
 
 def roomnumber(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalse = checkvalidroomnumber(update.message.text.upper(), update)
+    if trueOrFalse is False:
+        return ROOMNUMBER
     logger.info("Room Number of %s: %s", user.username, update.message.text.upper())
     newAccount.roomNumber = update.message.text.upper()
     update.message.reply_text(
@@ -132,6 +135,9 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
 
 def faculty(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
+    if trueOrFalse is False:
+        return FACULTY
     logger.info("Faculty of %s: %s", user.username, update.message.text)
     newAccount.faculty = update.message.text
     update.message.reply_text(
@@ -172,6 +178,9 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
+    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    if trueOrFalseMod is False:
+        return MODS1
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the faculty of your second mod',
@@ -733,7 +742,7 @@ def checkvalidfaculty(faculty, update):
     return True
 
 
-def checkvalidmod(mod,update):
+def checkvalidmod(mod, update):
     m = re.match(r"(\D{2,3}\d{2,4}\D{0,2})", mod)
     try:
         start, stop = m.span()
@@ -748,6 +757,26 @@ def checkvalidmod(mod,update):
         bot.send_message(chat_id=update.effective_chat.id,
                          text="It appears that you have inputted an invalid mod, please only enter a valid mod "
                               "code.")
+        return False
+
+
+def checkvalidroomnumber(roomnumber, update):
+    m = re.match(r"([ABCDE][1234][012][0-9])", roomnumber)
+    try:
+        start, stop = m.span()
+        if stop - start == len(roomnumber):
+            return True
+        else:
+            bot.send_message(chat_id=update.effective_chat.id,
+                             text="It appears that you have inputted an invalid roomnumber, please only enter a valid "
+                                  "roomnumber "
+                                  ".")
+            return False
+    except:
+        bot.send_message(chat_id=update.effective_chat.id,
+                         text="It appears that you have inputted an invalid roomnumber, please only enter a valid "
+                              "roomnumber "
+                              ".")
         return False
 
 

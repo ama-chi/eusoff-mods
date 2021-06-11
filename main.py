@@ -114,9 +114,9 @@ def register(update: Update, _: CallbackContext) -> int:
     newAccount.username = username
     newAccount.name = name
     update.message.reply_text(
-        'Please key in your ROOM NUMBER. \nIf you make a mistake anytime, '
-        'restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after registration. '
-        '\nIf you are a groupchat admin, type /groupchatcreated after registration.')
+        'Please key in your ROOM NUMBER.(for authentication purposes only, will not be disclosed) \nIf you make a '
+        'mistake anytime, restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after '
+        'registration. \nIf you are a groupchat admin, type /groupchatcreated after registration.')
     return ROOMNUMBER
 
 
@@ -141,7 +141,7 @@ def faculty(update: Update, _: CallbackContext) -> int:
     logger.info("Faculty of %s: %s", user.username, update.message.text)
     newAccount.faculty = update.message.text
     update.message.reply_text(
-        'Please indicate your course',
+        'Please indicate your major',
         reply_markup=ReplyKeyboardRemove())
     return COURSE
 

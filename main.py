@@ -62,13 +62,13 @@ dictDict = {}
 
 
 def input_id_into_selection_dict(username):
-    if id not in selectionDict:
+    if username not in selectionDict:
         selectionDict[username] = ''
 
 
 def input_id_into_dict_dict(username):
-    if id not in selectionDict:
-        selectionDict[username] = {}
+    if username not in dictDict:
+        dictDict[username] = {}
 
 
 def initialise_account():
@@ -108,7 +108,7 @@ def initialise_account():
 
 
 def start(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s started the bot", user.username)
     reply_keyboard = [['/register']]
@@ -119,7 +119,7 @@ def start(update: Update, _: CallbackContext):
 
 
 def register(update: Update, _: CallbackContext) -> int:
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s is registering", user.username)
     data = update.effective_chat
@@ -176,7 +176,7 @@ def course(update: Update, _: CallbackContext) -> int:
 
 def mods1_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS1_F
@@ -191,7 +191,7 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 def mods1(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS1
@@ -204,7 +204,7 @@ def mods1(update: Update, _: CallbackContext) -> int:
 
 def mods2_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS2_F
@@ -219,7 +219,7 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 def mods2(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS2
@@ -232,7 +232,7 @@ def mods2(update: Update, _: CallbackContext) -> int:
 
 def mods3_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS3_F
@@ -247,7 +247,7 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 def mods3(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS3
@@ -260,7 +260,7 @@ def mods3(update: Update, _: CallbackContext) -> int:
 
 def mods4_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS4_F
@@ -275,7 +275,7 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 def mods4(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS4
@@ -288,7 +288,7 @@ def mods4(update: Update, _: CallbackContext) -> int:
 
 def mods5_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS5_F
@@ -303,7 +303,7 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 def mods5(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS5
@@ -316,7 +316,7 @@ def mods5(update: Update, _: CallbackContext) -> int:
 
 def mods6_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS6_F
@@ -331,7 +331,7 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 def mods6(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS6
@@ -344,7 +344,7 @@ def mods6(update: Update, _: CallbackContext) -> int:
 
 def mods7_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS7_F
@@ -359,7 +359,7 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 def mods7(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS7
@@ -372,7 +372,7 @@ def mods7(update: Update, _: CallbackContext) -> int:
 
 def mods8_f(update: Update, _: CallbackContext) -> int:
     tempFaculty = update.message.text
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return MODS8_F
@@ -387,7 +387,7 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 def mods8(update: Update, _: CallbackContext):
     user = update.message.from_user
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return MODS8
@@ -398,7 +398,7 @@ def mods8(update: Update, _: CallbackContext):
 
 
 def done(update: Update, _: CallbackContext) -> int:
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
@@ -413,7 +413,7 @@ def done(update: Update, _: CallbackContext) -> int:
 
 
 def cancel(update: Update, _: CallbackContext) -> int:
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.username)
     update.message.reply_text(
@@ -435,8 +435,8 @@ tempDict = {}
 
 
 def mods(update: Update, _: CallbackContext) -> None:
-    input_id_into_selection_dict(update.message.from_user.username)
-    input_id_into_dict_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_dict_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s has run /mods", user.username)
     conn = pg2.connect(host=host, database=database,
@@ -451,7 +451,7 @@ def mods(update: Update, _: CallbackContext) -> None:
     cur.execute(getFaculty)
     data = cur.fetchall()
     faculty = []
-    tempDict = dictDict[update.message.from_user.username]
+    tempDict = dictDict[update.effective_chat.username]
     tempDict.clear()
     for key, value in data:
         if key.title() not in faculty:
@@ -469,11 +469,11 @@ def mods(update: Update, _: CallbackContext) -> None:
 
 
 def getfaculties(update: Update, _: CallbackContext) -> int:
-    input_id_into_selection_dict(update.message.from_user.username)
-    input_id_into_dict_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_dict_dict(update.effective_chat.username)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    tempDict = dictDict[update.message.from_user.username]
+    tempDict = dictDict[update.effective_chat.username]
     tempFacultyChosen = query.data
     mods = tempDict[tempFacultyChosen]
     mods.sort()
@@ -486,7 +486,7 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
 
 
 def getmods(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     update.effective_message.reply_text('Fetching data from database, may take a while...')
     modChosen = str(update.callback_query.data)
     query = update.callback_query
@@ -527,12 +527,12 @@ def getmods(update: Update, _: CallbackContext):
 
 
 def groupchatcreated(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.effective_message.from_user
     logger.info("User %s has run /groupchatcreated", user.username)
     modChosen = str(update.callback_query.data)
     tempModChosen = modChosen
-    selectionDict[update.message.from_user.username] = tempModChosen
+    selectionDict[update.effective_chat.username] = tempModChosen
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
     update.effective_message.reply_text('Please copy and paste the group link here.')
@@ -540,12 +540,12 @@ def groupchatcreated(update: Update, _: CallbackContext):
 
 
 def link(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
-    tempModChosen = selectionDict[update.message.from_user.username]
+    input_id_into_selection_dict(update.effective_chat.username)
+    tempModChosen = selectionDict[update.effective_chat.username]
     linkSubmitted = update.message.text
     user = update.effective_message.from_user
     logger.info("User %s has added the link of %s", user.username, linkSubmitted)
-    accountUsername = update.message.from_user.username
+    accountUsername = update.effective_chat.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -564,10 +564,10 @@ def link(update: Update, _: CallbackContext):
 
 
 def delete_account(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s has deleted account", user.username)
-    username = update.message.from_user.username
+    username = update.effective_chat.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -589,11 +589,11 @@ CHOOSEMODULE = range(1)
 
 
 def deletemod(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
-    input_id_into_dict_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_dict_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s has run /deletemod", user.username)
-    username = update.message.from_user.username
+    username = update.effective_chat.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -607,12 +607,12 @@ def deletemod(update: Update, _: CallbackContext):
     '''
     cur.execute(query, (username,))
     modules = cur.fetchall()
-    moduleDict = dictDict[update.message.from_user.username]
+    moduleDict = dictDict[update.effective_chat.username]
     moduleDict.clear()
     for i, j, k in modules:
         moduleDict[i] = j
         accountId = k
-        selectionDict[update.message.from_user.username] = accountId
+        selectionDict[update.effective_chat.username] = accountId
     keyboard = []
     for i in moduleDict:
         keyboard.append([InlineKeyboardButton(i, callback_data=i)])
@@ -622,13 +622,13 @@ def deletemod(update: Update, _: CallbackContext):
 
 
 def choosemodule(update, context):
-    input_id_into_selection_dict(update.message.from_user.username)
-    input_id_into_dict_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_dict_dict(update.effective_chat.username)
     modChosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    moduleDict = dictDict[update.message.from_user.username]
-    accountId = selectionDict[update.message.from_user.username]
+    moduleDict = dictDict[update.effective_chat.username]
+    accountId = selectionDict[update.effective_chat.username]
     modId = moduleDict[modChosen]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
@@ -651,7 +651,7 @@ STATEFACULTIES, STATEMODULE = range(2)
 
 
 def add_module(update, context):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s has run /addmod", user.username)
     update.message.reply_text(
@@ -663,9 +663,9 @@ def add_module(update, context):
 
 
 def statefaculties(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     tempFaculty = update.message.text.upper()
-    selectionDict[update.message.from_user.username] = tempFaculty
+    selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
     if trueOrFalse is False:
         return STATEFACULTIES
@@ -676,13 +676,13 @@ def statefaculties(update: Update, _: CallbackContext):
 
 
 def statemodule(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
+    input_id_into_selection_dict(update.effective_chat.username)
     module = update.message.text.upper()
-    user = update.message.from_user.username
+    user = update.effective_chat.username
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return STATEMODULE
-    tempFaculty = selectionDict[update.message.from_user.username]
+    tempFaculty = selectionDict[update.effective_chat.username]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)
@@ -731,8 +731,8 @@ def help(update, context):
 
 
 def mymods(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.message.from_user.username)
-    user = update.message.from_user.username
+    input_id_into_selection_dict(update.effective_chat.username)
+    user = update.effective_chat.username
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)

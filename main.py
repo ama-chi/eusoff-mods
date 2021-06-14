@@ -75,7 +75,8 @@ def input_id_into_newAccountDict(username):
         newAccountDict[username] = Account()
 
 
-def initialise_account():
+def initialise_account(update: Update, _: CallbackContext):
+    newAccount = newAccountDict[update.effective_chat.username]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
                        password=password)

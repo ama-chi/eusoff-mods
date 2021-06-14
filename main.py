@@ -75,7 +75,7 @@ def input_id_into_newAccountDict(username):
         newAccountDict[username] = Account()
 
 
-def initialise_account(update: Update, _: CallbackContext):
+def initialise_account(update: Update):
     newAccount = newAccountDict[update.effective_chat.username]
     conn = pg2.connect(host=host, database=database,
                        user=user_database,
@@ -446,7 +446,7 @@ def done(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
-    initialise_account()
+    initialise_account(update)
     update.message.reply_text(
         'Your data has been stored into the system, please type /mods and follow instructions to find people who are '
         'taking the same '

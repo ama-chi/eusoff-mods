@@ -59,7 +59,7 @@ ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MOD
 
 selectionDict = {}
 dictDict = {}
-
+newAccountDict = {}
 
 def input_id_into_selection_dict(username):
     if username not in selectionDict:
@@ -69,6 +69,10 @@ def input_id_into_selection_dict(username):
 def input_id_into_dict_dict(username):
     if username not in dictDict:
         dictDict[username] = {}
+
+def input_id_into_newAccountDict(username):
+    if username not in newAccountDict:
+        newAccountDict[username] = Account()
 
 
 def initialise_account():
@@ -109,6 +113,7 @@ def initialise_account():
 
 def start(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_newAccountDict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s started the bot", user.username)
     reply_keyboard = [['/register']]
@@ -120,13 +125,13 @@ def start(update: Update, _: CallbackContext):
 
 def register(update: Update, _: CallbackContext) -> int:
     input_id_into_selection_dict(update.effective_chat.username)
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     logger.info("User %s is registering", user.username)
     data = update.effective_chat
     username = data['username']
     name = data['first_name']
-    global newAccount
-    newAccount = Account()
     newAccount.username = username
     newAccount.name = name
     update.message.reply_text(
@@ -137,6 +142,8 @@ def register(update: Update, _: CallbackContext) -> int:
 
 
 def roomnumber(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     trueOrFalse = checkvalidroomnumber(update.message.text.upper(), update)
     if trueOrFalse is False:
@@ -150,6 +157,8 @@ def roomnumber(update: Update, _: CallbackContext) -> int:
 
 
 def faculty(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     trueOrFalse = checkvalidfaculty(update.message.text.upper(), update)
     if trueOrFalse is False:
@@ -163,6 +172,8 @@ def faculty(update: Update, _: CallbackContext) -> int:
 
 
 def course(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     logger.info("Course of %s: %s", user.username, update.message.text.upper())
     newAccount.course = update.message.text.upper()
@@ -175,6 +186,8 @@ def course(update: Update, _: CallbackContext) -> int:
 
 
 def mods1_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -190,6 +203,8 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods1(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -203,6 +218,8 @@ def mods1(update: Update, _: CallbackContext) -> int:
 
 
 def mods2_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -218,6 +235,8 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods2(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -231,6 +250,8 @@ def mods2(update: Update, _: CallbackContext) -> int:
 
 
 def mods3_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -246,6 +267,8 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods3(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -259,6 +282,8 @@ def mods3(update: Update, _: CallbackContext) -> int:
 
 
 def mods4_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -274,6 +299,8 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods4(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -287,6 +314,8 @@ def mods4(update: Update, _: CallbackContext) -> int:
 
 
 def mods5_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -302,6 +331,8 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods5(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -315,6 +346,8 @@ def mods5(update: Update, _: CallbackContext) -> int:
 
 
 def mods6_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -330,6 +363,8 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods6(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -343,6 +378,8 @@ def mods6(update: Update, _: CallbackContext) -> int:
 
 
 def mods7_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -358,6 +395,8 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods7(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
@@ -371,6 +410,8 @@ def mods7(update: Update, _: CallbackContext) -> int:
 
 
 def mods8_f(update: Update, _: CallbackContext) -> int:
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     tempFaculty = update.message.text
     selectionDict[update.effective_chat.username] = tempFaculty
     trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
@@ -386,6 +427,8 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
 
 
 def mods8(update: Update, _: CallbackContext):
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
     tempFaculty = selectionDict[update.effective_chat.username]
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)

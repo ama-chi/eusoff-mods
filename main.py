@@ -587,7 +587,7 @@ def link(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
     tempModChosen = selectionDict[update.effective_chat.username]
     linkSubmitted = update.message.text
-    trueOrFalse = checkvalidfaculty(linkSubmitted, update)
+    trueOrFalse = checkvalidlink(linkSubmitted, update)
     if trueOrFalse is False:
         return LINK
     user = update.effective_message.from_user

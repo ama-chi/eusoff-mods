@@ -587,6 +587,9 @@ def link(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
     tempModChosen = selectionDict[update.effective_chat.username]
     linkSubmitted = update.message.text
+    trueOrFalse = checkvalidfaculty(linkSubmitted, update)
+    if trueOrFalse is False:
+        return LINK
     user = update.effective_message.from_user
     logger.info("User %s has added the link of %s", user.username, linkSubmitted)
     accountUsername = update.effective_chat.username
@@ -835,11 +838,11 @@ def checkvalidmod(mod, update):
         return False
 
 
-def checkvalidroomnumber(roomnumber, update):
-    m = re.match(r"([ABCDE][1234][012][0-9])", roomnumber)
+def checkvalidroomnumber(roomNumber, update):
+    m = re.match(r"([ABCDE][1234][012][0-9])", roomNumber)
     try:
         start, stop = m.span()
-        if stop - start == len(roomnumber):
+        if stop - start == len(roomNumber):
             return True
         else:
             bot.send_message(chat_id=update.effective_chat.id,
@@ -849,11 +852,30 @@ def checkvalidroomnumber(roomnumber, update):
             return False
     except:
         bot.send_message(chat_id=update.effective_chat.id,
-                         text="It appears that you have inputted an invalid roomnumber, please only enter a valid "
-                              "roomnumber "
+                         text="It appears that you have inputted an invalid room number, please only enter a valid "
+                              "room number "
                               ".")
         return False
 
+
+def checkvalidlink(link, update):
+    m = re.match(r"(https://t.me/joinchat/.*)", link)
+    try:
+        start, stop = m.span()
+        if stop - start == len(link):
+            return True
+        else:
+            bot.send_message(chat_id=update.effective_chat.id,
+                             text="It appears that you have inputted an invalid link, please only enter a valid telegram group chat"
+                                  "link "
+                                  ".")
+            return False
+    except:
+        bot.send_message(chat_id=update.effective_chat.id,
+                         text="It appears that you have inputted an invalid link, please only enter a valid telegram group chat"
+                              "link "
+                              ".")
+        return False
 
 def main():
     # account creator

@@ -1,3 +1,4 @@
+import telegram
 from telegram import *
 from telegram.ext import *
 import logging
@@ -29,6 +30,7 @@ replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'],
 ''''''''
 
 
+
 class Account:
     def __init__(
             self,
@@ -37,7 +39,8 @@ class Account:
             roomnumber=None,
             faculty=None,
             course=None,
-            mods=None):
+            mods=None,
+            year = None):
         if mods is None:
             mods = {}
         self.name = name
@@ -46,6 +49,7 @@ class Account:
         self.faculty = faculty
         self.course = course
         self.mods = mods
+        self.year = year
 
 
 updater = Updater(token, use_context=True)
@@ -53,8 +57,8 @@ dispatcher = updater.dispatcher
 print(Bot.get_me(bot))
 ''''commands'''
 
-ROOMNUMBER, FACULTY, COURSE, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(
-    19)
+ROOMNUMBER, FACULTY, COURSE, YEAR, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(
+    20)
 
 
 selectionDict = {}
@@ -82,12 +86,12 @@ def initialise_account(update: Update):
                        password=password)
     cur = conn.cursor()
     insert_account = '''
-           INSERT INTO accounts(username,name,roomnumber,faculty,course)
-            VALUES (%s,%s,%s,%s,%s)
+           INSERT INTO accounts(username,name,roomnumber,faculty,course,year)
+            VALUES (%s,%s,%s,%s,%s,%s)
             ON CONFLICT (username) DO NOTHING
             '''
     cur.execute(insert_account,
-                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course))
+                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course, newAccount.year))
     for fac in newAccount.mods:
         for mod in newAccount.mods[fac]:
             insert_to_all_modules = '''
@@ -178,7 +182,23 @@ def course(update: Update, _: CallbackContext) -> int:
     user = update.message.from_user
     logger.info("Course of %s: %s", user.username, update.message.text.upper())
     newAccount.course = update.message.text.upper()
-    update.message.reply_text(
+    yearList = ["Year 1", "Year 2", "Year 3", "Year 4"]
+    keyboard = []
+    for i in yearList:
+        keyboard.append([InlineKeyboardButton(i, callback_data=i)])
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.effective_message.reply_text('Please select your year', reply_markup=reply_markup)
+    return YEAR
+
+
+def year(update: Update, _: CallbackContext):
+    input_id_into_newAccountDict(update.effective_chat.username)
+    newAccount = newAccountDict[update.effective_chat.username]
+    year = str(update.callback_query.data)
+    query = update.callback_query
+    query.edit_message_text(text=f"Selected option: {query.data}")
+    newAccount.year = year
+    update.effective_message.reply_text(
         'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
         'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
         'mistake.',
@@ -795,7 +815,7 @@ def mymods(update: Update, _: CallbackContext):
     cur.execute(getMyMods, (user,))
     data = cur.fetchall()
     mods = "The mods that you are taking this semester are \n"
-    for i in data:
+    for i in sorted(data):
         mods += i[0] + '\n'
 
     update.message.reply_text(
@@ -885,6 +905,7 @@ def main():
             ROOMNUMBER: [MessageHandler(Filters.text & ~Filters.command, roomnumber)],
             FACULTY: [MessageHandler(Filters.text & ~Filters.command, faculty)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
+            YEAR: [CallbackQueryHandler(year)],
             MODS1_F: [MessageHandler(Filters.text & ~Filters.command, mods1_f),
                       CommandHandler('done', done)],
             MODS1: [MessageHandler(Filters.text & ~Filters.command, mods1), CommandHandler('done', done)],

@@ -1,4 +1,3 @@
-from pymongo import *
 import psycopg2 as pg2
 
 conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx',
@@ -9,10 +8,11 @@ account_create = '''
         CREATE TABLE accounts (
             id SERIAL PRIMARY KEY
             ,username varchar(50) UNIQUE
-            , name varchar(50) NOT NULL
-            , roomnumber varchar(10) NOT NULL
+            ,name varchar(50) NOT NULL
+            ,roomnumber varchar(10) NOT NULL
             ,faculty varchar(50) NOT NULL
             ,course varchar(50) NOT NULL
+            ,year varchar(50)
         );
         '''
 

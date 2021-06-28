@@ -128,12 +128,13 @@ def initialise_account(update: Update):
             cur.execute(get_chat_id, (mod,))
             data = cur.fetchall()
             for chat_id in data:
-                if chat_id == update.effective_message.chat_id:
-                    continue
-                else:
+                if chat_id != update.effective_message.chat_id:
                     chat_id = chat_id[0]
                     bot.send_message(chat_id=chat_id,
                                      text="Someone is now taking " + mod + "! Run /mods to check")
+                else:
+                    continue
+
 
     conn.close()
 

@@ -114,7 +114,24 @@ def initialise_account(update: Update):
                         WHERE mod_name = %s))
                          '''
             cur.execute(insert_to_mods, (newAccount.username, mod, mod))
-    conn.commit()
+            conn.commit()
+
+    for fac in newAccount.mods:
+        for mod in newAccount.mods[fac]:
+            get_chat_id = '''
+                        SELECT chat_id FROM accounts
+                        INNER JOIN mods 
+                        ON accounts.id = mods.account_id
+                        WHERE mods.mod_id = (SELECT mod_id FROM all_modules
+                                            WHERE mod_name = %s)
+                         '''
+            cur.execute(get_chat_id, (mod,))
+            data = cur.fetchall()
+            for chat_id in data:
+                chat_id = chat_id[0]
+                bot.send_message(chat_id=chat_id,
+                                 text="Someone is now taking " + mod + "! Run /mods to check")
+
     conn.close()
 
 
@@ -789,6 +806,21 @@ def statemodule(update: Update, _: CallbackContext):
     update.message.reply_text(
         'Your data is being stored in the system, this may take a while')
     conn.commit()
+
+    get_chat_id = '''
+                SELECT chat_id FROM accounts
+                INNER JOIN mods 
+                ON accounts.id = mods.account_id
+                WHERE mods.mod_id = (SELECT mod_id FROM all_modules
+                                    WHERE mod_name = %s)
+                 '''
+    cur.execute(get_chat_id, (module,))
+    data = cur.fetchall()
+    for chat_id in data:
+        chat_id = chat_id[0]
+        bot.send_message(chat_id=chat_id,
+                         text="Someone is now taking " + module + "! Run /mods to check")
+
     update.message.reply_text(
         'Your data has been stored into the system, please type /addmod to add another module',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))

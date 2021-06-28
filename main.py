@@ -921,7 +921,6 @@ registeredAccountSet = set()
 
 def checkregisteredaccount(chat_id, update):
     if chat_id in registeredAccountSet:
-        print("if ran")
         return True
 
     else:
@@ -934,12 +933,10 @@ def checkregisteredaccount(chat_id, update):
             '''
         cur.execute(getChatId)
         data = cur.fetchall()
-        print(data)
         for id in data:
             id = id[0]
             if id not in registeredAccountSet:
                 registeredAccountSet.add(id)
-        print("else ran")
 
     if chat_id in registeredAccountSet:
         return True
@@ -947,7 +944,6 @@ def checkregisteredaccount(chat_id, update):
     else:
         bot.send_message(chat_id=update.effective_chat.id,
                          text="Please register before using with /register")
-        print("second else ran")
         return False
 
 

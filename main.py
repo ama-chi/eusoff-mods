@@ -831,7 +831,7 @@ def unknown(update, context):
 
 def checkvalidfaculty(faculty, update):
     validInput = ['BIZ', 'COMPUTING', 'GE MODS', 'ENGINEERING', 'FASS', 'SCIENCE', 'LAW', 'PUBLIC POLICY',
-                  'ISE', 'MUSIC', 'PUBLIC HEALTH', 'SDE']
+                  'ISE', 'MUSIC', 'PUBLIC HEALTH', 'SDE', 'CHS(AY21/22 ONWARDS)']
     if faculty not in validInput:
         bot.send_message(chat_id=update.effective_chat.id,
                          text="It appears that you have inputted an invalid faculty, please only select faculty from "

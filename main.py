@@ -130,9 +130,10 @@ def initialise_account(update: Update):
             for chat_id in data:
                 if chat_id == update.effective_message.chat_id:
                     continue
-                chat_id = chat_id[0]
-                bot.send_message(chat_id=chat_id,
-                                 text="Someone is now taking " + mod + "! Run /mods to check")
+                else:
+                    chat_id = chat_id[0]
+                    bot.send_message(chat_id=chat_id,
+                                     text="Someone is now taking " + mod + "! Run /mods to check")
 
     conn.close()
 
@@ -821,9 +822,10 @@ def statemodule(update: Update, _: CallbackContext):
     for chat_id in data:
         if chat_id == update.effective_message.chat_id:
             continue
-        chat_id = chat_id[0]
-        bot.send_message(chat_id=chat_id,
-                         text="Someone is now taking " + module + "! Run /mods to check")
+        else:
+            chat_id = chat_id[0]
+            bot.send_message(chat_id=chat_id,
+                             text="Someone is now taking " + module + "! Run /mods to check")
 
     update.message.reply_text(
         'Your data has been stored into the system, please type /addmod to add another module',

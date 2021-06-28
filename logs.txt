@@ -1,0 +1,17 @@
+
+
+
+heroku logs -n 10 --app eusoff-mods >> logs.txt
+
+
+
+2021-06-26T02:47:49.409836+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-26T02:47:50.784706+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-26T02:47:50.990692+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-26T02:47:55.664633+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-26T02:47:56.462693+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-26T02:47:59.573900+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-26T02:48:01.091209+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-26T02:48:01.093853+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-26T02:48:01.093855+00:00 app[worker.1]: warnings.warn(
+2021-06-26T02:48:01.099629+00:00 app[worker.1]: 2021-06-26 02:48:01,099 - apscheduler.scheduler - INFO - Scheduler started

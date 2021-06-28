@@ -21,8 +21,8 @@ password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
 replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
                          ['/groupchatcreated', '/deletemod', '/addmod']]
 
-replyKeyboardFaculties = [['Biz', 'Computing', 'SDE', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
-                          ['ISE', 'Music', 'Public Health']]
+replyKeyboardFaculties = [['Biz', 'Computing', 'CHS(AY21/22 Onwards)', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+                          ['ISE', 'Music', 'Public Health', 'SDE']]
 
 replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'],
                              ['FASS', 'Science', 'Law', 'Public Policy', ],

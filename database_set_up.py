@@ -13,6 +13,7 @@ account_create = '''
             ,faculty varchar(50) NOT NULL
             ,course varchar(50) NOT NULL
             ,year varchar(50)
+            ,chat_id int UNIQUE
         );
         '''
 

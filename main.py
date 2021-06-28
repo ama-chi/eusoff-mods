@@ -40,7 +40,8 @@ class Account:
             faculty=None,
             course=None,
             mods=None,
-            year = None):
+            year = None,
+            chat_id = None):
         if mods is None:
             mods = {}
         self.name = name
@@ -50,6 +51,7 @@ class Account:
         self.course = course
         self.mods = mods
         self.year = year
+        self.chat_id = chat_id
 
 
 updater = Updater(token, use_context=True)
@@ -86,12 +88,12 @@ def initialise_account(update: Update):
                        password=password)
     cur = conn.cursor()
     insert_account = '''
-           INSERT INTO accounts(username,name,roomnumber,faculty,course,year)
-            VALUES (%s,%s,%s,%s,%s,%s)
-            ON CONFLICT (username) DO NOTHING
+           INSERT INTO accounts(username,name,roomnumber,faculty,course,year,chat_id)
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+            ON CONFLICT (chat_id) DO NOTHING
             '''
     cur.execute(insert_account,
-                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course, newAccount.year))
+                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course, newAccount.year, newAccount.chat_id))
     for fac in newAccount.mods:
         for mod in newAccount.mods[fac]:
             insert_to_all_modules = '''
@@ -139,6 +141,7 @@ def register(update: Update, _: CallbackContext) -> int:
     name = data['first_name']
     newAccount.username = username
     newAccount.name = name
+    newAccount.chat_id = update.effective_message.chat_id
     update.message.reply_text(
         'Please key in your ROOM NUMBER (for authentication purposes only, will not be disclosed) \nIf you make a '
         'mistake anytime, restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after '
@@ -501,6 +504,9 @@ tempDict = {}
 def mods(update: Update, _: CallbackContext) -> None:
     input_id_into_selection_dict(update.effective_chat.username)
     input_id_into_dict_dict(update.effective_chat.username)
+    isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
+    if isRegisteredAccount is False:
+        return
     user = update.message.from_user
     logger.info("User %s has run /mods", user.username)
     conn = pg2.connect(host=host, database=database,
@@ -632,6 +638,9 @@ def link(update: Update, _: CallbackContext):
 
 def delete_account(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
+    isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
+    if isRegisteredAccount is False:
+        return
     user = update.message.from_user
     logger.info("User %s has deleted account", user.username)
     username = update.effective_chat.username
@@ -658,6 +667,9 @@ CHOOSEMODULE = range(1)
 def deletemod(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
     input_id_into_dict_dict(update.effective_chat.username)
+    isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
+    if isRegisteredAccount is False:
+        return
     user = update.message.from_user
     logger.info("User %s has run /deletemod", user.username)
     username = update.effective_chat.username
@@ -718,6 +730,9 @@ STATEFACULTIES, STATEMODULE = range(2)
 
 
 def add_module(update, context):
+    isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
+    if isRegisteredAccount is False:
+        return
     input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
     logger.info("User %s has run /addmod", user.username)
@@ -798,6 +813,9 @@ def help(update, context):
 
 
 def mymods(update: Update, _: CallbackContext):
+    isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
+    if isRegisteredAccount is False:
+        return
     input_id_into_selection_dict(update.effective_chat.username)
     user = update.effective_chat.username
     conn = pg2.connect(host=host, database=database,
@@ -896,6 +914,43 @@ def checkvalidlink(link, update):
                               "link "
                               ".")
         return False
+
+
+registeredAccountSet = set()
+
+
+def checkregisteredaccount(chat_id, update):
+    if chat_id in registeredAccountSet:
+        print("if ran")
+        return True
+
+    else:
+        conn = pg2.connect(host=host, database=database,
+                           user=user_database,
+                           password=password)
+        cur = conn.cursor()
+        getChatId = '''
+            SELECT chat_id FROM accounts
+            '''
+        cur.execute(getChatId)
+        data = cur.fetchall()
+        print(data)
+        for id in data:
+            id = id[0]
+            if id not in registeredAccountSet:
+                registeredAccountSet.add(id)
+        print("else ran")
+
+    if chat_id in registeredAccountSet:
+        return True
+
+    else:
+        bot.send_message(chat_id=update.effective_chat.id,
+                         text="Please register before using with /register")
+        print("second else ran")
+        return False
+
+
 
 def main():
     # account creator

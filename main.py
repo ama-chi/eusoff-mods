@@ -21,14 +21,14 @@ password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
 replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
                          ['/groupchatcreated', '/deletemod', '/addmod']]
 
-replyKeyboardFaculties = [['Biz', 'Computing', 'CHS(AY21/22 Onwards)', 'Engineering'], ['FASS', 'Science', 'Law', 'Public Policy', ],
+replyKeyboardFaculties = [['Biz', 'Computing', 'CHS(AY21/22 Onwards)', 'Engineering'],
+                          ['FASS', 'Science', 'Law', 'Public Policy', ],
                           ['ISE', 'Music', 'Public Health', 'SDE']]
 
 replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'],
                              ['FASS', 'Science', 'Law', 'Public Policy', ],
                              ['ISE', 'Music', 'Public Health', 'SDE']]
 ''''''''
-
 
 
 class Account:
@@ -40,8 +40,8 @@ class Account:
             faculty=None,
             course=None,
             mods=None,
-            year = None,
-            chat_id = None):
+            year=None,
+            chat_id=None):
         if mods is None:
             mods = {}
         self.name = name
@@ -62,10 +62,10 @@ print(Bot.get_me(bot))
 ROOMNUMBER, FACULTY, COURSE, YEAR, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(
     20)
 
-
 selectionDict = {}
 dictDict = {}
 newAccountDict = {}
+
 
 def input_id_into_selection_dict(username):
     if username not in selectionDict:
@@ -75,6 +75,7 @@ def input_id_into_selection_dict(username):
 def input_id_into_dict_dict(username):
     if username not in dictDict:
         dictDict[username] = {}
+
 
 def input_id_into_newAccountDict(username):
     if username not in newAccountDict:
@@ -93,7 +94,8 @@ def initialise_account(update: Update):
             ON CONFLICT (chat_id) DO NOTHING
             '''
     cur.execute(insert_account,
-                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course, newAccount.year, newAccount.chat_id))
+                (newAccount.username, newAccount.name, newAccount.roomNumber, newAccount.faculty, newAccount.course,
+                 newAccount.year, newAccount.chat_id))
     for fac in newAccount.mods:
         for mod in newAccount.mods[fac]:
             insert_to_all_modules = '''
@@ -132,9 +134,11 @@ def initialise_account(update: Update):
                     continue
                 else:
                     chat_id = chat_id[0]
-                    bot.send_message(chat_id=chat_id,
+                    try:
+                        bot.send_message(chat_id=chat_id,
                                      text="Someone is now taking " + mod + "! Run /mods to check")
-
+                    except:
+                        continue
 
     conn.close()
 
@@ -826,8 +830,11 @@ def statemodule(update: Update, _: CallbackContext):
             continue
         else:
             chat_id = chat_id[0]
-            bot.send_message(chat_id=chat_id,
-                             text="Someone is now taking " + module + "! Run /mods to check")
+            try:
+                bot.send_message(chat_id=chat_id,
+                                 text="Someone is now taking " + module + "! Run /mods to check")
+            except:
+                continue
 
     update.message.reply_text(
         'Your data has been stored into the system, please type /addmod to add another module',
@@ -985,7 +992,6 @@ def checkregisteredaccount(chat_id, update):
         bot.send_message(chat_id=update.effective_chat.id,
                          text="Please register before using with /register")
         return False
-
 
 
 def main():

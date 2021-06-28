@@ -15,3 +15,1013 @@ heroku logs -n 10 --app eusoff-mods >> logs.txt
 2021-06-26T02:48:01.093853+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
 2021-06-26T02:48:01.093855+00:00 app[worker.1]: warnings.warn(
 2021-06-26T02:48:01.099629+00:00 app[worker.1]: 2021-06-26 02:48:01,099 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T09:33:15.636404+00:00 app[worker.1]: result = self._post(endpoint, data, timeout=timeout, api_kwargs=api_kwargs)
+2021-06-28T09:33:15.636405+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 259, in _post
+2021-06-28T09:33:15.636405+00:00 app[worker.1]: return self.request.post(
+2021-06-28T09:33:15.636406+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 350, in post
+2021-06-28T09:33:15.636406+00:00 app[worker.1]: result = self._request_wrapper(
+2021-06-28T09:33:15.636407+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 271, in _request_wrapper
+2021-06-28T09:33:15.636407+00:00 app[worker.1]: raise Unauthorized(message)
+2021-06-28T09:33:15.636408+00:00 app[worker.1]: telegram.error.Unauthorized: Forbidden: bot was blocked by the user
+2021-06-28T09:33:22.858430+00:00 app[worker.1]: 2021-06-28 09:33:22,858 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T09:33:37.701418+00:00 app[worker.1]: 2021-06-28 09:33:37,701 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T04:19:37.225833+00:00 app[worker.1]: 2021-06-28 04:19:37,223 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+2021-06-28T04:19:37.225834+00:00 app[worker.1]: Traceback (most recent call last):
+2021-06-28T04:19:37.225835+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/updater.py", line 520, in _network_loop_retry
+2021-06-28T04:19:37.225836+00:00 app[worker.1]: if not action_cb():
+2021-06-28T04:19:37.225836+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/updater.py", line 471, in polling_action_cb
+2021-06-28T04:19:37.225836+00:00 app[worker.1]: updates = self.bot.get_updates(
+2021-06-28T04:19:37.225837+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 127, in decorator
+2021-06-28T04:19:37.225837+00:00 app[worker.1]: result = func(*args, **kwargs)
+2021-06-28T04:19:37.225838+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 2761, in get_updates
+2021-06-28T04:19:37.225838+00:00 app[worker.1]: result = self._post(
+2021-06-28T04:19:37.225839+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 259, in _post
+2021-06-28T04:19:37.225839+00:00 app[worker.1]: return self.request.post(
+2021-06-28T04:19:37.225839+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 350, in post
+2021-06-28T04:19:37.225840+00:00 app[worker.1]: result = self._request_wrapper(
+2021-06-28T04:19:37.225840+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 277, in _request_wrapper
+2021-06-28T04:19:37.225840+00:00 app[worker.1]: raise Conflict(message)
+2021-06-28T04:19:37.225840+00:00 app[worker.1]: telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2021-06-28T04:19:41.992246+00:00 app[worker.1]: 2021-06-28 04:19:41,992 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2021-06-28T04:19:41.992952+00:00 app[worker.1]: 2021-06-28 04:19:41,992 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+2021-06-28T04:19:41.992954+00:00 app[worker.1]: Traceback (most recent call last):
+2021-06-28T04:19:41.992954+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/updater.py", line 520, in _network_loop_retry
+2021-06-28T04:19:41.992955+00:00 app[worker.1]: if not action_cb():
+2021-06-28T04:19:41.992955+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/updater.py", line 471, in polling_action_cb
+2021-06-28T04:19:41.992956+00:00 app[worker.1]: updates = self.bot.get_updates(
+2021-06-28T04:19:41.992956+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 127, in decorator
+2021-06-28T04:19:41.992957+00:00 app[worker.1]: result = func(*args, **kwargs)
+2021-06-28T04:19:41.992957+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 2761, in get_updates
+2021-06-28T04:19:41.992958+00:00 app[worker.1]: result = self._post(
+2021-06-28T04:19:41.992959+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 259, in _post
+2021-06-28T04:19:41.992959+00:00 app[worker.1]: return self.request.post(
+2021-06-28T04:19:41.992959+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 350, in post
+2021-06-28T04:19:41.992960+00:00 app[worker.1]: result = self._request_wrapper(
+2021-06-28T04:19:41.992960+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 277, in _request_wrapper
+2021-06-28T04:19:41.992960+00:00 app[worker.1]: raise Conflict(message)
+2021-06-28T04:19:41.992961+00:00 app[worker.1]: telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2021-06-28T04:19:49.948414+00:00 app[worker.1]: [(82221171,), (97901556,)]
+2021-06-28T04:19:49.948723+00:00 app[worker.1]: else ran
+2021-06-28T04:19:49.950275+00:00 app[worker.1]: 2021-06-28 04:19:49,949 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:19:57.587602+00:00 app[worker.1]: if ran
+2021-06-28T04:20:02.757597+00:00 app[worker.1]: 2021-06-28 04:20:02,757 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T04:20:05.062836+00:00 app[worker.1]: if ran
+2021-06-28T04:20:06.990187+00:00 app[worker.1]: if ran
+2021-06-28T04:20:06.990589+00:00 app[worker.1]: 2021-06-28 04:20:06,990 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:20:20.159917+00:00 app[worker.1]: if ran
+2021-06-28T04:20:20.160361+00:00 app[worker.1]: 2021-06-28 04:20:20,160 - __main__ - INFO - User yeeeeehan has deleted account
+2021-06-28T04:20:51.390596+00:00 app[worker.1]: if ran
+2021-06-28T04:20:51.391092+00:00 app[worker.1]: 2021-06-28 04:20:51,390 - __main__ - INFO - User yeeeeehan has run /mods
+2021-06-28T04:21:55.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T04:22:09.571034+00:00 app[worker.1]: 2021-06-28 04:22:09,570 - __main__ - INFO - User yeeeeehan canceled the conversation.
+2021-06-28T04:22:11.755983+00:00 app[worker.1]: if ran
+2021-06-28T04:22:11.756231+00:00 app[worker.1]: 2021-06-28 04:22:11,756 - __main__ - INFO - User yeeeeehan has run /mods
+2021-06-28T04:22:19.163344+00:00 app[api]: Release v84 created by user yeechern123@gmail.com
+2021-06-28T04:22:19.163344+00:00 app[api]: Deploy 5fa805a3 by user yeechern123@gmail.com
+2021-06-28T04:22:20.156265+00:00 heroku[worker.1]: Restarting
+2021-06-28T04:22:20.169124+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T04:22:21.341330+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T04:22:21.528160+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T04:22:24.893547+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T04:22:25.516494+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T04:22:29.000000+00:00 app[api]: Build succeeded
+2021-06-28T04:22:30.042265+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T04:22:31.573332+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T04:22:31.575703+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T04:22:31.575713+00:00 app[worker.1]: warnings.warn(
+2021-06-28T04:22:31.577047+00:00 app[worker.1]: 2021-06-28 04:22:31,576 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T04:22:49.151760+00:00 app[worker.1]: 2021-06-28 04:22:49,151 - __main__ - INFO - User yeeeeehan has run /help
+2021-06-28T04:23:02.613284+00:00 app[worker.1]: 2021-06-28 04:23:02,613 - __main__ - INFO - User yeeeeehan is registering
+2021-06-28T04:23:06.544382+00:00 app[worker.1]: 2021-06-28 04:23:06,544 - __main__ - INFO - User yeeeeehan started the bot
+2021-06-28T04:23:13.917125+00:00 app[worker.1]: 2021-06-28 04:23:13,916 - __main__ - INFO - User yeeeeehan canceled the conversation.
+2021-06-28T04:23:16.821511+00:00 app[worker.1]: 2021-06-28 04:23:16,821 - __main__ - INFO - User yeeeeehan started the bot
+2021-06-28T04:23:18.213959+00:00 app[worker.1]: 2021-06-28 04:23:18,213 - __main__ - INFO - User yeeeeehan is registering
+2021-06-28T04:23:24.600309+00:00 app[worker.1]: 2021-06-28 04:23:24,600 - __main__ - INFO - User yeeeeehan canceled the conversation.
+2021-06-28T04:23:49.691767+00:00 app[worker.1]: 2021-06-28 04:23:49,691 - __main__ - INFO - User yeeeeehan started the bot
+2021-06-28T04:23:51.189530+00:00 app[worker.1]: 2021-06-28 04:23:51,189 - __main__ - INFO - User yeeeeehan is registering
+2021-06-28T04:24:03.482183+00:00 app[worker.1]: 2021-06-28 04:24:03,481 - __main__ - INFO - User yeeeeehan canceled the conversation.
+2021-06-28T04:24:09.861567+00:00 app[worker.1]: 2021-06-28 04:24:09,861 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:24:18.345719+00:00 app[worker.1]: 2021-06-28 04:24:18,345 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T04:24:29.389704+00:00 app[worker.1]: 2021-06-28 04:24:29,389 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T04:24:48.900874+00:00 app[worker.1]: 2021-06-28 04:24:48,900 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T04:24:59.805590+00:00 app[worker.1]: 2021-06-28 04:24:59,805 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T04:25:06.380915+00:00 app[worker.1]: 2021-06-28 04:25:06,380 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T04:44:23.364408+00:00 app[worker.1]: 2021-06-28 04:44:23,364 - __main__ - INFO - User annoyy1ng is registering
+2021-06-28T04:44:32.727479+00:00 app[worker.1]: 2021-06-28 04:44:32,727 - __main__ - INFO - Room Number of annoyy1ng: D305
+2021-06-28T04:44:36.058457+00:00 app[worker.1]: 2021-06-28 04:44:36,058 - __main__ - INFO - Faculty of annoyy1ng: Science
+2021-06-28T04:44:41.678897+00:00 app[worker.1]: 2021-06-28 04:44:41,678 - __main__ - INFO - Course of annoyy1ng: LIFE SCIENCE
+2021-06-28T04:45:36.267905+00:00 app[worker.1]: 2021-06-28 04:45:36,267 - __main__ - INFO - annoyy1ng has initialised their account
+2021-06-28T04:45:39.422902+00:00 app[worker.1]: 2021-06-28 04:45:39,422 - __main__ - INFO - User annoyy1ng has run /mods
+2021-06-28T04:46:01.460887+00:00 app[worker.1]: 2021-06-28 04:46:01,460 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T04:46:03.142331+00:00 app[worker.1]: 2021-06-28 04:46:03,142 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:46:12.442112+00:00 app[worker.1]: 2021-06-28 04:46:12,441 - __main__ - INFO - User annoyy1ng has run /mods
+2021-06-28T04:46:24.858413+00:00 app[worker.1]: 2021-06-28 04:46:24,858 - __main__ - INFO - User annoyy1ng has run /mods
+2021-06-28T04:47:39.620802+00:00 app[worker.1]: 2021-06-28 04:47:39,620 - __main__ - INFO - User kehuann canceled the conversation.
+2021-06-28T04:47:42.838828+00:00 app[worker.1]: 2021-06-28 04:47:42,838 - __main__ - INFO - User glennljs started the bot
+2021-06-28T04:47:44.002697+00:00 app[worker.1]: 2021-06-28 04:47:44,002 - __main__ - INFO - User kehuann is registering
+2021-06-28T04:47:44.277011+00:00 app[worker.1]: 2021-06-28 04:47:44,276 - __main__ - INFO - User giovanniwijaya started the bot
+2021-06-28T04:47:46.303864+00:00 app[worker.1]: 2021-06-28 04:47:46,303 - __main__ - INFO - User giovanniwijaya is registering
+2021-06-28T04:47:49.004435+00:00 app[worker.1]: 2021-06-28 04:47:49,004 - __main__ - INFO - Room Number of kehuann: B301
+2021-06-28T04:47:49.941422+00:00 app[worker.1]: 2021-06-28 04:47:49,941 - __main__ - INFO - Room Number of giovanniwijaya: D105
+2021-06-28T04:47:50.322606+00:00 app[worker.1]: 2021-06-28 04:47:50,322 - __main__ - INFO - User Wenkakaka started the bot
+2021-06-28T04:47:50.838307+00:00 app[worker.1]: 2021-06-28 04:47:50,838 - __main__ - INFO - Faculty of kehuann: Biz
+2021-06-28T04:47:52.521269+00:00 app[worker.1]: 2021-06-28 04:47:52,521 - __main__ - INFO - User vivianyeet started the bot
+2021-06-28T04:47:54.404473+00:00 app[worker.1]: 2021-06-28 04:47:54,404 - __main__ - INFO - Faculty of giovanniwijaya: Engineering
+2021-06-28T04:47:54.989199+00:00 app[worker.1]: 2021-06-28 04:47:54,988 - __main__ - INFO - User Wenkakaka is registering
+2021-06-28T04:47:55.269743+00:00 app[worker.1]: 2021-06-28 04:47:55,269 - __main__ - INFO - Course of kehuann: ACCOUNTANCY
+2021-06-28T04:47:56.664450+00:00 app[worker.1]: 2021-06-28 04:47:56,664 - __main__ - INFO - User glennljs started the bot
+2021-06-28T04:48:00.197659+00:00 app[worker.1]: 2021-06-28 04:48:00,197 - __main__ - INFO - User vivianyeet started the bot
+2021-06-28T04:48:00.889060+00:00 app[worker.1]: 2021-06-28 04:48:00,888 - __main__ - INFO - Course of giovanniwijaya: CHEMICAL ENGINEERING
+2021-06-28T04:48:02.151440+00:00 app[worker.1]: 2021-06-28 04:48:02,150 - __main__ - INFO - Room Number of Wenkakaka: D406
+2021-06-28T04:48:02.590208+00:00 app[worker.1]: 2021-06-28 04:48:02,590 - __main__ - INFO - User glennljs is registering
+2021-06-28T04:48:04.721617+00:00 app[worker.1]: 2021-06-28 04:48:04,721 - __main__ - INFO - Faculty of Wenkakaka: Engineering
+2021-06-28T04:48:09.233351+00:00 app[worker.1]: 2021-06-28 04:48:09,233 - __main__ - INFO - User vivianyeet is registering
+2021-06-28T04:48:10.442939+00:00 app[worker.1]: 2021-06-28 04:48:10,442 - __main__ - INFO - Course of Wenkakaka: MECHANICAL
+2021-06-28T04:48:17.996545+00:00 app[worker.1]: 2021-06-28 04:48:17,996 - __main__ - INFO - Room Number of glennljs: D410
+2021-06-28T04:48:21.872338+00:00 app[worker.1]: 2021-06-28 04:48:21,872 - __main__ - INFO - Faculty of glennljs: Computing
+2021-06-28T04:48:24.059462+00:00 app[worker.1]: 2021-06-28 04:48:24,059 - __main__ - INFO - kehuann has initialised their account
+2021-06-28T04:48:24.059834+00:00 app[worker.1]: 2021-06-28 04:48:24,059 - __main__ - INFO - Room Number of vivianyeet: D216
+2021-06-28T04:48:26.681769+00:00 app[worker.1]: 2021-06-28 04:48:26,681 - __main__ - INFO - Faculty of vivianyeet: Biz
+2021-06-28T04:48:29.601881+00:00 app[worker.1]: 2021-06-28 04:48:29,601 - __main__ - INFO - Course of glennljs: BUSINESS ANALYTICS
+2021-06-28T04:48:32.412349+00:00 app[worker.1]: 2021-06-28 04:48:32,412 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:48:35.057156+00:00 app[worker.1]: 2021-06-28 04:48:35,056 - __main__ - INFO - Course of vivianyeet: BUSINESS ADMINISTRATION
+2021-06-28T04:48:42.261819+00:00 app[worker.1]: 2021-06-28 04:48:42,261 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:48:44.672552+00:00 app[worker.1]: 2021-06-28 04:48:44,672 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:48:46.275370+00:00 app[worker.1]: 2021-06-28 04:48:46,275 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T04:48:59.547842+00:00 app[worker.1]: 2021-06-28 04:48:59,547 - __main__ - INFO - giovanniwijaya has initialised their account
+2021-06-28T04:49:00.653164+00:00 app[worker.1]: 2021-06-28 04:49:00,652 - __main__ - INFO - User xxrish started the bot
+2021-06-28T04:49:01.248039+00:00 app[worker.1]: 2021-06-28 04:49:01,247 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:49:03.338154+00:00 app[worker.1]: 2021-06-28 04:49:03,337 - __main__ - INFO - User xxrish is registering
+2021-06-28T04:49:05.313428+00:00 app[worker.1]: 2021-06-28 04:49:05,313 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:49:13.145021+00:00 app[worker.1]: 2021-06-28 04:49:13,144 - __main__ - INFO - Room Number of xxrish: C304
+2021-06-28T04:49:16.713403+00:00 app[worker.1]: 2021-06-28 04:49:16,713 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:49:17.758571+00:00 app[worker.1]: 2021-06-28 04:49:17,758 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:49:19.125470+00:00 app[worker.1]: 2021-06-28 04:49:19,125 - __main__ - INFO - Faculty of xxrish: FASS
+2021-06-28T04:49:23.100970+00:00 app[worker.1]: 2021-06-28 04:49:23,100 - __main__ - INFO - glennljs has initialised their account
+2021-06-28T04:49:24.072376+00:00 app[worker.1]: 2021-06-28 04:49:24,072 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:49:27.781985+00:00 app[worker.1]: 2021-06-28 04:49:27,781 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T04:49:29.097815+00:00 app[worker.1]: 2021-06-28 04:49:29,097 - __main__ - INFO - User glennljs has run /mods
+2021-06-28T04:49:29.668156+00:00 app[worker.1]: 2021-06-28 04:49:29,667 - __main__ - INFO - Course of xxrish: POLITICAL SCIENCE
+2021-06-28T04:49:30.257051+00:00 app[worker.1]: 2021-06-28 04:49:30,256 - __main__ - INFO - User natchongg is registering
+2021-06-28T04:49:31.167691+00:00 app[worker.1]: 2021-06-28 04:49:31,167 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:49:33.411683+00:00 app[worker.1]: 2021-06-28 04:49:33,411 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:49:33.710317+00:00 app[worker.1]: 2021-06-28 04:49:33,710 - __main__ - INFO - User kehuann canceled the conversation.
+2021-06-28T04:49:35.868200+00:00 app[worker.1]: 2021-06-28 04:49:35,867 - __main__ - INFO - Room Number of natchongg: D419
+2021-06-28T04:49:36.824167+00:00 app[worker.1]: 2021-06-28 04:49:36,823 - __main__ - INFO - User kehuann has run /mods
+2021-06-28T04:49:39.016660+00:00 app[worker.1]: 2021-06-28 04:49:39,016 - __main__ - INFO - Wenkakaka has initialised their account
+2021-06-28T04:49:43.579125+00:00 app[worker.1]: 2021-06-28 04:49:43,578 - __main__ - INFO - vivianyeet has initialised their account
+2021-06-28T04:49:44.610960+00:00 app[worker.1]: 2021-06-28 04:49:44,610 - __main__ - INFO - User Wenkakaka has run /mods
+2021-06-28T04:49:48.626870+00:00 app[worker.1]: 2021-06-28 04:49:48,626 - __main__ - INFO - User vivianyeet has run /mods
+2021-06-28T04:49:49.269641+00:00 app[worker.1]: 2021-06-28 04:49:49,269 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:49:53.671946+00:00 app[worker.1]: 2021-06-28 04:49:53,671 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:50:04.903623+00:00 app[worker.1]: 2021-06-28 04:50:04,903 - __main__ - INFO - User Wenkakaka has run /mods
+2021-06-28T04:50:05.518628+00:00 app[worker.1]: 2021-06-28 04:50:05,518 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T04:50:12.973364+00:00 app[worker.1]: 2021-06-28 04:50:12,973 - __main__ - INFO - User Sleekyteles started the bot
+2021-06-28T04:50:17.615403+00:00 app[worker.1]: 2021-06-28 04:50:17,615 - __main__ - INFO - User Sleekyteles is registering
+2021-06-28T04:50:22.204580+00:00 app[worker.1]: 2021-06-28 04:50:22,204 - __main__ - INFO - Room Number of Sleekyteles: D401
+2021-06-28T04:50:29.113121+00:00 app[worker.1]: 2021-06-28 04:50:29,112 - __main__ - INFO - Faculty of Sleekyteles: SDE
+2021-06-28T04:50:41.076674+00:00 app[worker.1]: 2021-06-28 04:50:41,076 - __main__ - INFO - Course of Sleekyteles: PROJECT AND FACILITIES MANAGEMENT
+2021-06-28T04:50:54.758001+00:00 app[worker.1]: 2021-06-28 04:50:54,757 - __main__ - INFO - xxrish has initialised their account
+2021-06-28T04:51:03.775409+00:00 app[worker.1]: 2021-06-28 04:51:03,775 - __main__ - INFO - User xxrish has run /mods
+2021-06-28T04:51:08.562589+00:00 app[worker.1]: 2021-06-28 04:51:08,562 - __main__ - INFO - User giovanniwijaya has run /addmod
+2021-06-28T04:51:23.183375+00:00 app[worker.1]: 2021-06-28 04:51:23,183 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T04:51:25.198927+00:00 app[worker.1]: 2021-06-28 04:51:25,198 - __main__ - INFO - User xxrish has run /mods
+2021-06-28T04:51:30.643006+00:00 app[worker.1]: 2021-06-28 04:51:30,642 - __main__ - INFO - User eusoffmods_bot has run /groupchatcreated
+2021-06-28T04:51:35.922594+00:00 app[worker.1]: 2021-06-28 04:51:35,922 - __main__ - INFO - Sleekyteles has initialised their account
+2021-06-28T04:51:41.049718+00:00 app[worker.1]: 2021-06-28 04:51:41,049 - __main__ - INFO - User Sleekyteles has run /mods
+2021-06-28T04:51:42.944149+00:00 app[worker.1]: 2021-06-28 04:51:42,943 - __main__ - INFO - User xxrish has run /mods
+2021-06-28T04:52:01.210556+00:00 app[worker.1]: 2021-06-28 04:52:01,210 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T04:52:04.128513+00:00 app[worker.1]: 2021-06-28 04:52:04,128 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:52:06.823237+00:00 app[worker.1]: 2021-06-28 04:52:06,822 - __main__ - INFO - User xxrish has run /mods
+2021-06-28T04:52:15.142056+00:00 app[worker.1]: 2021-06-28 04:52:15,141 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T04:52:16.853115+00:00 app[worker.1]: 2021-06-28 04:52:16,852 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:52:21.316764+00:00 app[worker.1]: 2021-06-28 04:52:21,315 - __main__ - INFO - User kehuann has run /mods
+2021-06-28T04:52:27.646125+00:00 app[worker.1]: 2021-06-28 04:52:27,645 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T04:52:28.632906+00:00 app[worker.1]: 2021-06-28 04:52:28,632 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:52:47.222128+00:00 app[worker.1]: 2021-06-28 04:52:47,221 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:52:53.379027+00:00 app[worker.1]: 2021-06-28 04:52:53,378 - __main__ - INFO - User kehuann has run /mods
+2021-06-28T04:53:00.853660+00:00 app[worker.1]: 2021-06-28 04:53:00,853 - __main__ - INFO - User kehuann has run /addmod
+2021-06-28T04:53:05.978702+00:00 app[worker.1]: 2021-06-28 04:53:05,978 - __main__ - INFO - User giovanniwijaya started the bot
+2021-06-28T04:53:11.860415+00:00 app[worker.1]: 2021-06-28 04:53:11,860 - __main__ - INFO - User giovanniwijaya is registering
+2021-06-28T04:53:16.372333+00:00 app[worker.1]: 2021-06-28 04:53:16,372 - __main__ - INFO - Room Number of giovanniwijaya: D105
+2021-06-28T04:53:18.439927+00:00 app[worker.1]: 2021-06-28 04:53:18,439 - __main__ - INFO - Faculty of giovanniwijaya: Engineering
+2021-06-28T04:53:24.816673+00:00 app[worker.1]: 2021-06-28 04:53:24,816 - __main__ - INFO - Course of giovanniwijaya: CHEMICAL ENGINEERING
+2021-06-28T04:53:29.902802+00:00 app[worker.1]: 2021-06-28 04:53:29,902 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T04:53:31.369858+00:00 app[worker.1]: 2021-06-28 04:53:31,369 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T04:54:12.872039+00:00 app[worker.1]: 2021-06-28 04:54:12,871 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T04:54:13.704486+00:00 app[worker.1]: 2021-06-28 04:54:13,704 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:01:15.595807+00:00 app[worker.1]: 2021-06-28 05:01:15,595 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:01:16.490551+00:00 app[worker.1]: 2021-06-28 05:01:16,490 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:02:28.098283+00:00 app[worker.1]: 2021-06-28 05:02:28,098 - __main__ - INFO - User Avi_nx started the bot
+2021-06-28T05:02:32.109893+00:00 app[worker.1]: 2021-06-28 05:02:32,109 - __main__ - INFO - User Avi_nx is registering
+2021-06-28T05:02:52.906553+00:00 app[worker.1]: 2021-06-28 05:02:52,906 - __main__ - INFO - Room Number of Avi_nx: C303
+2021-06-28T05:02:56.026467+00:00 app[worker.1]: 2021-06-28 05:02:56,026 - __main__ - INFO - Faculty of Avi_nx: FASS
+2021-06-28T05:03:00.391121+00:00 app[worker.1]: 2021-06-28 05:03:00,390 - __main__ - INFO - Course of Avi_nx: PSYCHOLOGY
+2021-06-28T05:03:06.281237+00:00 app[worker.1]: 2021-06-28 05:03:06,281 - __main__ - INFO - User w33teck started the bot
+2021-06-28T05:03:16.477245+00:00 app[worker.1]: 2021-06-28 05:03:16,477 - __main__ - INFO - User w33teck is registering
+2021-06-28T05:03:51.317405+00:00 app[worker.1]: 2021-06-28 05:03:51,317 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:04:07.214423+00:00 app[worker.1]: 2021-06-28 05:04:07,214 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T05:04:08.314367+00:00 app[worker.1]: 2021-06-28 05:04:08,314 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:04:23.277993+00:00 app[worker.1]: 2021-06-28 05:04:23,277 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:05:08.022915+00:00 app[worker.1]: 2021-06-28 05:05:08,022 - __main__ - INFO - Avi_nx has initialised their account
+2021-06-28T05:05:08.559476+00:00 app[worker.1]: 2021-06-28 05:05:08,559 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:05:14.747495+00:00 app[worker.1]: 2021-06-28 05:05:14,747 - __main__ - INFO - User Avi_nx has run /mods
+2021-06-28T05:05:33.115721+00:00 app[worker.1]: 2021-06-28 05:05:33,115 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:05:37.085861+00:00 app[worker.1]: 2021-06-28 05:05:37,085 - __main__ - INFO - User eusoffmods_bot has run /groupchatcreated
+2021-06-28T05:05:39.733687+00:00 app[worker.1]: 2021-06-28 05:05:39,733 - __main__ - INFO - User chernanigans has added the link of https://t.me/joinchat/64GQz4uv1DlmNzVl
+2021-06-28T05:05:41.914283+00:00 app[worker.1]: 2021-06-28 05:05:41,913 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:06:17.464499+00:00 app[worker.1]: 2021-06-28 05:06:17,464 - __main__ - INFO - User crystalng99 started the bot
+2021-06-28T05:06:25.983404+00:00 app[worker.1]: 2021-06-28 05:06:25,983 - __main__ - INFO - User crystalng99 is registering
+2021-06-28T05:06:33.349582+00:00 app[worker.1]: 2021-06-28 05:06:33,348 - __main__ - INFO - Room Number of crystalng99: D304
+2021-06-28T05:06:35.734652+00:00 app[worker.1]: 2021-06-28 05:06:35,734 - __main__ - INFO - Faculty of crystalng99: FASS
+2021-06-28T05:06:42.501803+00:00 app[worker.1]: 2021-06-28 05:06:42,501 - __main__ - INFO - Course of crystalng99: ECONOMICS
+2021-06-28T05:06:51.470328+00:00 app[worker.1]: 2021-06-28 05:06:51,470 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:07:14.896507+00:00 app[worker.1]: 2021-06-28 05:07:14,896 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:07:26.939544+00:00 app[worker.1]: 2021-06-28 05:07:26,936 - __main__ - INFO - crystalng99 has initialised their account
+2021-06-28T05:07:34.401880+00:00 app[worker.1]: 2021-06-28 05:07:34,401 - __main__ - INFO - User crystalng99 has run /mods
+2021-06-28T05:07:38.438356+00:00 app[worker.1]: 2021-06-28 05:07:38,438 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:07:57.318527+00:00 app[worker.1]: 2021-06-28 05:07:57,318 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:08:24.459802+00:00 app[worker.1]: 2021-06-28 05:08:24,459 - __main__ - INFO - User Oscarlim_m started the bot
+2021-06-28T05:08:27.493152+00:00 app[worker.1]: 2021-06-28 05:08:27,492 - __main__ - INFO - User Oscarlim_m is registering
+2021-06-28T05:08:40.454027+00:00 app[worker.1]: 2021-06-28 05:08:40,453 - __main__ - INFO - Room Number of Oscarlim_m: C415
+2021-06-28T05:08:44.057766+00:00 app[worker.1]: 2021-06-28 05:08:44,057 - __main__ - INFO - User renzocanare started the bot
+2021-06-28T05:08:44.403542+00:00 app[worker.1]: 2021-06-28 05:08:44,403 - __main__ - INFO - Faculty of Oscarlim_m: Biz
+2021-06-28T05:08:51.992118+00:00 app[worker.1]: 2021-06-28 05:08:51,991 - __main__ - INFO - Course of Oscarlim_m: 0
+2021-06-28T05:08:56.525032+00:00 app[worker.1]: 2021-06-28 05:08:56,524 - __main__ - INFO - User renzocanare is registering
+2021-06-28T05:09:04.075694+00:00 app[worker.1]: 2021-06-28 05:09:04,075 - __main__ - INFO - Room Number of renzocanare: C111
+2021-06-28T05:09:09.236391+00:00 app[worker.1]: 2021-06-28 05:09:09,236 - __main__ - INFO - Faculty of renzocanare: Engineering
+2021-06-28T05:09:14.968207+00:00 app[worker.1]: 2021-06-28 05:09:14,968 - __main__ - INFO - Course of renzocanare: COMPUTER ENGINEERING
+2021-06-28T05:10:58.042560+00:00 app[worker.1]: 2021-06-28 05:10:58,041 - __main__ - INFO - User bikjeun started the bot
+2021-06-28T05:11:11.098229+00:00 app[worker.1]: 2021-06-28 05:11:11,098 - __main__ - INFO - User bikjeun is registering
+2021-06-28T05:11:14.688304+00:00 app[worker.1]: 2021-06-28 05:11:14,688 - __main__ - INFO - User yeowww started the bot
+2021-06-28T05:11:19.050504+00:00 app[worker.1]: 2021-06-28 05:11:19,050 - __main__ - INFO - User yeowww is registering
+2021-06-28T05:11:24.017911+00:00 app[worker.1]: 2021-06-28 05:11:24,017 - __main__ - INFO - Room Number of bikjeun: C316
+2021-06-28T05:11:28.303220+00:00 app[worker.1]: 2021-06-28 05:11:28,303 - __main__ - INFO - Faculty of bikjeun: Computing
+2021-06-28T05:11:34.461849+00:00 app[worker.1]: 2021-06-28 05:11:34,461 - __main__ - INFO - Course of bikjeun: INFORMATION SYSTEMS
+2021-06-28T05:12:26.816271+00:00 app[worker.1]: 2021-06-28 05:12:26,816 - __main__ - INFO - User Yichenator started the bot
+2021-06-28T05:12:42.416618+00:00 app[worker.1]: 2021-06-28 05:12:42,416 - __main__ - INFO - bikjeun has initialised their account
+2021-06-28T05:12:52.131387+00:00 app[worker.1]: 2021-06-28 05:12:52,131 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T05:12:55.178118+00:00 app[worker.1]: 2021-06-28 05:12:55,177 - __main__ - INFO - User BryanBeh98 started the bot
+2021-06-28T05:12:56.863667+00:00 app[worker.1]: 2021-06-28 05:12:56,863 - __main__ - INFO - User BryanBeh98 is registering
+2021-06-28T05:12:59.111659+00:00 app[worker.1]: 2021-06-28 05:12:59,111 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:13:00.348009+00:00 app[worker.1]: 2021-06-28 05:13:00,347 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:13:03.982617+00:00 app[worker.1]: 2021-06-28 05:13:03,982 - __main__ - INFO - Room Number of BryanBeh98: C413
+2021-06-28T05:13:09.598188+00:00 app[worker.1]: 2021-06-28 05:13:09,597 - __main__ - INFO - Faculty of BryanBeh98: Music
+2021-06-28T05:13:15.381517+00:00 app[worker.1]: 2021-06-28 05:13:15,381 - __main__ - INFO - User BryanBeh98 canceled the conversation.
+2021-06-28T05:13:15.659173+00:00 app[worker.1]: 2021-06-28 05:13:15,659 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T05:13:25.520086+00:00 app[worker.1]: 2021-06-28 05:13:25,519 - __main__ - INFO - User BryanBeh98 canceled the conversation.
+2021-06-28T05:13:27.911918+00:00 app[worker.1]: 2021-06-28 05:13:27,911 - __main__ - INFO - User BryanBeh98 is registering
+2021-06-28T05:13:33.629689+00:00 app[worker.1]: 2021-06-28 05:13:33,629 - __main__ - INFO - User bikjeun has run /deletemod
+2021-06-28T05:13:34.284597+00:00 app[worker.1]: 2021-06-28 05:13:34,284 - __main__ - INFO - Room Number of BryanBeh98: C413
+2021-06-28T05:13:36.397007+00:00 app[worker.1]: 2021-06-28 05:13:36,396 - __main__ - INFO - Faculty of BryanBeh98: Engineering
+2021-06-28T05:13:37.199028+00:00 app[worker.1]: 2021-06-28 05:13:37,198 - __main__ - INFO - User bikjeun has run /deletemod
+2021-06-28T05:13:40.019461+00:00 app[worker.1]: 2021-06-28 05:13:40,019 - __main__ - INFO - User bikjeun has run /deletemod
+2021-06-28T05:13:42.304301+00:00 app[worker.1]: 2021-06-28 05:13:42,304 - __main__ - INFO - Course of BryanBeh98: COMPUTER ENGINEERING
+2021-06-28T05:13:42.594204+00:00 app[worker.1]: 2021-06-28 05:13:42,594 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T05:13:50.387657+00:00 app[worker.1]: 2021-06-28 05:13:50,387 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T05:14:08.298467+00:00 app[worker.1]: 2021-06-28 05:14:08,298 - __main__ - INFO - User armadillaus is registering
+2021-06-28T05:14:11.389729+00:00 app[worker.1]: 2021-06-28 05:14:11,389 - __main__ - INFO - Room Number of armadillaus: A419
+2021-06-28T05:14:13.804028+00:00 app[worker.1]: 2021-06-28 05:14:13,803 - __main__ - INFO - Faculty of armadillaus: Biz
+2021-06-28T05:14:26.671546+00:00 app[worker.1]: 2021-06-28 05:14:26,671 - __main__ - INFO - Course of armadillaus: ACCOUNTANCY
+2021-06-28T05:14:32.111229+00:00 app[worker.1]: 2021-06-28 05:14:32,110 - __main__ - INFO - User kehuann canceled the conversation.
+2021-06-28T05:14:33.516437+00:00 app[worker.1]: 2021-06-28 05:14:33,516 - __main__ - INFO - User BryanBeh98 canceled the conversation.
+2021-06-28T05:15:22.526780+00:00 app[worker.1]: 2021-06-28 05:15:22,526 - __main__ - INFO - armadillaus has initialised their account
+2021-06-28T05:15:30.818799+00:00 app[worker.1]: 2021-06-28 05:15:30,818 - __main__ - INFO - User armadillaus has run /deletemod
+2021-06-28T05:15:36.059731+00:00 app[worker.1]: 2021-06-28 05:15:36,059 - __main__ - INFO - User armadillaus has run /mods
+2021-06-28T05:15:39.576803+00:00 app[worker.1]: 2021-06-28 05:15:39,576 - __main__ - INFO - User qinglebells started the bot
+2021-06-28T05:15:47.494713+00:00 app[worker.1]: 2021-06-28 05:15:47,494 - __main__ - INFO - User qinglebells is registering
+2021-06-28T05:15:53.739299+00:00 app[worker.1]: 2021-06-28 05:15:53,739 - __main__ - INFO - Room Number of qinglebells: B303
+2021-06-28T05:15:57.298441+00:00 app[worker.1]: 2021-06-28 05:15:57,298 - __main__ - INFO - Faculty of qinglebells: FASS
+2021-06-28T05:16:01.140457+00:00 app[worker.1]: 2021-06-28 05:16:01,140 - __main__ - INFO - Course of qinglebells: ECONS
+2021-06-28T05:16:25.634408+00:00 app[worker.1]: 2021-06-28 05:16:25,634 - __main__ - INFO - User yunxigan started the bot
+2021-06-28T05:16:29.250677+00:00 app[worker.1]: 2021-06-28 05:16:29,250 - __main__ - INFO - User yunxigan is registering
+2021-06-28T05:16:39.518792+00:00 app[worker.1]: 2021-06-28 05:16:39,518 - __main__ - INFO - User jingjingz started the bot
+2021-06-28T05:16:47.264307+00:00 app[worker.1]: 2021-06-28 05:16:47,264 - __main__ - INFO - User jingjingz is registering
+2021-06-28T05:16:55.913728+00:00 app[worker.1]: 2021-06-28 05:16:55,913 - __main__ - INFO - Room Number of jingjingz: B313
+2021-06-28T05:16:56.184422+00:00 app[worker.1]: 2021-06-28 05:16:56,184 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:16:57.781024+00:00 app[worker.1]: 2021-06-28 05:16:57,780 - __main__ - INFO - Faculty of jingjingz: FASS
+2021-06-28T05:17:00.928048+00:00 app[worker.1]: 2021-06-28 05:17:00,927 - __main__ - INFO - Course of jingjingz: GEOGRAPHY
+2021-06-28T05:17:01.850057+00:00 app[worker.1]: 2021-06-28 05:17:01,849 - __main__ - INFO - qinglebells has initialised their account
+2021-06-28T05:17:05.911449+00:00 app[worker.1]: 2021-06-28 05:17:05,911 - __main__ - INFO - User qinglebells has run /mods
+2021-06-28T05:17:17.914889+00:00 app[worker.1]: 2021-06-28 05:17:17,914 - __main__ - INFO - User natlawxy started the bot
+2021-06-28T05:17:21.699149+00:00 app[worker.1]: 2021-06-28 05:17:21,698 - __main__ - INFO - User qinglebells has run /mods
+2021-06-28T05:17:22.791013+00:00 app[worker.1]: 2021-06-28 05:17:22,790 - __main__ - INFO - Room Number of yunxigan: C321
+2021-06-28T05:17:25.563054+00:00 app[worker.1]: 2021-06-28 05:17:25,562 - __main__ - INFO - Faculty of yunxigan: FASS
+2021-06-28T05:17:30.339726+00:00 app[worker.1]: 2021-06-28 05:17:30,339 - __main__ - INFO - Course of yunxigan: SOCIOLOGY
+2021-06-28T05:17:33.924565+00:00 app[worker.1]: 2021-06-28 05:17:33,924 - __main__ - INFO - User qinglebells has run /mods
+2021-06-28T05:17:38.179196+00:00 app[worker.1]: 2021-06-28 05:17:38,179 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:19:22.016592+00:00 app[worker.1]: 2021-06-28 05:19:22,016 - __main__ - INFO - yunxigan has initialised their account
+2021-06-28T05:19:27.533836+00:00 app[worker.1]: 2021-06-28 05:19:27,533 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:19:42.907885+00:00 app[worker.1]: 2021-06-28 05:19:42,907 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:19:44.091652+00:00 app[worker.1]: 2021-06-28 05:19:44,091 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:19:52.490916+00:00 app[worker.1]: 2021-06-28 05:19:52,490 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:19:55.905288+00:00 app[worker.1]: 2021-06-28 05:19:55,905 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:20:07.364470+00:00 app[worker.1]: 2021-06-28 05:20:07,364 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:20:17.578468+00:00 app[worker.1]: 2021-06-28 05:20:17,578 - __main__ - INFO - User yunxigan canceled the conversation.
+2021-06-28T05:20:22.044319+00:00 app[worker.1]: 2021-06-28 05:20:22,044 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:20:31.891594+00:00 app[worker.1]: 2021-06-28 05:20:31,891 - __main__ - INFO - User brand0nn started the bot
+2021-06-28T05:20:36.723790+00:00 app[worker.1]: 2021-06-28 05:20:36,723 - __main__ - INFO - User seayee started the bot
+2021-06-28T05:20:42.014871+00:00 app[worker.1]: 2021-06-28 05:20:42,014 - __main__ - INFO - User clement0010 started the bot
+2021-06-28T05:20:43.785504+00:00 app[worker.1]: 2021-06-28 05:20:43,785 - __main__ - INFO - User clement0010 is registering
+2021-06-28T05:21:16.445028+00:00 app[worker.1]: 2021-06-28 05:21:16,444 - __main__ - INFO - User jovannutz started the bot
+2021-06-28T05:21:17.085494+00:00 app[worker.1]: 2021-06-28 05:21:17,085 - __main__ - INFO - User seayee is registering
+2021-06-28T05:21:18.520453+00:00 app[worker.1]: 2021-06-28 05:21:18,520 - __main__ - INFO - User jovannutz is registering
+2021-06-28T05:21:26.110798+00:00 app[worker.1]: 2021-06-28 05:21:26,110 - __main__ - INFO - Room Number of seayee: B320
+2021-06-28T05:21:32.763304+00:00 app[worker.1]: 2021-06-28 05:21:32,762 - __main__ - INFO - Faculty of seayee: SDE
+2021-06-28T05:21:34.974292+00:00 app[worker.1]: 2021-06-28 05:21:34,974 - __main__ - INFO - User markbiju started the bot
+2021-06-28T05:21:39.064899+00:00 app[worker.1]: 2021-06-28 05:21:39,064 - __main__ - INFO - Course of seayee: INDUSTRIAL DESIGN
+2021-06-28T05:21:46.212027+00:00 app[worker.1]: 2021-06-28 05:21:46,210 - __main__ - INFO - User markbiju is registering
+2021-06-28T05:21:48.754137+00:00 app[worker.1]: 2021-06-28 05:21:48,753 - __main__ - INFO - Room Number of jovannutz: A321
+2021-06-28T05:21:57.443185+00:00 app[worker.1]: 2021-06-28 05:21:57,443 - __main__ - INFO - User markbiju canceled the conversation.
+2021-06-28T05:22:06.846182+00:00 app[worker.1]: 2021-06-28 05:22:06,846 - __main__ - INFO - User jayyin started the bot
+2021-06-28T05:22:09.572264+00:00 app[worker.1]: 2021-06-28 05:22:09,572 - __main__ - INFO - User jayyin is registering
+2021-06-28T05:22:10.486482+00:00 app[worker.1]: 2021-06-28 05:22:10,486 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:22:12.248001+00:00 app[worker.1]: 2021-06-28 05:22:12,247 - __main__ - INFO - User yunxigan has deleted account
+2021-06-28T05:22:18.784139+00:00 app[worker.1]: 2021-06-28 05:22:18,783 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:22:29.047275+00:00 app[worker.1]: 2021-06-28 05:22:29,047 - __main__ - INFO - Room Number of jayyin: D215
+2021-06-28T05:22:32.578583+00:00 app[worker.1]: 2021-06-28 05:22:32,578 - __main__ - INFO - Faculty of jayyin: Law
+2021-06-28T05:22:34.990196+00:00 app[worker.1]: 2021-06-28 05:22:34,989 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:22:37.371116+00:00 app[worker.1]: 2021-06-28 05:22:37,370 - __main__ - INFO - Course of jayyin: LAW
+2021-06-28T05:22:38.145323+00:00 app[worker.1]: 2021-06-28 05:22:38,145 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:22:44.464237+00:00 app[worker.1]: 2021-06-28 05:22:44,464 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:22:47.689242+00:00 app[worker.1]: 2021-06-28 05:22:47,689 - __main__ - INFO - User giovanniwijaya canceled the conversation.
+2021-06-28T05:22:49.455801+00:00 app[worker.1]: 2021-06-28 05:22:49,455 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:22:52.054361+00:00 app[worker.1]: 2021-06-28 05:22:52,054 - __main__ - INFO - Room Number of yeowww: D306
+2021-06-28T05:22:56.001524+00:00 app[worker.1]: 2021-06-28 05:22:56,001 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:22:56.302211+00:00 app[worker.1]: 2021-06-28 05:22:56,302 - __main__ - INFO - Faculty of yeowww: Engineering
+2021-06-28T05:23:05.273054+00:00 app[worker.1]: 2021-06-28 05:23:05,272 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T05:23:06.159703+00:00 app[worker.1]: 2021-06-28 05:23:06,159 - __main__ - INFO - Course of yeowww: ELECTRICAL ENGINEERING
+2021-06-28T05:23:28.011791+00:00 app[worker.1]: 2021-06-28 05:23:28,011 - __main__ - INFO - User joshaty started the bot
+2021-06-28T05:23:31.070423+00:00 app[worker.1]: 2021-06-28 05:23:31,070 - __main__ - INFO - User joshaty is registering
+2021-06-28T05:23:34.476165+00:00 app[worker.1]: 2021-06-28 05:23:34,475 - __main__ - INFO - Room Number of joshaty: A421
+2021-06-28T05:23:36.140432+00:00 app[worker.1]: 2021-06-28 05:23:36,140 - __main__ - INFO - Faculty of joshaty: Biz
+2021-06-28T05:23:36.985843+00:00 app[worker.1]: 2021-06-28 05:23:36,985 - __main__ - INFO - yeowww has initialised their account
+2021-06-28T05:23:39.216476+00:00 app[worker.1]: 2021-06-28 05:23:39,216 - __main__ - INFO - Course of joshaty: ACCOUNTING
+2021-06-28T05:23:44.053833+00:00 app[worker.1]: 2021-06-28 05:23:44,053 - __main__ - INFO - User yeowww has run /mods
+2021-06-28T05:24:01.591971+00:00 app[worker.1]: 2021-06-28 05:24:01,583 - __main__ - INFO - User yeowww has run /deletemod
+2021-06-28T05:24:03.628499+00:00 app[worker.1]: 2021-06-28 05:24:03,628 - __main__ - INFO - User pigsnic started the bot
+2021-06-28T05:24:05.405261+00:00 app[worker.1]: 2021-06-28 05:24:05,405 - __main__ - INFO - User pigsnic is registering
+2021-06-28T05:24:07.164591+00:00 app[worker.1]: 2021-06-28 05:24:07,164 - __main__ - INFO - User yeowww has run /mods
+2021-06-28T05:24:12.286984+00:00 app[worker.1]: 2021-06-28 05:24:12,286 - __main__ - INFO - Room Number of pigsnic: E214
+2021-06-28T05:24:15.170743+00:00 app[worker.1]: 2021-06-28 05:24:15,170 - __main__ - INFO - Faculty of pigsnic: Biz
+2021-06-28T05:24:24.698699+00:00 app[worker.1]: 2021-06-28 05:24:24,698 - __main__ - INFO - User yeowww canceled the conversation.
+2021-06-28T05:24:26.860588+00:00 app[worker.1]: 2021-06-28 05:24:26,860 - __main__ - INFO - User yeowww has run /mods
+2021-06-28T05:24:41.926173+00:00 app[worker.1]: 2021-06-28 05:24:41,925 - __main__ - INFO - User pigsnic canceled the conversation.
+2021-06-28T05:24:48.896001+00:00 app[worker.1]: 2021-06-28 05:24:48,895 - __main__ - INFO - User pigsnic is registering
+2021-06-28T05:24:53.505869+00:00 app[worker.1]: 2021-06-28 05:24:53,505 - __main__ - INFO - Room Number of pigsnic: E214
+2021-06-28T05:24:56.177616+00:00 app[worker.1]: 2021-06-28 05:24:56,177 - __main__ - INFO - Faculty of pigsnic: Public Policy
+2021-06-28T05:25:02.993001+00:00 app[worker.1]: 2021-06-28 05:25:02,992 - __main__ - INFO - User pigsnic started the bot
+2021-06-28T05:25:11.248890+00:00 app[worker.1]: 2021-06-28 05:25:11,248 - __main__ - INFO - User pigsnic canceled the conversation.
+2021-06-28T05:25:14.083643+00:00 app[worker.1]: 2021-06-28 05:25:14,083 - __main__ - INFO - User pigsnic is registering
+2021-06-28T05:25:19.113294+00:00 app[worker.1]: 2021-06-28 05:25:19,113 - __main__ - INFO - Room Number of pigsnic: E214
+2021-06-28T05:25:20.606194+00:00 app[worker.1]: 2021-06-28 05:25:20,605 - __main__ - INFO - Faculty of pigsnic: Biz
+2021-06-28T05:25:26.638669+00:00 app[worker.1]: 2021-06-28 05:25:26,638 - __main__ - INFO - Course of pigsnic: UNDECIDED
+2021-06-28T05:25:38.596148+00:00 app[worker.1]: 2021-06-28 05:25:38,595 - __main__ - INFO - User pigsnic started the bot
+2021-06-28T05:25:42.177731+00:00 app[worker.1]: 2021-06-28 05:25:42,177 - __main__ - INFO - User pigsnic canceled the conversation.
+2021-06-28T05:25:44.130059+00:00 app[worker.1]: 2021-06-28 05:25:44,129 - __main__ - INFO - User pigsnic is registering
+2021-06-28T05:25:48.159951+00:00 app[worker.1]: 2021-06-28 05:25:48,159 - __main__ - INFO - Room Number of pigsnic: E214
+2021-06-28T05:25:49.485179+00:00 app[worker.1]: 2021-06-28 05:25:49,484 - __main__ - INFO - Faculty of pigsnic: Biz
+2021-06-28T05:25:52.605212+00:00 app[worker.1]: 2021-06-28 05:25:52,604 - __main__ - INFO - Course of pigsnic: UNDECIDED
+2021-06-28T05:26:24.687727+00:00 app[worker.1]: 2021-06-28 05:26:24,687 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:26:29.619789+00:00 app[worker.1]: 2021-06-28 05:26:29,619 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:27:01.856136+00:00 app[worker.1]: 2021-06-28 05:27:01,855 - __main__ - INFO - pigsnic has initialised their account
+2021-06-28T05:27:02.834716+00:00 app[worker.1]: 2021-06-28 05:27:02,834 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn started the bot
+2021-06-28T05:27:05.142634+00:00 app[worker.1]: 2021-06-28 05:27:05,142 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn is registering
+2021-06-28T05:27:06.010234+00:00 app[worker.1]: 2021-06-28 05:27:06,009 - __main__ - INFO - User pigsnic has run /mods
+2021-06-28T05:27:12.241995+00:00 app[worker.1]: 2021-06-28 05:27:12,241 - __main__ - INFO - Room Number of Shinnnnnnnnnnnnnnnnnnnnnn: D308
+2021-06-28T05:27:15.469782+00:00 app[worker.1]: 2021-06-28 05:27:15,469 - __main__ - INFO - Faculty of Shinnnnnnnnnnnnnnnnnnnnnn: Engineering
+2021-06-28T05:27:20.135744+00:00 app[worker.1]: 2021-06-28 05:27:20,135 - __main__ - INFO - Course of Shinnnnnnnnnnnnnnnnnnnnnn: COMPUTER ENGINEERING
+2021-06-28T05:27:33.675365+00:00 app[worker.1]: 2021-06-28 05:27:33,675 - __main__ - INFO - User pigsnic has run /mods
+2021-06-28T05:27:34.021440+00:00 app[worker.1]: 2021-06-28 05:27:34,021 - __main__ - INFO - User kroyeeL started the bot
+2021-06-28T05:27:37.886242+00:00 app[worker.1]: 2021-06-28 05:27:37,886 - __main__ - INFO - User rebeccaleongg started the bot
+2021-06-28T05:27:39.310469+00:00 app[worker.1]: 2021-06-28 05:27:39,310 - __main__ - INFO - User kroyeeL is registering
+2021-06-28T05:27:44.206201+00:00 app[worker.1]: 2021-06-28 05:27:44,205 - __main__ - INFO - User pigsnic has run /mods
+2021-06-28T05:28:22.048818+00:00 app[worker.1]: 2021-06-28 05:28:22,048 - __main__ - INFO - Shinnnnnnnnnnnnnnnnnnnnnn has initialised their account
+2021-06-28T05:28:36.991230+00:00 app[worker.1]: 2021-06-28 05:28:36,991 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn has run /mods
+2021-06-28T05:29:48.062014+00:00 app[worker.1]: 2021-06-28 05:29:48,061 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:30:02.221573+00:00 app[worker.1]: 2021-06-28 05:30:02,221 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:31:48.209673+00:00 app[worker.1]: 2021-06-28 05:31:48,209 - __main__ - INFO - User chUCHuBAAAA started the bot
+2021-06-28T05:31:54.568367+00:00 app[worker.1]: 2021-06-28 05:31:54,568 - __main__ - INFO - User J1ngY1ng started the bot
+2021-06-28T05:31:55.937523+00:00 app[worker.1]: 2021-06-28 05:31:55,937 - __main__ - INFO - User chUCHuBAAAA is registering
+2021-06-28T05:31:59.565669+00:00 app[worker.1]: 2021-06-28 05:31:59,565 - __main__ - INFO - User J1ngY1ng is registering
+2021-06-28T05:32:02.653593+00:00 app[worker.1]: 2021-06-28 05:32:02,653 - __main__ - INFO - Room Number of chUCHuBAAAA: A308
+2021-06-28T05:32:04.967111+00:00 app[worker.1]: 2021-06-28 05:32:04,966 - __main__ - INFO - Faculty of chUCHuBAAAA: FASS
+2021-06-28T05:32:08.857963+00:00 app[worker.1]: 2021-06-28 05:32:08,856 - __main__ - INFO - Room Number of J1ngY1ng: D302
+2021-06-28T05:32:11.622788+00:00 app[worker.1]: 2021-06-28 05:32:11,622 - __main__ - INFO - Faculty of J1ngY1ng: Engineering
+2021-06-28T05:32:17.625724+00:00 app[worker.1]: 2021-06-28 05:32:17,625 - __main__ - INFO - Course of J1ngY1ng: MECHANICAL ENGINEERING
+2021-06-28T05:32:21.192665+00:00 app[worker.1]: 2021-06-28 05:32:21,192 - __main__ - INFO - Course of chUCHuBAAAA: PSYCHOLOGY
+2021-06-28T05:32:47.969929+00:00 app[worker.1]: 2021-06-28 05:32:47,969 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:33:02.607786+00:00 app[worker.1]: 2021-06-28 05:33:02,607 - __main__ - INFO - J1ngY1ng has initialised their account
+2021-06-28T05:33:08.281360+00:00 app[worker.1]: 2021-06-28 05:33:08,281 - __main__ - INFO - User J1ngY1ng has run /mods
+2021-06-28T05:33:12.583250+00:00 app[worker.1]: 2021-06-28 05:33:12,582 - __main__ - INFO - User Allronalded started the bot
+2021-06-28T05:33:15.212424+00:00 app[worker.1]: 2021-06-28 05:33:15,212 - __main__ - INFO - User Allronalded is registering
+2021-06-28T05:33:24.509372+00:00 app[worker.1]: 2021-06-28 05:33:24,508 - __main__ - INFO - Room Number of Allronalded: A422
+2021-06-28T05:33:30.361532+00:00 app[worker.1]: 2021-06-28 05:33:30,361 - __main__ - INFO - Faculty of Allronalded: Engineering
+2021-06-28T05:33:34.617871+00:00 app[worker.1]: 2021-06-28 05:33:34,617 - __main__ - INFO - Course of Allronalded: MECHANICAL ENGINEERING
+2021-06-28T05:33:37.695815+00:00 app[worker.1]: 2021-06-28 05:33:37,695 - __main__ - INFO - chUCHuBAAAA has initialised their account
+2021-06-28T05:33:55.424125+00:00 app[worker.1]: 2021-06-28 05:33:55,423 - __main__ - INFO - User chUCHuBAAAA has run /mods
+2021-06-28T05:33:55.779955+00:00 app[worker.1]: 2021-06-28 05:33:55,779 - __main__ - INFO - User emmatyr started the bot
+2021-06-28T05:33:58.571624+00:00 app[worker.1]: 2021-06-28 05:33:58,571 - __main__ - INFO - User emmatyr is registering
+2021-06-28T05:34:15.330852+00:00 app[worker.1]: 2021-06-28 05:34:15,330 - __main__ - INFO - Room Number of emmatyr: D206
+2021-06-28T05:34:18.585664+00:00 app[worker.1]: 2021-06-28 05:34:18,585 - __main__ - INFO - Faculty of emmatyr: FASS
+2021-06-28T05:34:24.060798+00:00 app[worker.1]: 2021-06-28 05:34:24,060 - __main__ - INFO - Course of emmatyr: PSYCHOLOGY
+2021-06-28T05:34:54.972693+00:00 app[worker.1]: 2021-06-28 05:34:54,972 - __main__ - INFO - User chUCHuBAAAA has run /mods
+2021-06-28T05:35:43.734467+00:00 app[worker.1]: 2021-06-28 05:35:43,734 - __main__ - INFO - emmatyr has initialised their account
+2021-06-28T05:35:48.630560+00:00 app[worker.1]: 2021-06-28 05:35:48,630 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T05:36:26.430512+00:00 app[worker.1]: 2021-06-28 05:36:26,430 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T05:36:56.885575+00:00 app[worker.1]: 2021-06-28 05:36:56,885 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T05:42:46.487868+00:00 app[worker.1]: 2021-06-28 05:42:46,487 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:43:04.241282+00:00 app[worker.1]: 2021-06-28 05:43:04,241 - __main__ - INFO - User claratay started the bot
+2021-06-28T05:43:07.090129+00:00 app[worker.1]: 2021-06-28 05:43:07,089 - __main__ - INFO - User yunxigan canceled the conversation.
+2021-06-28T05:43:07.993566+00:00 app[worker.1]: 2021-06-28 05:43:07,993 - __main__ - INFO - Allronalded has initialised their account
+2021-06-28T05:43:08.339076+00:00 app[worker.1]: 2021-06-28 05:43:08,338 - __main__ - INFO - User claratay is registering
+2021-06-28T05:43:12.149457+00:00 app[worker.1]: 2021-06-28 05:43:12,149 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:43:16.914689+00:00 app[worker.1]: 2021-06-28 05:43:16,914 - __main__ - INFO - Room Number of claratay: A313
+2021-06-28T05:43:18.078091+00:00 app[worker.1]: 2021-06-28 05:43:18,077 - __main__ - INFO - User Allronalded has run /mods
+2021-06-28T05:43:19.074471+00:00 app[worker.1]: 2021-06-28 05:43:19,074 - __main__ - INFO - Faculty of claratay: Computing
+2021-06-28T05:43:20.816675+00:00 app[worker.1]: 2021-06-28 05:43:20,816 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T05:43:24.741268+00:00 app[worker.1]: 2021-06-28 05:43:24,741 - __main__ - INFO - Course of claratay: BUSINESS ANALYTICS
+2021-06-28T05:43:32.762114+00:00 app[worker.1]: 2021-06-28 05:43:32,761 - __main__ - INFO - User claratay canceled the conversation.
+2021-06-28T05:43:35.799223+00:00 app[worker.1]: 2021-06-28 05:43:35,799 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T05:43:39.469824+00:00 app[worker.1]: 2021-06-28 05:43:39,469 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:43:42.471967+00:00 app[worker.1]: 2021-06-28 05:43:42,471 - __main__ - INFO - User Allronalded has run /mods
+2021-06-28T05:43:52.416959+00:00 app[worker.1]: 2021-06-28 05:43:52,416 - __main__ - INFO - User Allronalded has run /deletemod
+2021-06-28T05:43:55.813764+00:00 app[worker.1]: 2021-06-28 05:43:55,813 - __main__ - INFO - User chernanigans has run /deletemod
+2021-06-28T05:44:12.353135+00:00 app[worker.1]: 2021-06-28 05:44:12,352 - __main__ - INFO - User Allronalded canceled the conversation.
+2021-06-28T05:44:16.105483+00:00 app[worker.1]: 2021-06-28 05:44:16,105 - __main__ - INFO - User Allronalded has run /deletemod
+2021-06-28T05:44:26.814935+00:00 app[worker.1]: 2021-06-28 05:44:26,814 - __main__ - INFO - User Allronalded has run /mods
+2021-06-28T05:44:33.694862+00:00 app[worker.1]: 2021-06-28 05:44:33,694 - __main__ - INFO - User eusoffmods_bot has run /groupchatcreated
+2021-06-28T05:44:40.440196+00:00 app[worker.1]: 2021-06-28 05:44:40,440 - __main__ - INFO - User Allronalded canceled the conversation.
+2021-06-28T05:47:13.499512+00:00 app[worker.1]: 2021-06-28 05:47:13,499 - __main__ - INFO - User TanLayChun started the bot
+2021-06-28T05:47:15.727272+00:00 app[worker.1]: 2021-06-28 05:47:15,727 - __main__ - INFO - User TanLayChun is registering
+2021-06-28T05:47:31.564275+00:00 app[worker.1]: 2021-06-28 05:47:31,564 - __main__ - INFO - Room Number of TanLayChun: D402
+2021-06-28T05:47:38.757532+00:00 app[worker.1]: 2021-06-28 05:47:38,757 - __main__ - INFO - Faculty of TanLayChun: FASS
+2021-06-28T05:47:51.161686+00:00 app[worker.1]: 2021-06-28 05:47:51,161 - __main__ - INFO - Course of TanLayChun: ECONOMICS
+2021-06-28T05:49:01.793184+00:00 app[worker.1]: 2021-06-28 05:49:01,792 - __main__ - INFO - TanLayChun has initialised their account
+2021-06-28T05:49:05.298979+00:00 app[worker.1]: 2021-06-28 05:49:05,298 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T05:49:20.046542+00:00 app[worker.1]: 2021-06-28 05:49:20,046 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T05:49:31.829788+00:00 app[worker.1]: 2021-06-28 05:49:31,829 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T05:49:44.219068+00:00 app[worker.1]: 2021-06-28 05:49:44,218 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T05:49:58.606482+00:00 app[worker.1]: 2021-06-28 05:49:58,605 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T05:52:45.060218+00:00 app[worker.1]: 2021-06-28 05:52:45,060 - __main__ - INFO - User erica_sim started the bot
+2021-06-28T05:52:47.567569+00:00 app[worker.1]: 2021-06-28 05:52:47,566 - __main__ - INFO - User erica_sim is registering
+2021-06-28T05:53:29.671258+00:00 app[worker.1]: 2021-06-28 05:53:29,671 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:53:34.841833+00:00 app[worker.1]: 2021-06-28 05:53:34,841 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:53:38.355902+00:00 app[worker.1]: 2021-06-28 05:53:38,355 - __main__ - INFO - Room Number of erica_sim: A319
+2021-06-28T05:53:41.796932+00:00 app[worker.1]: 2021-06-28 05:53:41,796 - __main__ - INFO - Faculty of erica_sim: FASS
+2021-06-28T05:53:45.637114+00:00 app[worker.1]: 2021-06-28 05:53:45,636 - __main__ - INFO - Course of erica_sim: PSYCHOLOGY
+2021-06-28T05:54:27.994545+00:00 app[worker.1]: 2021-06-28 05:54:27,994 - __main__ - INFO - erica_sim has initialised their account
+2021-06-28T05:54:33.426996+00:00 app[worker.1]: 2021-06-28 05:54:33,426 - __main__ - INFO - User erica_sim has run /mods
+2021-06-28T05:55:23.213023+00:00 app[worker.1]: 2021-06-28 05:55:23,212 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T05:58:32.051490+00:00 app[worker.1]: 2021-06-28 05:58:32,051 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:58:43.634304+00:00 app[worker.1]: 2021-06-28 05:58:43,634 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T05:59:51.202776+00:00 app[worker.1]: 2021-06-28 05:59:51,202 - __main__ - INFO - User LaughDieMi started the bot
+2021-06-28T06:00:07.628414+00:00 app[worker.1]: 2021-06-28 06:00:07,628 - __main__ - INFO - User LaughDieMi is registering
+2021-06-28T06:08:47.036780+00:00 app[worker.1]: 2021-06-28 06:08:47,036 - __main__ - INFO - User astravanillas started the bot
+2021-06-28T06:08:49.389551+00:00 app[worker.1]: 2021-06-28 06:08:49,389 - __main__ - INFO - User astravanillas is registering
+2021-06-28T06:08:57.871209+00:00 app[worker.1]: 2021-06-28 06:08:57,871 - __main__ - INFO - Room Number of astravanillas: E306
+2021-06-28T06:09:01.658116+00:00 app[worker.1]: 2021-06-28 06:09:01,657 - __main__ - INFO - Faculty of astravanillas: FASS
+2021-06-28T06:09:15.265950+00:00 app[worker.1]: 2021-06-28 06:09:15,265 - __main__ - INFO - Course of astravanillas: POLITICAL SCIENCE, COMMUNICATIONS AND NEW MEDIA
+2021-06-28T06:09:17.317336+00:00 app[worker.1]: 2021-06-28 06:09:17,317 - __main__ - INFO - User benj_khoo started the bot
+2021-06-28T06:09:24.319097+00:00 app[worker.1]: 2021-06-28 06:09:24,318 - __main__ - INFO - User benj_khoo is registering
+2021-06-28T06:10:13.749317+00:00 app[worker.1]: 2021-06-28 06:10:13,749 - __main__ - INFO - User cherylksh started the bot
+2021-06-28T06:10:49.181316+00:00 app[worker.1]: 2021-06-28 06:10:49,181 - __main__ - INFO - astravanillas has initialised their account
+2021-06-28T06:10:54.862573+00:00 app[worker.1]: 2021-06-28 06:10:54,862 - __main__ - INFO - User astravanillas has run /mods
+2021-06-28T06:11:25.639614+00:00 app[worker.1]: 2021-06-28 06:11:25,639 - __main__ - INFO - User astravanillas has run /mods
+2021-06-28T06:11:41.855859+00:00 app[worker.1]: 2021-06-28 06:11:41,855 - __main__ - INFO - User Jaredlim started the bot
+2021-06-28T06:11:44.422461+00:00 app[worker.1]: 2021-06-28 06:11:44,422 - __main__ - INFO - User astravanillas has run /mods
+2021-06-28T06:11:59.494159+00:00 app[worker.1]: 2021-06-28 06:11:59,493 - __main__ - INFO - User vernicetjt started the bot
+2021-06-28T06:12:02.156670+00:00 app[worker.1]: 2021-06-28 06:12:02,156 - __main__ - INFO - User vernicetjt is registering
+2021-06-28T06:12:09.810244+00:00 app[worker.1]: 2021-06-28 06:12:09,810 - __main__ - INFO - Room Number of vernicetjt: E204
+2021-06-28T06:12:12.214611+00:00 app[worker.1]: 2021-06-28 06:12:12,214 - __main__ - INFO - Faculty of vernicetjt: Computing
+2021-06-28T06:12:18.466950+00:00 app[worker.1]: 2021-06-28 06:12:18,466 - __main__ - INFO - Course of vernicetjt: INFORMATION SYSTEMS
+2021-06-28T06:12:36.692824+00:00 app[worker.1]: 2021-06-28 06:12:36,692 - __main__ - INFO - User Jaredlim is registering
+2021-06-28T06:12:37.483677+00:00 app[worker.1]: 2021-06-28 06:12:37,483 - __main__ - INFO - User AngQiXuan started the bot
+2021-06-28T06:12:42.626171+00:00 app[worker.1]: 2021-06-28 06:12:42,625 - __main__ - INFO - User AngQiXuan is registering
+2021-06-28T06:12:55.557549+00:00 app[worker.1]: 2021-06-28 06:12:55,557 - __main__ - INFO - User TanLayChun has run /addmod
+2021-06-28T06:13:05.102336+00:00 app[worker.1]: 2021-06-28 06:13:05,102 - __main__ - INFO - User VimuthM is registering
+2021-06-28T06:13:08.907803+00:00 app[worker.1]: 2021-06-28 06:13:08,907 - __main__ - INFO - Room Number of AngQiXuan: E415
+2021-06-28T06:13:13.432611+00:00 app[worker.1]: 2021-06-28 06:13:13,432 - __main__ - INFO - Faculty of AngQiXuan: Engineering
+2021-06-28T06:13:13.991614+00:00 app[worker.1]: 2021-06-28 06:13:13,991 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T06:13:18.821451+00:00 app[worker.1]: 2021-06-28 06:13:18,821 - __main__ - INFO - Course of AngQiXuan: ELECTRICAL ENGINEERING
+2021-06-28T06:13:20.001116+00:00 app[worker.1]: 2021-06-28 06:13:20,000 - __main__ - INFO - User TanLayChun has run /mods
+2021-06-28T06:13:21.253562+00:00 app[worker.1]: 2021-06-28 06:13:21,253 - __main__ - INFO - User VimuthM is registering
+2021-06-28T06:13:25.677892+00:00 app[worker.1]: 2021-06-28 06:13:25,677 - __main__ - INFO - User genebibeu started the bot
+2021-06-28T06:13:25.960099+00:00 app[worker.1]: 2021-06-28 06:13:25,959 - __main__ - INFO - Room Number of Jaredlim: E410
+2021-06-28T06:13:29.716927+00:00 app[worker.1]: 2021-06-28 06:13:29,716 - __main__ - INFO - Faculty of Jaredlim: Computing
+2021-06-28T06:13:30.201011+00:00 app[worker.1]: 2021-06-28 06:13:30,200 - __main__ - INFO - Room Number of VimuthM: E417
+2021-06-28T06:13:32.589330+00:00 app[worker.1]: 2021-06-28 06:13:32,589 - __main__ - INFO - Faculty of VimuthM: Computing
+2021-06-28T06:13:36.009760+00:00 app[worker.1]: 2021-06-28 06:13:36,009 - __main__ - INFO - Course of VimuthM: CS
+2021-06-28T06:13:41.988152+00:00 app[worker.1]: 2021-06-28 06:13:41,987 - __main__ - INFO - vernicetjt has initialised their account
+2021-06-28T06:13:46.449213+00:00 app[worker.1]: 2021-06-28 06:13:46,448 - __main__ - INFO - Course of Jaredlim: COMPUTER SCIENCE
+2021-06-28T06:14:13.722633+00:00 app[worker.1]: 2021-06-28 06:14:13,722 - __main__ - INFO - User shanyyx started the bot
+2021-06-28T06:14:17.970745+00:00 app[worker.1]: 2021-06-28 06:14:17,970 - __main__ - INFO - User shanyyx is registering
+2021-06-28T06:14:18.524747+00:00 app[worker.1]: 2021-06-28 06:14:18,524 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:14:27.251514+00:00 app[worker.1]: 2021-06-28 06:14:27,251 - __main__ - INFO - User bikjeun canceled the conversation.
+2021-06-28T06:14:28.713016+00:00 app[worker.1]: 2021-06-28 06:14:28,712 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:14:31.642563+00:00 app[worker.1]: 2021-06-28 06:14:31,642 - __main__ - INFO - Room Number of shanyyx: E213
+2021-06-28T06:14:34.459780+00:00 app[worker.1]: 2021-06-28 06:14:34,459 - __main__ - INFO - Faculty of shanyyx: Biz
+2021-06-28T06:14:38.561507+00:00 app[worker.1]: 2021-06-28 06:14:38,561 - __main__ - INFO - VimuthM has initialised their account
+2021-06-28T06:14:39.883674+00:00 app[worker.1]: 2021-06-28 06:14:39,883 - __main__ - INFO - Course of shanyyx: NIL
+2021-06-28T06:14:40.294734+00:00 app[worker.1]: 2021-06-28 06:14:40,294 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:14:43.554431+00:00 app[worker.1]: 2021-06-28 06:14:43,554 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:14:52.586594+00:00 app[worker.1]: 2021-06-28 06:14:52,586 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:14:57.389365+00:00 app[worker.1]: 2021-06-28 06:14:57,389 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:15:02.580589+00:00 app[worker.1]: 2021-06-28 06:15:02,580 - __main__ - INFO - User ryantjx started the bot
+2021-06-28T06:15:04.627201+00:00 app[worker.1]: 2021-06-28 06:15:04,627 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:15:12.200593+00:00 app[worker.1]: 2021-06-28 06:15:12,200 - __main__ - INFO - User ryantjx is registering
+2021-06-28T06:15:13.732646+00:00 app[worker.1]: 2021-06-28 06:15:13,732 - __main__ - INFO - User VimuthM has run /deletemod
+2021-06-28T06:15:18.477355+00:00 app[worker.1]: 2021-06-28 06:15:18,477 - __main__ - INFO - Room Number of ryantjx: A423
+2021-06-28T06:15:20.686213+00:00 app[worker.1]: 2021-06-28 06:15:20,685 - __main__ - INFO - Faculty of ryantjx: Computing
+2021-06-28T06:15:21.422849+00:00 app[worker.1]: 2021-06-28 06:15:21,422 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:15:22.828970+00:00 app[worker.1]: 2021-06-28 06:15:22,828 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:15:30.309134+00:00 app[worker.1]: 2021-06-28 06:15:30,308 - __main__ - INFO - Course of ryantjx: BUSINESS ANALYTICS
+2021-06-28T06:15:32.468731+00:00 app[worker.1]: 2021-06-28 06:15:32,468 - __main__ - INFO - shanyyx has initialised their account
+2021-06-28T06:15:36.021602+00:00 app[worker.1]: 2021-06-28 06:15:36,021 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:15:42.753184+00:00 app[worker.1]: 2021-06-28 06:15:42,752 - __main__ - INFO - User shanyyx has run /mods
+2021-06-28T06:15:47.135295+00:00 app[worker.1]: 2021-06-28 06:15:47,135 - __main__ - INFO - User claekho started the bot
+2021-06-28T06:15:47.818907+00:00 app[worker.1]: 2021-06-28 06:15:47,818 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:15:48.550786+00:00 app[worker.1]: 2021-06-28 06:15:48,550 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:15:50.839373+00:00 app[worker.1]: 2021-06-28 06:15:50,839 - __main__ - INFO - User weirdoo0oo started the bot
+2021-06-28T06:15:53.757453+00:00 app[worker.1]: 2021-06-28 06:15:53,757 - __main__ - INFO - User claekho is registering
+2021-06-28T06:15:59.731961+00:00 app[worker.1]: 2021-06-28 06:15:59,731 - __main__ - INFO - User weirdoo0oo is registering
+2021-06-28T06:16:00.436234+00:00 app[worker.1]: 2021-06-28 06:16:00,436 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:16:04.109600+00:00 app[worker.1]: 2021-06-28 06:16:04,109 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:16:05.175000+00:00 app[worker.1]: 2021-06-28 06:16:05,174 - __main__ - INFO - AngQiXuan has initialised their account
+2021-06-28T06:16:06.071359+00:00 app[worker.1]: 2021-06-28 06:16:06,071 - __main__ - INFO - Room Number of weirdoo0oo: E207
+2021-06-28T06:16:08.716125+00:00 app[worker.1]: 2021-06-28 06:16:08,715 - __main__ - INFO - Faculty of weirdoo0oo: FASS
+2021-06-28T06:16:10.186032+00:00 app[worker.1]: 2021-06-28 06:16:10,185 - __main__ - INFO - User shanyyx has run /mods
+2021-06-28T06:16:13.214158+00:00 app[worker.1]: 2021-06-28 06:16:13,213 - __main__ - INFO - Course of weirdoo0oo: SOCIOLOGY
+2021-06-28T06:16:13.494882+00:00 app[worker.1]: 2021-06-28 06:16:13,494 - __main__ - INFO - Room Number of claekho: D312
+2021-06-28T06:16:14.315307+00:00 app[worker.1]: 2021-06-28 06:16:14,315 - __main__ - INFO - Faculty of claekho: ISE
+2021-06-28T06:16:20.154652+00:00 app[worker.1]: 2021-06-28 06:16:20,154 - __main__ - INFO - User claekho canceled the conversation.
+2021-06-28T06:16:21.302674+00:00 app[worker.1]: 2021-06-28 06:16:21,301 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:16:22.104276+00:00 app[worker.1]: 2021-06-28 06:16:22,104 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T06:16:24.672334+00:00 app[worker.1]: 2021-06-28 06:16:24,672 - __main__ - INFO - ryantjx has initialised their account
+2021-06-28T06:16:28.758319+00:00 app[worker.1]: 2021-06-28 06:16:28,758 - __main__ - INFO - User claekho is registering
+2021-06-28T06:16:29.615746+00:00 app[worker.1]: 2021-06-28 06:16:29,615 - __main__ - INFO - User ryantjx has run /mods
+2021-06-28T06:16:29.942067+00:00 app[worker.1]: 2021-06-28 06:16:29,941 - __main__ - INFO - User bikjeun canceled the conversation.
+2021-06-28T06:16:31.267509+00:00 app[worker.1]: 2021-06-28 06:16:31,267 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T06:16:33.514438+00:00 app[worker.1]: 2021-06-28 06:16:33,514 - __main__ - INFO - User bikjeun has run /mods
+2021-06-28T06:16:35.395238+00:00 app[worker.1]: 2021-06-28 06:16:35,395 - __main__ - INFO - Room Number of claekho: D312
+2021-06-28T06:16:36.567136+00:00 app[worker.1]: 2021-06-28 06:16:36,566 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T06:16:36.971113+00:00 app[worker.1]: 2021-06-28 06:16:36,970 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:16:38.684362+00:00 app[worker.1]: 2021-06-28 06:16:38,684 - __main__ - INFO - Faculty of claekho: Science
+2021-06-28T06:16:42.180272+00:00 app[worker.1]: 2021-06-28 06:16:42,180 - __main__ - INFO - Course of claekho: PHARMACY
+2021-06-28T06:16:52.138265+00:00 app[worker.1]: 2021-06-28 06:16:52,138 - __main__ - INFO - User bikjeun canceled the conversation.
+2021-06-28T06:17:16.534624+00:00 app[worker.1]: 2021-06-28 06:17:16,534 - __main__ - INFO - weirdoo0oo has initialised their account
+2021-06-28T06:17:16.535306+00:00 app[worker.1]: 2021-06-28 06:17:16,535 - __main__ - INFO - User benj_khoo canceled the conversation.
+2021-06-28T06:17:24.048139+00:00 app[worker.1]: 2021-06-28 06:17:24,047 - __main__ - INFO - User weirdoo0oo has run /mods
+2021-06-28T06:17:32.996034+00:00 app[worker.1]: 2021-06-28 06:17:32,995 - __main__ - INFO - User benj_khoo is registering
+2021-06-28T06:17:37.122733+00:00 app[worker.1]: 2021-06-28 06:17:37,122 - __main__ - INFO - User ADAMEEEEEE started the bot
+2021-06-28T06:17:39.205340+00:00 app[worker.1]: 2021-06-28 06:17:39,205 - __main__ - INFO - User ADAMEEEEEE is registering
+2021-06-28T06:17:39.495714+00:00 app[worker.1]: 2021-06-28 06:17:39,495 - __main__ - INFO - Room Number of benj_khoo: B402
+2021-06-28T06:17:47.746811+00:00 app[worker.1]: 2021-06-28 06:17:47,746 - __main__ - INFO - Faculty of benj_khoo: Engineering
+2021-06-28T06:17:49.326462+00:00 app[worker.1]: 2021-06-28 06:17:49,326 - __main__ - INFO - Room Number of ADAMEEEEEE: E412
+2021-06-28T06:17:58.416854+00:00 app[worker.1]: 2021-06-28 06:17:58,416 - __main__ - INFO - Faculty of ADAMEEEEEE: CHS(AY21/22 Onwards)
+2021-06-28T06:18:02.682257+00:00 app[worker.1]: 2021-06-28 06:18:02,682 - __main__ - INFO - Course of ADAMEEEEEE: LIFE SCIENCE
+2021-06-28T06:18:04.247726+00:00 app[worker.1]: 2021-06-28 06:18:04,247 - __main__ - INFO - User weirdoo0oo has run /mods
+2021-06-28T06:18:13.953230+00:00 app[worker.1]: 2021-06-28 06:18:13,953 - __main__ - INFO - Course of benj_khoo: MECHANICAL ENGINEERING
+2021-06-28T06:18:15.110666+00:00 app[worker.1]: 2021-06-28 06:18:15,110 - __main__ - INFO - User weirdoo0oo has run /mods
+2021-06-28T06:18:44.099796+00:00 app[worker.1]: 2021-06-28 06:18:44,099 - __main__ - INFO - User eusoffmods_bot has run /groupchatcreated
+2021-06-28T06:19:02.322285+00:00 app[worker.1]: 2021-06-28 06:19:02,322 - __main__ - INFO - Jaredlim has initialised their account
+2021-06-28T06:19:09.808072+00:00 app[worker.1]: 2021-06-28 06:19:09,807 - __main__ - INFO - User Jaredlim has run /mods
+2021-06-28T06:19:13.600765+00:00 app[worker.1]: 2021-06-28 06:19:13,600 - __main__ - INFO - User thewaterworks started the bot
+2021-06-28T06:19:16.656348+00:00 app[worker.1]: 2021-06-28 06:19:16,656 - __main__ - INFO - User thewaterworks is registering
+2021-06-28T06:19:34.048175+00:00 app[worker.1]: 2021-06-28 06:19:34,048 - __main__ - INFO - User adelecorn started the bot
+2021-06-28T06:19:40.344197+00:00 app[worker.1]: 2021-06-28 06:19:40,343 - __main__ - INFO - User adelecorn is registering
+2021-06-28T06:19:51.614758+00:00 app[worker.1]: 2021-06-28 06:19:51,614 - __main__ - INFO - User Jaredlim has run /mods
+2021-06-28T06:19:55.882259+00:00 app[worker.1]: 2021-06-28 06:19:55,882 - __main__ - INFO - Room Number of adelecorn: E307
+2021-06-28T06:19:58.194951+00:00 app[worker.1]: 2021-06-28 06:19:58,194 - __main__ - INFO - ADAMEEEEEE has initialised their account
+2021-06-28T06:20:03.708815+00:00 app[worker.1]: 2021-06-28 06:20:03,708 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:20:14.547834+00:00 app[worker.1]: 2021-06-28 06:20:14,547 - __main__ - INFO - User Jaredlim has run /mods
+2021-06-28T06:20:17.494348+00:00 app[worker.1]: 2021-06-28 06:20:17,494 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:20:24.105327+00:00 app[worker.1]: 2021-06-28 06:20:24,105 - __main__ - INFO - User Jaredlim has run /mods
+2021-06-28T06:20:27.035632+00:00 app[worker.1]: 2021-06-28 06:20:27,035 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:20:35.557523+00:00 app[worker.1]: 2021-06-28 06:20:35,557 - __main__ - INFO - Faculty of adelecorn: FASS
+2021-06-28T06:20:39.119970+00:00 app[worker.1]: 2021-06-28 06:20:39,119 - __main__ - INFO - Course of adelecorn: ECONS
+2021-06-28T06:20:44.263965+00:00 app[worker.1]: 2021-06-28 06:20:44,263 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:21:00.467510+00:00 app[worker.1]: 2021-06-28 06:21:00,467 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:21:15.201431+00:00 app[worker.1]: 2021-06-28 06:21:15,201 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:21:23.931540+00:00 app[worker.1]: 2021-06-28 06:21:23,931 - __main__ - INFO - User ADAMEEEEEE has run /mods
+2021-06-28T06:23:41.108393+00:00 app[worker.1]: 2021-06-28 06:23:41,108 - __main__ - INFO - benj_khoo has initialised their account
+2021-06-28T06:23:43.496983+00:00 app[worker.1]: 2021-06-28 06:23:43,496 - __main__ - INFO - User benj_khoo has run /addmod
+2021-06-28T06:23:58.644769+00:00 app[worker.1]: 2021-06-28 06:23:58,644 - __main__ - INFO - User benj_khoo has run /help
+2021-06-28T06:24:02.208500+00:00 app[worker.1]: 2021-06-28 06:24:02,208 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:24:29.332944+00:00 app[worker.1]: 2021-06-28 06:24:29,332 - __main__ - INFO - User clineong started the bot
+2021-06-28T06:24:31.620520+00:00 app[worker.1]: 2021-06-28 06:24:31,620 - __main__ - INFO - User clineong is registering
+2021-06-28T06:24:35.870381+00:00 app[worker.1]: 2021-06-28 06:24:35,870 - __main__ - INFO - Room Number of clineong: D301
+2021-06-28T06:24:38.370888+00:00 app[worker.1]: 2021-06-28 06:24:38,370 - __main__ - INFO - Faculty of clineong: FASS
+2021-06-28T06:24:40.381861+00:00 app[worker.1]: 2021-06-28 06:24:40,381 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:24:41.126795+00:00 app[worker.1]: 2021-06-28 06:24:41,126 - __main__ - INFO - Course of clineong: ECONS
+2021-06-28T06:24:58.809931+00:00 app[worker.1]: 2021-06-28 06:24:58,809 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:25:34.678197+00:00 app[worker.1]: 2021-06-28 06:25:34,677 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:25:58.037031+00:00 app[worker.1]: 2021-06-28 06:25:58,036 - __main__ - INFO - clineong has initialised their account
+2021-06-28T06:26:01.316683+00:00 app[worker.1]: 2021-06-28 06:26:01,316 - __main__ - INFO - User clineong has run /mods
+2021-06-28T06:26:03.139054+00:00 app[worker.1]: 2021-06-28 06:26:03,138 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:26:23.674929+00:00 app[worker.1]: 2021-06-28 06:26:23,674 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:26:50.689538+00:00 app[worker.1]: 2021-06-28 06:26:50,689 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:27:09.417035+00:00 app[worker.1]: 2021-06-28 06:27:09,416 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:27:24.868594+00:00 app[worker.1]: 2021-06-28 06:27:24,868 - __main__ - INFO - User ashesheng started the bot
+2021-06-28T06:27:30.442617+00:00 app[worker.1]: 2021-06-28 06:27:30,442 - __main__ - INFO - User ashesheng is registering
+2021-06-28T06:27:39.117800+00:00 app[worker.1]: 2021-06-28 06:27:39,117 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:27:41.482010+00:00 app[worker.1]: 2021-06-28 06:27:41,481 - __main__ - INFO - Room Number of ashesheng: C305
+2021-06-28T06:27:46.656258+00:00 app[worker.1]: 2021-06-28 06:27:46,656 - __main__ - INFO - Faculty of ashesheng: FASS
+2021-06-28T06:27:54.883078+00:00 app[worker.1]: 2021-06-28 06:27:54,882 - __main__ - INFO - Course of ashesheng: ECONOMICS
+2021-06-28T06:27:56.174688+00:00 app[worker.1]: 2021-06-28 06:27:56,174 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:28:34.854012+00:00 app[worker.1]: 2021-06-28 06:28:34,853 - __main__ - INFO - ashesheng has initialised their account
+2021-06-28T06:28:44.241301+00:00 app[worker.1]: 2021-06-28 06:28:44,241 - __main__ - INFO - User ashesheng has run /mods
+2021-06-28T06:29:03.466436+00:00 app[worker.1]: 2021-06-28 06:29:03,466 - __main__ - INFO - User ashesheng has run /mods
+2021-06-28T06:29:10.267585+00:00 app[worker.1]: 2021-06-28 06:29:10,267 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:29:22.117067+00:00 app[worker.1]: 2021-06-28 06:29:22,116 - __main__ - INFO - User ashesheng has run /mods
+2021-06-28T06:29:22.477866+00:00 app[worker.1]: 2021-06-28 06:29:22,477 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:29:31.304177+00:00 app[worker.1]: 2021-06-28 06:29:31,303 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:29:39.634265+00:00 app[worker.1]: 2021-06-28 06:29:39,634 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:30:02.623290+00:00 app[worker.1]: 2021-06-28 06:30:02,623 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:30:19.468519+00:00 app[worker.1]: 2021-06-28 06:30:19,468 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T06:30:33.386387+00:00 app[worker.1]: 2021-06-28 06:30:33,386 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T06:30:33.909409+00:00 app[worker.1]: 2021-06-28 06:30:33,909 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:30:49.877825+00:00 app[worker.1]: 2021-06-28 06:30:49,877 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T06:30:51.832383+00:00 app[worker.1]: 2021-06-28 06:30:51,832 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:35:34.132773+00:00 app[worker.1]: 2021-06-28 06:35:34,132 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:35:49.401792+00:00 app[worker.1]: 2021-06-28 06:35:49,401 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:35:58.564189+00:00 app[worker.1]: 2021-06-28 06:35:58,563 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:36:51.285771+00:00 app[worker.1]: 2021-06-28 06:36:51,285 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:38:14.458884+00:00 app[worker.1]: 2021-06-28 06:38:14,458 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:38:36.743543+00:00 app[worker.1]: 2021-06-28 06:38:36,743 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:38:37.703145+00:00 app[worker.1]: 2021-06-28 06:38:37,702 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:39:44.297551+00:00 app[worker.1]: 2021-06-28 06:39:44,297 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:39:54.380428+00:00 app[worker.1]: 2021-06-28 06:39:54,380 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:40:21.102006+00:00 app[worker.1]: 2021-06-28 06:40:21,101 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:42:15.960119+00:00 app[worker.1]: 2021-06-28 06:42:15,959 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:42:24.850845+00:00 app[worker.1]: 2021-06-28 06:42:24,850 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:42:25.566977+00:00 app[worker.1]: 2021-06-28 06:42:25,566 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:43:51.943801+00:00 app[worker.1]: 2021-06-28 06:43:51,943 - __main__ - INFO - User kehuann has run /mods
+2021-06-28T06:44:13.079826+00:00 app[worker.1]: 2021-06-28 06:44:13,079 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:44:27.197687+00:00 app[worker.1]: 2021-06-28 06:44:27,197 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:44:34.775571+00:00 app[worker.1]: 2021-06-28 06:44:34,775 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:44:35.860738+00:00 app[worker.1]: 2021-06-28 06:44:35,860 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:44:37.756281+00:00 app[worker.1]: 2021-06-28 06:44:37,756 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:44:49.033969+00:00 app[worker.1]: 2021-06-28 06:44:49,033 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:44:51.452486+00:00 app[worker.1]: 2021-06-28 06:44:51,452 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:44:51.804924+00:00 app[worker.1]: 2021-06-28 06:44:51,804 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:45:04.319142+00:00 app[worker.1]: 2021-06-28 06:45:04,318 - __main__ - INFO - User emmatyr has run /deletemod
+2021-06-28T06:45:04.850825+00:00 app[worker.1]: 2021-06-28 06:45:04,850 - __main__ - INFO - User audrenius started the bot
+2021-06-28T06:45:15.900083+00:00 app[worker.1]: 2021-06-28 06:45:15,899 - __main__ - INFO - User audrenius is registering
+2021-06-28T06:45:16.432466+00:00 app[worker.1]: 2021-06-28 06:45:16,432 - __main__ - INFO - User VimuthM has run /deletemod
+2021-06-28T06:45:22.066100+00:00 app[worker.1]: 2021-06-28 06:45:22,065 - __main__ - INFO - User emmatyr canceled the conversation.
+2021-06-28T06:45:22.338841+00:00 app[worker.1]: 2021-06-28 06:45:22,338 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:45:25.647149+00:00 app[worker.1]: 2021-06-28 06:45:25,646 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:45:26.605479+00:00 app[worker.1]: 2021-06-28 06:45:26,605 - __main__ - INFO - Room Number of audrenius: C302
+2021-06-28T06:45:29.044429+00:00 app[worker.1]: 2021-06-28 06:45:29,044 - __main__ - INFO - Faculty of audrenius: FASS
+2021-06-28T06:45:32.626455+00:00 app[worker.1]: 2021-06-28 06:45:32,626 - __main__ - INFO - Course of audrenius: HISTORY
+2021-06-28T06:45:37.790246+00:00 app[worker.1]: 2021-06-28 06:45:37,790 - __main__ - INFO - User emmatyr has run /deletemod
+2021-06-28T06:45:44.991230+00:00 app[worker.1]: 2021-06-28 06:45:44,991 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:45:50.194481+00:00 app[worker.1]: 2021-06-28 06:45:50,194 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T06:45:56.049896+00:00 app[worker.1]: 2021-06-28 06:45:56,049 - __main__ - INFO - User emmatyr canceled the conversation.
+2021-06-28T06:45:57.429462+00:00 app[worker.1]: 2021-06-28 06:45:57,429 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:46:06.622983+00:00 app[worker.1]: 2021-06-28 06:46:06,622 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:46:07.002456+00:00 app[worker.1]: 2021-06-28 06:46:07,002 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:46:13.712663+00:00 app[worker.1]: 2021-06-28 06:46:13,712 - __main__ - INFO - User emmatyr canceled the conversation.
+2021-06-28T06:46:15.973628+00:00 app[worker.1]: 2021-06-28 06:46:15,970 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:46:17.156126+00:00 app[worker.1]: 2021-06-28 06:46:17,155 - __main__ - INFO - User emmatyr canceled the conversation.
+2021-06-28T06:46:21.344468+00:00 app[worker.1]: 2021-06-28 06:46:21,344 - __main__ - INFO - User emmatyr has run /deletemod
+2021-06-28T06:46:26.243726+00:00 app[worker.1]: 2021-06-28 06:46:26,243 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:46:28.777206+00:00 app[worker.1]: 2021-06-28 06:46:28,777 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:46:42.623638+00:00 app[worker.1]: 2021-06-28 06:46:42,623 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:47:06.998551+00:00 app[worker.1]: 2021-06-28 06:47:06,998 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:47:18.106845+00:00 app[worker.1]: 2021-06-28 06:47:18,106 - __main__ - INFO - User emmatyr has run /mods
+2021-06-28T06:47:34.177533+00:00 app[worker.1]: 2021-06-28 06:47:34,177 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T06:47:35.416419+00:00 app[worker.1]: 2021-06-28 06:47:35,416 - __main__ - INFO - User benj_khoo has run /mods
+2021-06-28T06:47:44.319827+00:00 app[worker.1]: 2021-06-28 06:47:44,319 - __main__ - INFO - User eusoffmods_bot has run /groupchatcreated
+2021-06-28T06:48:34.054883+00:00 app[worker.1]: 2021-06-28 06:48:34,054 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:48:35.847661+00:00 app[worker.1]: 2021-06-28 06:48:35,847 - __main__ - INFO - User chernanigans has run /deletemod
+2021-06-28T06:50:30.910071+00:00 app[worker.1]: 2021-06-28 06:50:30,909 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T06:50:32.113466+00:00 app[worker.1]: 2021-06-28 06:50:32,112 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T06:51:06.403663+00:00 app[worker.1]: 2021-06-28 06:51:06,403 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:51:20.964074+00:00 app[worker.1]: 2021-06-28 06:51:20,963 - __main__ - INFO - User moosebumps69 started the bot
+2021-06-28T06:51:23.887572+00:00 app[worker.1]: 2021-06-28 06:51:23,887 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:51:26.769976+00:00 app[worker.1]: 2021-06-28 06:51:26,769 - __main__ - INFO - User moosebumps69 is registering
+2021-06-28T06:51:31.205057+00:00 app[worker.1]: 2021-06-28 06:51:31,204 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:51:36.853345+00:00 app[worker.1]: 2021-06-28 06:51:36,853 - __main__ - INFO - Room Number of moosebumps69: E213
+2021-06-28T06:51:43.141654+00:00 app[worker.1]: 2021-06-28 06:51:43,141 - __main__ - INFO - Faculty of moosebumps69: Biz
+2021-06-28T06:51:54.032949+00:00 app[worker.1]: 2021-06-28 06:51:54,032 - __main__ - INFO - Course of moosebumps69: ENTREPRENEUR
+2021-06-28T06:52:38.764657+00:00 app[worker.1]: 2021-06-28 06:52:38,764 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:52:46.069880+00:00 app[worker.1]: 2021-06-28 06:52:46,069 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:52:52.271175+00:00 app[worker.1]: 2021-06-28 06:52:52,270 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:52:58.900401+00:00 app[worker.1]: 2021-06-28 06:52:58,900 - __main__ - INFO - User rzchel started the bot
+2021-06-28T06:53:04.082459+00:00 app[worker.1]: 2021-06-28 06:53:04,082 - __main__ - INFO - User rzchel is registering
+2021-06-28T06:53:16.225182+00:00 app[worker.1]: 2021-06-28 06:53:16,225 - __main__ - INFO - Room Number of rzchel: B318
+2021-06-28T06:53:22.211103+00:00 app[worker.1]: 2021-06-28 06:53:22,210 - __main__ - INFO - Faculty of rzchel: Science
+2021-06-28T06:53:28.189192+00:00 app[worker.1]: 2021-06-28 06:53:28,189 - __main__ - INFO - Course of rzchel: ENVIRONMENTAL STUDIES
+2021-06-28T06:53:46.346829+00:00 app[worker.1]: 2021-06-28 06:53:46,346 - __main__ - INFO - User emmatyr started the bot
+2021-06-28T06:54:18.282715+00:00 app[worker.1]: 2021-06-28 06:54:18,282 - __main__ - INFO - rzchel has initialised their account
+2021-06-28T06:54:23.534282+00:00 app[worker.1]: 2021-06-28 06:54:23,534 - __main__ - INFO - User rzchel has run /mods
+2021-06-28T06:54:27.616673+00:00 app[worker.1]: 2021-06-28 06:54:27,616 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:54:44.363738+00:00 app[worker.1]: 2021-06-28 06:54:44,363 - __main__ - INFO - User rzchel has run /mods
+2021-06-28T06:58:10.731368+00:00 app[worker.1]: 2021-06-28 06:58:10,731 - __main__ - INFO - audrenius has initialised their account
+2021-06-28T06:58:14.891411+00:00 app[worker.1]: 2021-06-28 06:58:14,891 - __main__ - INFO - User audrenius has run /mods
+2021-06-28T06:58:57.117675+00:00 app[worker.1]: 2021-06-28 06:58:57,117 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T06:59:10.067553+00:00 app[worker.1]: 2021-06-28 06:59:10,067 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:59:40.751290+00:00 app[worker.1]: 2021-06-28 06:59:40,751 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T06:59:41.501972+00:00 app[worker.1]: 2021-06-28 06:59:41,501 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T06:59:59.901837+00:00 app[worker.1]: 2021-06-28 06:59:59,901 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:00:06.613308+00:00 app[worker.1]: 2021-06-28 07:00:06,613 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T07:00:09.478946+00:00 app[worker.1]: 2021-06-28 07:00:09,478 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:00:12.974834+00:00 app[worker.1]: 2021-06-28 07:00:12,974 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:00:45.061672+00:00 app[worker.1]: 2021-06-28 07:00:45,061 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:01:07.470404+00:00 app[worker.1]: 2021-06-28 07:01:07,470 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:02:37.734787+00:00 app[worker.1]: 2021-06-28 07:02:37,734 - __main__ - INFO - User keithtay84 started the bot
+2021-06-28T07:02:49.264430+00:00 app[worker.1]: 2021-06-28 07:02:49,264 - __main__ - INFO - User keithtay84 is registering
+2021-06-28T07:02:58.315305+00:00 app[worker.1]: 2021-06-28 07:02:58,315 - __main__ - INFO - Room Number of keithtay84: E409
+2021-06-28T07:03:01.610241+00:00 app[worker.1]: 2021-06-28 07:03:01,610 - __main__ - INFO - Faculty of keithtay84: Engineering
+2021-06-28T07:03:07.333637+00:00 app[worker.1]: 2021-06-28 07:03:07,333 - __main__ - INFO - Course of keithtay84: MECHANICAL ENGINEERING
+2021-06-28T07:03:54.589405+00:00 app[worker.1]: 2021-06-28 07:03:54,589 - __main__ - INFO - User keithtay84 canceled the conversation.
+2021-06-28T07:04:04.279198+00:00 app[worker.1]: 2021-06-28 07:04:04,278 - __main__ - INFO - User keithtay84 is registering
+2021-06-28T07:04:07.844528+00:00 app[worker.1]: 2021-06-28 07:04:07,844 - __main__ - INFO - Room Number of keithtay84: E409
+2021-06-28T07:04:09.361119+00:00 app[worker.1]: 2021-06-28 07:04:09,360 - __main__ - INFO - Faculty of keithtay84: Engineering
+2021-06-28T07:04:17.149360+00:00 app[worker.1]: 2021-06-28 07:04:17,149 - __main__ - INFO - Course of keithtay84: MECHANICAL ENGINEERING
+2021-06-28T07:04:22.095008+00:00 app[worker.1]: 2021-06-28 07:04:22,094 - __main__ - INFO - User benji_tan started the bot
+2021-06-28T07:04:26.616942+00:00 app[worker.1]: 2021-06-28 07:04:26,616 - __main__ - INFO - User benji_tan is registering
+2021-06-28T07:04:33.405649+00:00 app[worker.1]: 2021-06-28 07:04:33,405 - __main__ - INFO - Room Number of benji_tan: B416
+2021-06-28T07:04:35.331044+00:00 app[worker.1]: 2021-06-28 07:04:35,330 - __main__ - INFO - Faculty of benji_tan: Biz
+2021-06-28T07:04:44.928825+00:00 app[worker.1]: 2021-06-28 07:04:44,928 - __main__ - INFO - Course of benji_tan: BIZ ADMIN
+2021-06-28T07:05:17.344501+00:00 app[worker.1]: 2021-06-28 07:05:17,344 - __main__ - INFO - benji_tan has initialised their account
+2021-06-28T07:05:19.665740+00:00 app[worker.1]: 2021-06-28 07:05:19,665 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T07:05:34.950403+00:00 app[worker.1]: 2021-06-28 07:05:34,950 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T07:05:53.567763+00:00 app[worker.1]: 2021-06-28 07:05:53,567 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T07:07:01.003010+00:00 app[worker.1]: 2021-06-28 07:07:01,002 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:12:22.763234+00:00 app[worker.1]: 2021-06-28 07:12:22,762 - __main__ - INFO - User gordonlzy started the bot
+2021-06-28T07:16:28.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T07:16:42.491394+00:00 app[worker.1]: 2021-06-28 07:16:42,491 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T07:16:54.601780+00:00 app[api]: Deploy 9c2e1fd4 by user yeechern123@gmail.com
+2021-06-28T07:16:54.601780+00:00 app[api]: Release v85 created by user yeechern123@gmail.com
+2021-06-28T07:16:55.136716+00:00 app[worker.1]: 2021-06-28 07:16:55,136 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:16:55.244879+00:00 heroku[worker.1]: Restarting
+2021-06-28T07:16:55.259673+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T07:16:56.687049+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T07:16:56.848441+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T07:17:00.045272+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T07:17:00.774003+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T07:17:02.604090+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T07:17:03.858797+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T07:17:03.860067+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T07:17:03.860077+00:00 app[worker.1]: warnings.warn(
+2021-06-28T07:17:03.860761+00:00 app[worker.1]: 2021-06-28 07:17:03,860 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T07:17:05.000000+00:00 app[api]: Build succeeded
+2021-06-28T07:17:06.484243+00:00 app[worker.1]: 2021-06-28 07:17:06,484 - __main__ - INFO - User phoebelyy started the bot
+2021-06-28T07:17:06.970104+00:00 app[worker.1]: 2021-06-28 07:17:06,969 - __main__ - INFO - User chernanigans has run /deletemod
+2021-06-28T07:17:11.308691+00:00 app[worker.1]: 2021-06-28 07:17:11,308 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T07:17:16.984030+00:00 app[worker.1]: 2021-06-28 07:17:16,983 - __main__ - INFO - User phoebelyy is registering
+2021-06-28T07:17:25.538797+00:00 app[worker.1]: 2021-06-28 07:17:25,538 - __main__ - INFO - Room Number of phoebelyy: E205
+2021-06-28T07:17:29.304326+00:00 app[worker.1]: 2021-06-28 07:17:29,304 - __main__ - INFO - Faculty of phoebelyy: FASS
+2021-06-28T07:17:30.337352+00:00 app[worker.1]: 2021-06-28 07:17:30,337 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:17:34.053448+00:00 app[worker.1]: 2021-06-28 07:17:34,053 - __main__ - INFO - Course of phoebelyy: HISTORY
+2021-06-28T07:18:25.478865+00:00 app[worker.1]: 2021-06-28 07:18:25,478 - __main__ - INFO - User VimuthM has deleted account
+2021-06-28T07:18:30.484135+00:00 app[worker.1]: 2021-06-28 07:18:30,483 - __main__ - INFO - User VimuthM is registering
+2021-06-28T07:18:32.889889+00:00 app[worker.1]: 2021-06-28 07:18:32,889 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T07:18:45.216405+00:00 app[worker.1]: 2021-06-28 07:18:45,216 - __main__ - INFO - Room Number of VimuthM: E417
+2021-06-28T07:18:50.985840+00:00 app[worker.1]: 2021-06-28 07:18:50,985 - __main__ - INFO - Faculty of VimuthM: Science
+2021-06-28T07:18:57.949399+00:00 app[worker.1]: 2021-06-28 07:18:57,949 - __main__ - INFO - phoebelyy has initialised their account
+2021-06-28T07:18:57.949702+00:00 app[worker.1]: 2021-06-28 07:18:57,949 - __main__ - INFO - Course of VimuthM: CS
+2021-06-28T07:18:58.215989+00:00 app[worker.1]: 2021-06-28 07:18:58,215 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T07:19:10.730146+00:00 app[worker.1]: 2021-06-28 07:19:10,729 - __main__ - INFO - VimuthM has initialised their account
+2021-06-28T07:19:11.049190+00:00 app[worker.1]: 2021-06-28 07:19:11,049 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T07:19:15.888469+00:00 app[worker.1]: 2021-06-28 07:19:15,888 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:19:19.036503+00:00 app[worker.1]: 2021-06-28 07:19:19,036 - __main__ - INFO - User vivianyeet has run /mods
+2021-06-28T07:19:47.441252+00:00 app[worker.1]: 2021-06-28 07:19:47,441 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T07:20:25.697388+00:00 app[worker.1]: 2021-06-28 07:20:25,697 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T07:20:37.302992+00:00 app[worker.1]: 2021-06-28 07:20:37,302 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T07:20:42.680555+00:00 app[worker.1]: 2021-06-28 07:20:42,680 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T07:20:43.230895+00:00 app[worker.1]: 2021-06-28 07:20:43,230 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T07:20:50.835533+00:00 app[worker.1]: 2021-06-28 07:20:50,835 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T07:21:00.764740+00:00 app[worker.1]: 2021-06-28 07:21:00,764 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:21:17.699063+00:00 app[worker.1]: 2021-06-28 07:21:17,698 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T07:21:18.708591+00:00 app[worker.1]: 2021-06-28 07:21:18,708 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T07:21:33.525201+00:00 app[worker.1]: 2021-06-28 07:21:33,525 - __main__ - INFO - User giovanniwijaya has run /mods
+2021-06-28T07:21:35.599190+00:00 app[worker.1]: 2021-06-28 07:21:35,599 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:21:43.860043+00:00 app[worker.1]: 2021-06-28 07:21:43,859 - __main__ - INFO - User VimuthM has run /addmod
+2021-06-28T07:21:47.667466+00:00 app[worker.1]: 2021-06-28 07:21:47,667 - __main__ - INFO - User armadillaus has run /mods
+2021-06-28T07:22:04.273723+00:00 app[worker.1]: 2021-06-28 07:22:04,273 - __main__ - INFO - User VimuthM canceled the conversation.
+2021-06-28T07:22:05.481884+00:00 app[worker.1]: 2021-06-28 07:22:05,481 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:22:18.037666+00:00 app[worker.1]: 2021-06-28 07:22:18,037 - __main__ - INFO - User weirdoo0oo has run /mods
+2021-06-28T07:22:26.949947+00:00 app[worker.1]: 2021-06-28 07:22:26,949 - __main__ - INFO - User weirdoo0oo canceled the conversation.
+2021-06-28T07:22:29.573524+00:00 app[worker.1]: 2021-06-28 07:22:29,573 - __main__ - INFO - User weirdoo0oo has run /mods
+2021-06-28T07:23:16.890030+00:00 app[worker.1]: 2021-06-28 07:23:16,889 - __main__ - INFO - User chernanigans has run /help
+2021-06-28T07:23:21.234768+00:00 app[worker.1]: 2021-06-28 07:23:21,234 - __main__ - INFO - User astravanillas has run /mods
+2021-06-28T07:23:25.761831+00:00 app[worker.1]: 2021-06-28 07:23:25,761 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:25:04.009974+00:00 app[worker.1]: 2021-06-28 07:25:04,009 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:26:45.309585+00:00 app[worker.1]: 2021-06-28 07:26:45,309 - __main__ - INFO - User LaughDieMi is registering
+2021-06-28T07:26:49.801075+00:00 app[worker.1]: 2021-06-28 07:26:49,800 - __main__ - INFO - Room Number of LaughDieMi: A416
+2021-06-28T07:26:57.531569+00:00 app[worker.1]: 2021-06-28 07:26:57,531 - __main__ - INFO - Faculty of LaughDieMi: Engineering
+2021-06-28T07:27:01.978743+00:00 app[worker.1]: 2021-06-28 07:27:01,978 - __main__ - INFO - Course of LaughDieMi: ISE
+2021-06-28T07:27:08.358729+00:00 app[worker.1]: 2021-06-28 07:27:08,358 - __main__ - INFO - User jjanine started the bot
+2021-06-28T07:31:17.253222+00:00 app[worker.1]: 2021-06-28 07:31:17,253 - __main__ - INFO - User LaughDieMi started the bot
+2021-06-28T07:31:24.860717+00:00 app[worker.1]: 2021-06-28 07:31:24,860 - __main__ - INFO - User LaughDieMi canceled the conversation.
+2021-06-28T07:31:30.700923+00:00 app[worker.1]: 2021-06-28 07:31:30,700 - __main__ - INFO - User LaughDieMi is registering
+2021-06-28T07:32:06.644685+00:00 app[worker.1]: 2021-06-28 07:32:06,644 - __main__ - INFO - User LaughDieMi started the bot
+2021-06-28T07:32:23.188855+00:00 app[worker.1]: 2021-06-28 07:32:23,188 - __main__ - INFO - User xxrish has run /mods
+2021-06-28T07:32:46.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T07:32:47.101187+00:00 app[worker.1]: 2021-06-28 07:32:47,100 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:32:58.601371+00:00 app[worker.1]: 2021-06-28 07:32:58,601 - __main__ - INFO - User chernanigans has run /deletemod
+2021-06-28T07:33:11.798073+00:00 app[api]: Deploy 645de8b8 by user yeechern123@gmail.com
+2021-06-28T07:33:11.798073+00:00 app[api]: Release v86 created by user yeechern123@gmail.com
+2021-06-28T07:33:12.086890+00:00 heroku[worker.1]: Restarting
+2021-06-28T07:33:12.099440+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T07:33:13.035496+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T07:33:13.144727+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T07:33:18.114824+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T07:33:18.918753+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T07:33:22.000000+00:00 app[api]: Build succeeded
+2021-06-28T07:33:22.912553+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T07:33:25.591472+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T07:33:25.593512+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T07:33:25.593514+00:00 app[worker.1]: warnings.warn(
+2021-06-28T07:33:25.594879+00:00 app[worker.1]: 2021-06-28 07:33:25,594 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T07:33:26.032687+00:00 app[worker.1]: 2021-06-28 07:33:26,032 - __main__ - INFO - User LaughDieMi is registering
+2021-06-28T07:33:31.540768+00:00 app[worker.1]: 2021-06-28 07:33:31,540 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T07:34:06.382891+00:00 app[worker.1]: 2021-06-28 07:34:06,382 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:34:19.210546+00:00 app[worker.1]: 2021-06-28 07:34:19,210 - __main__ - INFO - Room Number of LaughDieMi: A416
+2021-06-28T07:34:21.445984+00:00 app[worker.1]: 2021-06-28 07:34:21,445 - __main__ - INFO - Faculty of LaughDieMi: Engineering
+2021-06-28T07:34:26.570839+00:00 app[worker.1]: 2021-06-28 07:34:26,570 - __main__ - INFO - Course of LaughDieMi: ISE
+2021-06-28T07:35:28.583760+00:00 app[worker.1]: 2021-06-28 07:35:28,583 - __main__ - INFO - LaughDieMi has initialised their account
+2021-06-28T07:35:32.396131+00:00 app[worker.1]: 2021-06-28 07:35:32,395 - __main__ - INFO - User LaughDieMi has run /mods
+2021-06-28T07:35:36.028154+00:00 app[worker.1]: 2021-06-28 07:35:36,027 - __main__ - INFO - User hklim1 is registering
+2021-06-28T07:35:46.994676+00:00 app[worker.1]: 2021-06-28 07:35:46,994 - __main__ - INFO - User hansbunz started the bot
+2021-06-28T07:35:49.478850+00:00 app[worker.1]: 2021-06-28 07:35:49,478 - __main__ - INFO - User hansbunz is registering
+2021-06-28T07:35:50.003809+00:00 app[worker.1]: 2021-06-28 07:35:50,003 - __main__ - INFO - Room Number of hklim1: D429
+2021-06-28T07:35:52.529027+00:00 app[worker.1]: 2021-06-28 07:35:52,528 - __main__ - INFO - Faculty of hklim1: Science
+2021-06-28T07:35:53.699037+00:00 app[worker.1]: 2021-06-28 07:35:53,698 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:35:55.431101+00:00 app[worker.1]: 2021-06-28 07:35:55,430 - __main__ - INFO - Course of hklim1: LOL
+2021-06-28T07:35:58.984887+00:00 app[worker.1]: 2021-06-28 07:35:58,984 - __main__ - INFO - User LaughDieMi has run /mods
+2021-06-28T07:36:00.141246+00:00 app[worker.1]: 2021-06-28 07:36:00,141 - __main__ - INFO - Room Number of hansbunz: C313
+2021-06-28T07:36:03.123637+00:00 app[worker.1]: 2021-06-28 07:36:03,123 - __main__ - INFO - Faculty of hansbunz: FASS
+2021-06-28T07:36:09.148698+00:00 app[worker.1]: 2021-06-28 07:36:09,148 - __main__ - INFO - Course of hansbunz: LITERATURE
+2021-06-28T07:36:15.283692+00:00 app[worker.1]: 2021-06-28 07:36:15,282 - __main__ - INFO - User LaughDieMi has run /mods
+2021-06-28T07:36:25.028055+00:00 app[worker.1]: 2021-06-28 07:36:25,027 - __main__ - INFO - hklim1 has initialised their account
+2021-06-28T07:36:44.496598+00:00 app[worker.1]: 2021-06-28 07:36:44,496 - __main__ - INFO - User hklim1 has deleted account
+2021-06-28T07:38:30.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T07:38:58.983037+00:00 app[api]: Release v87 created by user yeechern123@gmail.com
+2021-06-28T07:38:58.983037+00:00 app[api]: Deploy d33304ed by user yeechern123@gmail.com
+2021-06-28T07:38:59.622459+00:00 heroku[worker.1]: Restarting
+2021-06-28T07:38:59.624365+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T07:39:01.017765+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T07:39:01.182823+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T07:39:08.031532+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T07:39:08.760086+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T07:39:09.000000+00:00 app[api]: Build succeeded
+2021-06-28T07:39:11.898571+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T07:39:13.738399+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T07:39:13.739677+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T07:39:13.739679+00:00 app[worker.1]: warnings.warn(
+2021-06-28T07:39:13.740460+00:00 app[worker.1]: 2021-06-28 07:39:13,740 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T07:39:30.116123+00:00 app[worker.1]: 2021-06-28 07:39:30,115 - __main__ - INFO - User hklim1 is registering
+2021-06-28T07:39:33.848056+00:00 app[worker.1]: 2021-06-28 07:39:33,847 - __main__ - INFO - Room Number of hklim1: D429
+2021-06-28T07:39:35.639729+00:00 app[worker.1]: 2021-06-28 07:39:35,639 - __main__ - INFO - Faculty of hklim1: Science
+2021-06-28T07:39:39.185680+00:00 app[worker.1]: 2021-06-28 07:39:39,185 - __main__ - INFO - Course of hklim1: LOL
+2021-06-28T07:39:59.967368+00:00 app[worker.1]: 2021-06-28 07:39:59,967 - __main__ - INFO - hklim1 has initialised their account
+2021-06-28T07:40:22.462262+00:00 app[worker.1]: 2021-06-28 07:40:22,461 - __main__ - INFO - User hklim1 has deleted account
+2021-06-28T07:43:17.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T07:43:44.235903+00:00 app[api]: Deploy 454c7126 by user yeechern123@gmail.com
+2021-06-28T07:43:44.235903+00:00 app[api]: Release v88 created by user yeechern123@gmail.com
+2021-06-28T07:43:44.501224+00:00 heroku[worker.1]: Restarting
+2021-06-28T07:43:44.503517+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T07:43:45.837577+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T07:43:46.040663+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T07:43:49.784966+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T07:43:50.487582+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T07:43:54.000000+00:00 app[api]: Build succeeded
+2021-06-28T07:43:54.243297+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T07:43:55.707327+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T07:43:55.708388+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T07:43:55.708389+00:00 app[worker.1]: warnings.warn(
+2021-06-28T07:43:55.709040+00:00 app[worker.1]: 2021-06-28 07:43:55,708 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T07:43:56.152460+00:00 app[worker.1]: 2021-06-28 07:43:56,152 - __main__ - INFO - User hklim1 is registering
+2021-06-28T07:43:59.964927+00:00 app[worker.1]: 2021-06-28 07:43:59,964 - __main__ - INFO - Room Number of hklim1: D429
+2021-06-28T07:44:02.742308+00:00 app[worker.1]: 2021-06-28 07:44:02,742 - __main__ - INFO - Faculty of hklim1: Science
+2021-06-28T07:44:06.244385+00:00 app[worker.1]: 2021-06-28 07:44:06,244 - __main__ - INFO - Course of hklim1: LOL
+2021-06-28T07:44:30.673983+00:00 app[worker.1]: 2021-06-28 07:44:30,673 - __main__ - INFO - hklim1 has initialised their account
+2021-06-28T07:44:47.756503+00:00 app[worker.1]: 2021-06-28 07:44:47,756 - __main__ - INFO - User hklim1 has deleted account
+2021-06-28T07:46:06.135744+00:00 app[worker.1]: 2021-06-28 07:46:06,135 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:48:33.534731+00:00 app[worker.1]: 2021-06-28 07:48:33,534 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T07:53:19.546818+00:00 app[worker.1]: 2021-06-28 07:53:19,546 - __main__ - INFO - User vernicetjt has run /mods
+2021-06-28T07:53:31.295799+00:00 app[worker.1]: 2021-06-28 07:53:31,295 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:53:36.610153+00:00 app[worker.1]: 2021-06-28 07:53:36,609 - __main__ - INFO - User vernicetjt has run /mods
+2021-06-28T07:53:57.111764+00:00 app[worker.1]: 2021-06-28 07:53:57,111 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:54:09.009718+00:00 app[worker.1]: 2021-06-28 07:54:09,009 - __main__ - INFO - User vernicetjt canceled the conversation.
+2021-06-28T07:54:12.267913+00:00 app[worker.1]: 2021-06-28 07:54:12,267 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:54:13.487687+00:00 app[worker.1]: 2021-06-28 07:54:13,487 - __main__ - INFO - User vernicetjt has run /mods
+2021-06-28T07:54:24.734555+00:00 app[worker.1]: 2021-06-28 07:54:24,734 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T07:54:35.054572+00:00 app[worker.1]: 2021-06-28 07:54:35,054 - __main__ - INFO - User vernicetjt has run /mods
+2021-06-28T07:54:46.885266+00:00 app[worker.1]: 2021-06-28 07:54:46,885 - __main__ - INFO - User vernicetjt has run /mods
+2021-06-28T08:03:31.029531+00:00 app[worker.1]: 2021-06-28 08:03:31,028 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:05:26.468460+00:00 app[worker.1]: 2021-06-28 08:05:26,468 - __main__ - INFO - User Jaredlim has run /mods
+2021-06-28T08:06:58.501373+00:00 app[worker.1]: 2021-06-28 08:06:58,501 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:09:54.953084+00:00 app[worker.1]: 2021-06-28 08:09:54,952 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn has run /mods
+2021-06-28T08:10:08.582174+00:00 app[worker.1]: 2021-06-28 08:10:08,581 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn canceled the conversation.
+2021-06-28T08:10:11.339915+00:00 app[worker.1]: 2021-06-28 08:10:11,338 - __main__ - INFO - User Shinnnnnnnnnnnnnnnnnnnnnn has run /mods
+2021-06-28T08:12:56.263814+00:00 app[worker.1]: 2021-06-28 08:12:56,263 - __main__ - INFO - User rzchel has run /mods
+2021-06-28T08:14:30.798961+00:00 app[worker.1]: 2021-06-28 08:14:30,798 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:14:42.530294+00:00 app[worker.1]: 2021-06-28 08:14:42,530 - __main__ - INFO - User VimuthM has run /mods
+2021-06-28T08:20:52.587942+00:00 app[worker.1]: 2021-06-28 08:20:52,587 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:25:08.853183+00:00 app[worker.1]: 2021-06-28 08:25:08,852 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:25:21.461778+00:00 app[worker.1]: 2021-06-28 08:25:21,461 - __main__ - INFO - User phoebelyy has run /mods
+2021-06-28T08:25:49.659725+00:00 app[worker.1]: 2021-06-28 08:25:49,659 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:25:59.822553+00:00 app[worker.1]: 2021-06-28 08:25:59,822 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:26:05.256220+00:00 app[worker.1]: 2021-06-28 08:26:05,256 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:26:13.846612+00:00 app[worker.1]: 2021-06-28 08:26:13,846 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:26:18.459914+00:00 app[worker.1]: 2021-06-28 08:26:18,459 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:27:38.785490+00:00 app[worker.1]: 2021-06-28 08:27:38,785 - __main__ - INFO - User hi_im_ht is registering
+2021-06-28T08:27:44.870716+00:00 app[worker.1]: 2021-06-28 08:27:44,870 - __main__ - INFO - Room Number of hi_im_ht: D412
+2021-06-28T08:27:47.761197+00:00 app[worker.1]: 2021-06-28 08:27:47,758 - __main__ - INFO - Faculty of hi_im_ht: Science
+2021-06-28T08:27:56.534504+00:00 app[worker.1]: 2021-06-28 08:27:56,534 - __main__ - INFO - Course of hi_im_ht: DATA SCIENCE AND ANALYTICS
+2021-06-28T08:28:48.207568+00:00 app[worker.1]: 2021-06-28 08:28:48,207 - __main__ - INFO - hi_im_ht has initialised their account
+2021-06-28T08:28:51.196451+00:00 app[worker.1]: 2021-06-28 08:28:51,196 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:28:54.106849+00:00 app[worker.1]: 2021-06-28 08:28:54,106 - __main__ - INFO - User hi_im_ht has run /mods
+2021-06-28T08:29:13.141404+00:00 app[worker.1]: 2021-06-28 08:29:13,141 - __main__ - INFO - User hi_im_ht has run /mods
+2021-06-28T08:31:00.240606+00:00 app[worker.1]: 2021-06-28 08:31:00,240 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:31:15.325285+00:00 app[worker.1]: 2021-06-28 08:31:15,324 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:31:24.970067+00:00 app[worker.1]: 2021-06-28 08:31:24,969 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:35:07.369093+00:00 app[worker.1]: 2021-06-28 08:35:07,368 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:43:13.378250+00:00 app[worker.1]: 2021-06-28 08:43:13,377 - __main__ - INFO - User J1ngY1ng has run /mods
+2021-06-28T08:43:23.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T08:43:38.130143+00:00 app[worker.1]: 2021-06-28 08:43:38,129 - __main__ - INFO - User chernanigans canceled the conversation.
+2021-06-28T08:43:38.991635+00:00 app[worker.1]: 2021-06-28 08:43:38,991 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:43:48.977914+00:00 app[api]: Deploy cb103eb7 by user yeechern123@gmail.com
+2021-06-28T08:43:48.977914+00:00 app[api]: Release v89 created by user yeechern123@gmail.com
+2021-06-28T08:43:49.575131+00:00 heroku[worker.1]: Restarting
+2021-06-28T08:43:49.595155+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T08:43:50.244059+00:00 app[worker.1]: 2021-06-28 08:43:50,243 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:43:51.274473+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T08:43:51.468086+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T08:43:55.934189+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T08:43:56.708932+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T08:43:58.000000+00:00 app[api]: Build succeeded
+2021-06-28T08:43:59.708387+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T08:44:01.812188+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T08:44:01.814073+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T08:44:01.814074+00:00 app[worker.1]: warnings.warn(
+2021-06-28T08:44:01.815783+00:00 app[worker.1]: 2021-06-28 08:44:01,815 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T08:44:02.336804+00:00 app[worker.1]: 2021-06-28 08:44:02,336 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:44:06.989875+00:00 app[worker.1]: 2021-06-28 08:44:06,989 - __main__ - INFO - User chernanigans is registering
+2021-06-28T08:44:09.294584+00:00 app[worker.1]: 2021-06-28 08:44:09,294 - __main__ - INFO - Room Number of chernanigans: D418
+2021-06-28T08:44:11.690636+00:00 app[worker.1]: 2021-06-28 08:44:11,690 - __main__ - INFO - Faculty of chernanigans: Science
+2021-06-28T08:44:14.756232+00:00 app[worker.1]: 2021-06-28 08:44:14,755 - __main__ - INFO - Course of chernanigans: COMP BIO
+2021-06-28T08:44:57.985787+00:00 app[worker.1]: 2021-06-28 08:44:57,985 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:45:26.000000+00:00 app[api]: Build started by user yeechern123@gmail.com
+2021-06-28T08:45:55.236430+00:00 app[api]: Release v90 created by user yeechern123@gmail.com
+2021-06-28T08:45:55.236430+00:00 app[api]: Deploy 814a6e55 by user yeechern123@gmail.com
+2021-06-28T08:45:55.487670+00:00 heroku[worker.1]: Restarting
+2021-06-28T08:45:55.519855+00:00 heroku[worker.1]: State changed from up to starting
+2021-06-28T08:45:56.492041+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
+2021-06-28T08:45:56.629785+00:00 heroku[worker.1]: Process exited with status 143
+2021-06-28T08:46:01.780773+00:00 heroku[worker.1]: Starting process with command `python main.py`
+2021-06-28T08:46:02.525227+00:00 heroku[worker.1]: State changed from starting to up
+2021-06-28T08:46:06.000000+00:00 app[api]: Build succeeded
+2021-06-28T08:46:06.670612+00:00 app[worker.1]: [heroku-exec] Starting
+2021-06-28T08:46:08.579973+00:00 app[worker.1]: {'id': 1783610928, 'first_name': 'Eusoff Mods', 'is_bot': True, 'username': 'eusoffmods_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
+2021-06-28T08:46:08.582040+00:00 app[worker.1]: /app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:288: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+2021-06-28T08:46:08.582060+00:00 app[worker.1]: warnings.warn(
+2021-06-28T08:46:08.583703+00:00 app[worker.1]: 2021-06-28 08:46:08,583 - apscheduler.scheduler - INFO - Scheduler started
+2021-06-28T08:46:09.071296+00:00 app[worker.1]: 2021-06-28 08:46:09,070 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:46:21.703547+00:00 app[worker.1]: 2021-06-28 08:46:21,703 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:46:41.438157+00:00 app[worker.1]: 2021-06-28 08:46:41,437 - __main__ - INFO - User chernanigans is registering
+2021-06-28T08:46:41.776899+00:00 app[worker.1]: 2021-06-28 08:46:41,776 - __main__ - INFO - User AngQiXuan has run /deletemod
+2021-06-28T08:46:43.392500+00:00 app[worker.1]: 2021-06-28 08:46:43,392 - __main__ - INFO - Room Number of chernanigans: D418
+2021-06-28T08:46:46.474834+00:00 app[worker.1]: 2021-06-28 08:46:46,474 - __main__ - INFO - Faculty of chernanigans: Science
+2021-06-28T08:46:47.064975+00:00 app[worker.1]: 2021-06-28 08:46:47,064 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:46:50.073456+00:00 app[worker.1]: 2021-06-28 08:46:50,073 - __main__ - INFO - Course of chernanigans: COMP BIO
+2021-06-28T08:47:00.292522+00:00 app[worker.1]: 2021-06-28 08:47:00,292 - __main__ - INFO - User chernanigans has run /addmod
+2021-06-28T08:47:02.462247+00:00 app[worker.1]: 2021-06-28 08:47:02,462 - __main__ - INFO - User AngQiXuan has run /mods
+2021-06-28T08:47:48.922834+00:00 app[worker.1]: 2021-06-28 08:47:48,922 - __main__ - INFO - User chernanigans has run /help
+2021-06-28T08:48:31.767682+00:00 app[worker.1]: 2021-06-28 08:48:31,767 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T08:52:30.980418+00:00 app[worker.1]: 2021-06-28 08:52:30,980 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T08:52:49.756436+00:00 app[worker.1]: 2021-06-28 08:52:49,756 - __main__ - INFO - User yunxigan has run /mods
+2021-06-28T09:27:54.311929+00:00 app[worker.1]: 2021-06-28 09:27:54,309 - __main__ - INFO - User chernanigans has run /mods
+2021-06-28T09:30:30.473516+00:00 app[worker.1]: 2021-06-28 09:30:30,473 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T09:33:10.973341+00:00 app[worker.1]: 2021-06-28 09:33:10,973 - __main__ - INFO - User benji_tan has run /addmod
+2021-06-28T09:33:15.636384+00:00 app[worker.1]: 2021-06-28 09:33:15,615 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+2021-06-28T09:33:15.636395+00:00 app[worker.1]: Traceback (most recent call last):
+2021-06-28T09:33:15.636396+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 447, in process_update
+2021-06-28T09:33:15.636397+00:00 app[worker.1]: handler.handle_update(update, self, check, context)
+2021-06-28T09:33:15.636398+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/conversationhandler.py", line 602, in handle_update
+2021-06-28T09:33:15.636399+00:00 app[worker.1]: new_state = handler.handle_update(update, dispatcher, check_result, context)
+2021-06-28T09:33:15.636400+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/ext/handler.py", line 160, in handle_update
+2021-06-28T09:33:15.636401+00:00 app[worker.1]: return self.callback(update, context)
+2021-06-28T09:33:15.636401+00:00 app[worker.1]: File "/app/main.py", line 829, in statemodule
+2021-06-28T09:33:15.636401+00:00 app[worker.1]: bot.send_message(chat_id=chat_id,
+2021-06-28T09:33:15.636402+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 127, in decorator
+2021-06-28T09:33:15.636402+00:00 app[worker.1]: result = func(*args, **kwargs)
+2021-06-28T09:33:15.636403+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 475, in send_message
+2021-06-28T09:33:15.636403+00:00 app[worker.1]: return self._message(  # type: ignore[return-value]
+2021-06-28T09:33:15.636404+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 296, in _message
+2021-06-28T09:33:15.636404+00:00 app[worker.1]: result = self._post(endpoint, data, timeout=timeout, api_kwargs=api_kwargs)
+2021-06-28T09:33:15.636405+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/bot.py", line 259, in _post
+2021-06-28T09:33:15.636405+00:00 app[worker.1]: return self.request.post(
+2021-06-28T09:33:15.636406+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 350, in post
+2021-06-28T09:33:15.636406+00:00 app[worker.1]: result = self._request_wrapper(
+2021-06-28T09:33:15.636407+00:00 app[worker.1]: File "/app/.heroku/python/lib/python3.9/site-packages/telegram/utils/request.py", line 271, in _request_wrapper
+2021-06-28T09:33:15.636407+00:00 app[worker.1]: raise Unauthorized(message)
+2021-06-28T09:33:15.636408+00:00 app[worker.1]: telegram.error.Unauthorized: Forbidden: bot was blocked by the user
+2021-06-28T09:33:22.858430+00:00 app[worker.1]: 2021-06-28 09:33:22,858 - __main__ - INFO - User benji_tan has run /mods
+2021-06-28T09:33:37.701418+00:00 app[worker.1]: 2021-06-28 09:33:37,701 - __main__ - INFO - User benji_tan has run /mods

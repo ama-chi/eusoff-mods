@@ -242,7 +242,8 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your first mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /cancel to restart.\n\nTip: If you are prone to errors, you can /done after the first module and /addmodule '
+        'subsequently',
         reply_markup=ReplyKeyboardRemove())
     return MODS1
 

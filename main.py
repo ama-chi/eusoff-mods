@@ -615,7 +615,7 @@ def getmods(update: Update, _: CallbackContext):
         namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + modLink + '\n'
     else:
         namelist = 'Usernames of Eusoffians taking' + ' ' + modChosen + '\n' + 'No groupchat created yet \n/groupchatcreated to add groupchat ' \
-                                                                               'link' + '\n '
+                                                                               'link' + '\n'
     for i in data:
         namelist += ('@' + i[0] + '\n')
     update.effective_message.reply_text(namelist)
@@ -860,6 +860,8 @@ def help(update, context):
 
 
 def mymods(update: Update, _: CallbackContext):
+    user = update.message.from_user
+    logger.info("User %s has run /mymods to check mods", user.username)
     isRegisteredAccount = checkregisteredaccount(update.effective_message.chat_id, update)
     if isRegisteredAccount is False:
         return

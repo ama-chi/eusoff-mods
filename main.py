@@ -508,6 +508,8 @@ def done(update: Update, _: CallbackContext) -> int:
 def cancel(update: Update, _: CallbackContext) -> int:
     input_id_into_selection_dict(update.effective_chat.username)
     user = update.message.from_user
+    if update.effective_chat.username in newAccountDict:
+        del newAccountDict[update.effective_chat.username]
     logger.info("User %s canceled the conversation.", user.username)
     update.message.reply_text(
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '

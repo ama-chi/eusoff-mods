@@ -912,7 +912,7 @@ def mymods(update: Update, _: CallbackContext):
 
 
 def unknown(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command. Please "
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, something cropped up. Please "
                                                                     "type /cancel to restart this.")
 
 

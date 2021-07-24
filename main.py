@@ -171,6 +171,7 @@ def register(update: Update, _: CallbackContext) -> int:
         'Please key in your ROOM NUMBER (for authentication purposes only, will not be disclosed) \nIf you make a '
         'mistake anytime, restart by typing /cancel. \nYou can edit your mods via /deletemod or /addmod anytime after '
         'registration.')
+    print(newAccountDict)
     return ROOMNUMBER
 
 
@@ -228,7 +229,7 @@ def year(update: Update, _: CallbackContext):
     newAccount.year = year
     update.effective_message.reply_text(
         'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
-        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
+        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /back whenever you make a '
         'mistake.',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS1_F
@@ -246,7 +247,7 @@ def mods1_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your first mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart.\n\nTip: If you are prone to errors, you can /done after the first module and /addmod '
+        'or /back to restart.\n\nTip: If you are prone to errors, you can /done after the first module and /addmod '
         'subsequently',
         reply_markup=ReplyKeyboardRemove())
     return MODS1
@@ -264,6 +265,7 @@ def mods1(update: Update, _: CallbackContext) -> int:
     update.message.reply_text(
         'Please indicate the faculty of your second mod',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
+    print(newAccountDict)
     return MODS2_F
 
 
@@ -279,7 +281,7 @@ def mods2_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your second mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS2
 
@@ -311,7 +313,7 @@ def mods3_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your third mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS3
 
@@ -343,7 +345,7 @@ def mods4_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your fourth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS4
 
@@ -375,7 +377,7 @@ def mods5_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your fifth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS5
 
@@ -407,7 +409,7 @@ def mods6_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your sixth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS6
 
@@ -439,7 +441,7 @@ def mods7_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your seventh mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS7
 
@@ -471,7 +473,7 @@ def mods8_f(update: Update, _: CallbackContext) -> int:
         newAccount.mods[tempFaculty] = []
     update.message.reply_text(
         'Please indicate the name of your last mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /cancel to restart',
+        'or /back to restart',
         reply_markup=ReplyKeyboardRemove())
     return MODS8
 
@@ -515,7 +517,24 @@ def cancel(update: Update, _: CallbackContext) -> int:
         'Cancelled, you may run another command \n /register to register \n /mods to check mods \n /groupchatcreated '
         'to insert groupchat link', reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False)
     )
+    print(newAccountDict)
     return ConversationHandler.END
+
+
+def back(update: Update, _: CallbackContext):
+    input_id_into_selection_dict(update.effective_chat.username)
+    user = update.message.from_user
+    if update.effective_chat.username in newAccountDict:
+        newAccountDict[update.effective_chat.username].mods = {}
+    update.message.reply_text(
+        "Please restart module registration from the first module. If you are prone to errors, just register for one mod first and subsequently add modules individually."
+    )
+    update.effective_message.reply_text(
+        'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
+        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /back whenever you make a '
+        'mistake.',
+        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
+    return MODS1_F
 
 
 def button(update: Update, _: CallbackContext) -> None:
@@ -1033,7 +1052,7 @@ def main():
                       ],
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
         },
-        fallbacks=[CommandHandler('cancel', cancel)], )
+        fallbacks=[CommandHandler('cancel', cancel), CommandHandler('back', back)])
     dispatcher.add_handler(accountInitialisation)
 
     # getting the mods from database

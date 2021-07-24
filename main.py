@@ -229,8 +229,7 @@ def year(update: Update, _: CallbackContext):
     newAccount.year = year
     update.effective_message.reply_text(
         'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
-        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /back whenever you make a '
-        'mistake.',
+        'GER1000, "Biz" for ACC1002 etc. For CHS students, please input the faculty offering the module. E.g. "Science" for HSI1000',
         reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
     return MODS1_F
 

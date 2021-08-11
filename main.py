@@ -594,8 +594,11 @@ def getfaculties(update: Update, _: CallbackContext) -> int:
     mods = tempDict[tempFacultyChosen]
     mods.sort()
     keyboard = []
-    for i in mods:
-        keyboard.append([InlineKeyboardButton(i, callback_data=i)])
+    for i in range(0, len(mods), 2):
+        try:
+            keyboard.append([InlineKeyboardButton(mods[i], callback_data=mods[i]), InlineKeyboardButton(mods[i + 1], callback_data=mods[i + 1])])
+        except Exception:
+            keyboard.append([InlineKeyboardButton(mods[i], callback_data=mods[i])])
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.effective_message.reply_text('Please choose the module:', reply_markup=reply_markup)
     return GETMODS

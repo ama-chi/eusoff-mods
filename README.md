@@ -23,3 +23,5 @@
 ![image](https://user-images.githubusercontent.com/66681646/172511177-63da09f0-d1ea-49c9-bac6-5a7a27bd9499.png)
 
 
+### Disclaimer
+This code was written when I was still rushing to learn python-telegram-bot to complete the project before I become unavailable to do it. Therefore, the code may not be the cleanest. But it works and it helped connect over 280 students in Eusoff Hall.

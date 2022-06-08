@@ -6,6 +6,7 @@
 ![image](https://user-images.githubusercontent.com/66681646/172510849-754c925f-606a-42a6-a03e-4632eb0d9480.png)
 ### Choosing module
 ![image](https://user-images.githubusercontent.com/66681646/172510968-c53b8181-f57d-4a97-bd25-1edcc350c007.png)
+### Telegram handles of people taking the same module
 <img width="373" alt="image" src="https://user-images.githubusercontent.com/66681646/172511137-958a60c8-6073-467c-a611-c6126dce8f9d.png">
 
 

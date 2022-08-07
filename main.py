@@ -4,30 +4,51 @@ from telegram.ext import *
 import logging
 import psycopg2 as pg2
 import re
+import os
+import json
 
 '''config'''
-token = "1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4"
-bot = Bot("1783610928:AAFr2EFtaXtbvlfnpuUUXvJ4h-_lBntx1v4")
+token = os.environ.get('BOT_TOKEN')
+bot = Bot(os.environ.get('BOT_TOKEN'))
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-host = 'ec2-34-195-143-54.compute-1.amazonaws.com'
-database = 'd3pb9jkfc1jkat'
-user_database = 'ckwbcsfhmslojp'
-password = '314cc6f1c2ef1e61c470ce5ebf1b3c1eed63ad8be4376227350ecd1b4acd96fa'
+DB_URL = os.environ.get('DATABASE_URL')
 
 replyKeyboardStandard = [['/mods', '/cancel', '/help', '/mymods'],
                          ['/groupchatcreated', '/deletemod', '/addmod']]
 
 replyKeyboardFaculties = [['Biz', 'Computing', 'CHS(AY21/22 Onwards)', 'Engineering'],
-                          ['FASS', 'Science', 'Law', 'Public Policy', ],
+                          ['FASS', 'Science', 'Law', 'Public Policy'],
                           ['ISE', 'Music', 'Public Health', 'SDE']]
 
-replyKeyboardModFaculties = [['Biz', 'Computing', 'GE Mods', 'Engineering'],
-                             ['FASS', 'Science', 'Law', 'Public Policy', ],
-                             ['ISE', 'Music', 'Public Health', 'SDE']]
+replyKeyboardModFaculties = [['Biz', 'Computing', 'CHS Mods', 'Engineering'],
+                             ['FASS', 'GE Mods', 'Law', 'Music'],
+                             ['Public Health', 'Public Policy'],
+                             ['Science', 'SDE', 'Others']]
+
+moduleToFaculty = {}
+facultyToCategory = {
+  'NUS Business School': 'Biz',
+  'Computing': 'Computing',
+  'College of Design and Engineering': 'Engineering',
+  'Arts and Social Science': 'FASS',
+  'SSH School of Public Health': 'Public Health',
+  'LKY School of Public Policy': 'Public Policy',
+  'Science': 'Science',
+  'Design and Environment': 'SDE',
+  'Law': 'Law',
+  'YST Conservatory of Music': 'Music'
+}
+
+# Opening JSON file
+with open('module_data.json') as module_list:
+    modules_data = json.load(module_list)
+
+    for module_data in modules_data:
+      moduleToFaculty[module_data['moduleCode'].upper()] = module_data['faculty']
 ''''''''
 
 
@@ -59,8 +80,8 @@ dispatcher = updater.dispatcher
 print(Bot.get_me(bot))
 ''''commands'''
 
-ROOMNUMBER, FACULTY, COURSE, YEAR, MODS1_F, MODS1, MODS2_F, MODS2, MODS3_F, MODS3, MODS4_F, MODS4, MODS5_F, MODS5, MODS6_F, MODS6, MODS7_F, MODS7, MODS8_F, MODS8 = range(
-    20)
+ROOMNUMBER, FACULTY, COURSE, YEAR, MODS1, MODS2, MODS3, MODS4, MODS5, MODS6, MODS7, MODS8 = range(
+    12)
 
 selectionDict = {}
 dictDict = {}
@@ -84,9 +105,7 @@ def input_id_into_newAccountDict(username):
 
 def initialise_account(update: Update):
     newAccount = newAccountDict[update.effective_chat.username]
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     insert_account = '''
            INSERT INTO accounts(username,name,roomnumber,faculty,course,year,chat_id)
@@ -228,26 +247,8 @@ def year(update: Update, _: CallbackContext):
     query.edit_message_text(text=f"Selected option: {query.data}")
     newAccount.year = year
     update.effective_message.reply_text(
-        'Please indicate the faculty of your first MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
-        'GER1000, "Biz" for ACC1002 etc. For CHS students, please input the faculty offering the module. E.g. "Science" for HSI1000',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS1_F
-
-
-def mods1_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
-    selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS1_F
-    if tempFaculty not in newAccount.mods:
-        newAccount.mods[tempFaculty] = []
-    update.message.reply_text(
         'Please indicate the name of your first mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart.\n\nTip: If you are prone to errors, you can /done after the first module and /addmod '
-        'subsequently',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS1
 
@@ -256,31 +257,21 @@ def mods1(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS1
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your second mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    print(newAccountDict)
-    return MODS2_F
-
-
-def mods2_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS1
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS2_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your second mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS2
 
@@ -289,30 +280,21 @@ def mods2(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS2
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your third mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS3_F
-
-
-def mods3_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS2
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS3_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your third mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS3
 
@@ -321,30 +303,21 @@ def mods3(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS3
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your fourth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS4_F
-
-
-def mods4_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS3
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS4_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your fourth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS4
 
@@ -353,30 +326,21 @@ def mods4(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS4
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your fifth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS5_F
-
-
-def mods5_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS4
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS5_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your fifth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS5
 
@@ -385,30 +349,21 @@ def mods5(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS5
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your sixth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS6_F
-
-
-def mods6_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS5
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS6_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your sixth mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS6
 
@@ -417,30 +372,21 @@ def mods6(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS6
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your seventh mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS7_F
-
-
-def mods7_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS6
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS7_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'Please indicate the name of your seventh mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS7
 
@@ -449,42 +395,40 @@ def mods7(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS7
-    newAccount.mods[tempFaculty].append(update.message.text.upper())
-    update.message.reply_text(
-        'Please indicate the faculty of your eighth mod',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return MODS8_F
-
-
-def mods8_f(update: Update, _: CallbackContext) -> int:
-    input_id_into_newAccountDict(update.effective_chat.username)
-    newAccount = newAccountDict[update.effective_chat.username]
-    tempFaculty = update.message.text
+      return MODS7
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
     selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return MODS8_F
     if tempFaculty not in newAccount.mods:
         newAccount.mods[tempFaculty] = []
+    newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
-        'Please indicate the name of your last mod e.g. CS1010S or /done when you have enumerated all your courses '
-        'or /back to restart',
+        'Please indicate the name of your eighth mod e.g. CS1010S or /done when you have enumerated all your courses '
+        'or /back to restart.',
         reply_markup=ReplyKeyboardRemove())
     return MODS8
 
 
-def mods8(update: Update, _: CallbackContext):
+def mods8(update: Update, _: CallbackContext) -> int:
     input_id_into_newAccountDict(update.effective_chat.username)
     newAccount = newAccountDict[update.effective_chat.username]
     user = update.message.from_user
-    tempFaculty = selectionDict[update.effective_chat.username]
-    trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
+    tempMod = update.message.text.upper()
+    tempMod = tempMod.replace(" ", "")
+    tempFaculty = ''
+    trueOrFalseMod = checkvalidmod(tempMod, update)
     if trueOrFalseMod is False:
-        return MODS8
+      return MODS8
+    else:
+      tempFaculty = convertmodtofaculty(tempMod, update)
+    selectionDict[update.effective_chat.username] = tempFaculty
+    if tempFaculty not in newAccount.mods:
+        newAccount.mods[tempFaculty] = []
     newAccount.mods[tempFaculty].append(update.message.text.upper())
     update.message.reply_text(
         'This is the last mod you can input, please type /done',
@@ -555,9 +499,7 @@ def mods(update: Update, _: CallbackContext) -> None:
         return
     user = update.message.from_user
     logger.info("User %s has run /mods", user.username)
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     getFaculty = '''
     SELECT faculty_name, mod_name FROM all_modules
@@ -610,9 +552,7 @@ def getmods(update: Update, _: CallbackContext):
     modChosen = str(update.callback_query.data)
     query = update.callback_query
     query.edit_message_text(text=f"Selected option: {query.data}")
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
 
     cur = conn.cursor()
     getNameList = '''
@@ -662,15 +602,10 @@ def link(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
     tempModChosen = selectionDict[update.effective_chat.username]
     linkSubmitted = update.message.text
-    trueOrFalse = checkvalidlink(linkSubmitted, update)
-    if trueOrFalse is False:
-        return LINK
     user = update.effective_message.from_user
     logger.info("User %s has added the link of %s", user.username, linkSubmitted)
     accountUsername = update.effective_chat.username
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     createLink = '''
                 UPDATE all_modules
@@ -693,9 +628,7 @@ def delete_account(update: Update, _: CallbackContext):
     user = update.message.from_user
     logger.info("User %s has deleted account", user.username)
     username = update.effective_chat.username
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     query = '''
             DELETE FROM mods
@@ -722,9 +655,7 @@ def deletemod(update: Update, _: CallbackContext):
     user = update.message.from_user
     logger.info("User %s has run /deletemod", user.username)
     username = update.effective_chat.username
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     query = '''
             SELECT mod_name, mods.mod_id, accounts.id FROM mods
@@ -758,9 +689,7 @@ def choosemodule(update, context):
     moduleDict = dictDict[update.effective_chat.username]
     accountId = selectionDict[update.effective_chat.username]
     modId = moduleDict[modChosen]
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     query = '''
             DELETE FROM mods
@@ -775,7 +704,7 @@ def choosemodule(update, context):
     return ConversationHandler.END
 
 
-STATEFACULTIES, STATEMODULE = range(2)
+STATEMODULE = range(1)
 
 
 def add_module(update, context):
@@ -786,37 +715,20 @@ def add_module(update, context):
     user = update.message.from_user
     logger.info("User %s has run /addmod", user.username)
     update.message.reply_text(
-        'Please indicate the faculty of your MOD, e.g. "FASS" for PL1101E, "Science" for MA1101R, "GE Mods" for '
-        'GER1000, "Biz" for ACC1002 etc. Please check and input the correct faculty and /cancel whenever you make a '
-        'mistake.',
-        reply_markup=ReplyKeyboardMarkup(replyKeyboardModFaculties, one_time_keyboard=True))
-    return STATEFACULTIES
-
-
-def statefaculties(update: Update, _: CallbackContext):
-    input_id_into_selection_dict(update.effective_chat.username)
-    tempFaculty = update.message.text.upper()
-    selectionDict[update.effective_chat.username] = tempFaculty
-    trueOrFalse = checkvalidfaculty(tempFaculty.upper(), update)
-    if trueOrFalse is False:
-        return STATEFACULTIES
-    update.message.reply_text(
         'Please indicate the name of your mod e.g. CS1010S',
         reply_markup=ReplyKeyboardRemove())
     return STATEMODULE
 
-
 def statemodule(update: Update, _: CallbackContext):
     input_id_into_selection_dict(update.effective_chat.username)
     module = update.message.text.upper()
+    module = module.replace(" ", "")
     user = update.effective_chat.username
     trueOrFalseMod = checkvalidmod(update.message.text.upper(), update)
     if trueOrFalseMod is False:
         return STATEMODULE
-    tempFaculty = selectionDict[update.effective_chat.username]
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    tempFaculty = convertmodtofaculty(module, update)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     insertToAllModules = '''
                 INSERT INTO all_modules(mod_name,faculty_id)
@@ -890,9 +802,7 @@ def mymods(update: Update, _: CallbackContext):
         return
     input_id_into_selection_dict(update.effective_chat.username)
     user = update.effective_chat.username
-    conn = pg2.connect(host=host, database=database,
-                       user=user_database,
-                       password=password)
+    conn = pg2.connect(DB_URL)
     cur = conn.cursor()
     getMyMods = '''
                 select mod_name from mods 
@@ -920,8 +830,8 @@ def unknown(update, context):
 
 
 def checkvalidfaculty(faculty, update):
-    validInput = ['BIZ', 'COMPUTING', 'GE MODS', 'ENGINEERING', 'FASS', 'SCIENCE', 'LAW', 'PUBLIC POLICY',
-                  'ISE', 'MUSIC', 'PUBLIC HEALTH', 'SDE', 'CHS(AY21/22 ONWARDS)']
+    validInput = ['BIZ', 'COMPUTING', 'CHS MODS', 'GE MODS', 'ENGINEERING', 'FASS', 'SCIENCE', 'LAW', 'PUBLIC POLICY',
+                  'MUSIC', 'PUBLIC HEALTH', 'SDE', 'CHS(AY21/22 ONWARDS)', 'OTHERS']
     if faculty not in validInput:
         bot.send_message(chat_id=update.effective_chat.id,
                          text="It appears that you have inputted an invalid faculty, please only select faculty from "
@@ -931,21 +841,12 @@ def checkvalidfaculty(faculty, update):
 
 
 def checkvalidmod(mod, update):
-    m = re.match(r"(\D{2,3}\d{2,4}\D{0,2})", mod)
-    try:
-        start, stop = m.span()
-        if stop - start == len(mod):
-            return True
-        else:
-            bot.send_message(chat_id=update.effective_chat.id,
-                             text="It appears that you have inputted an invalid mod, please only enter a valid mod "
-                                  "code.")
-            return False
-    except:
-        bot.send_message(chat_id=update.effective_chat.id,
+    if mod not in moduleToFaculty:
+      bot.send_message(chat_id=update.effective_chat.id,
                          text="It appears that you have inputted an invalid mod, please only enter a valid mod "
                               "code.")
-        return False
+      return False
+    return True
 
 
 def checkvalidroomnumber(roomNumber, update):
@@ -968,25 +869,6 @@ def checkvalidroomnumber(roomNumber, update):
         return False
 
 
-def checkvalidlink(link, update):
-    m = re.match(r"(https://t.me/joinchat/.*)", link)
-    try:
-        start, stop = m.span()
-        if stop - start == len(link):
-            return True
-        else:
-            bot.send_message(chat_id=update.effective_chat.id,
-                             text="It appears that you have inputted an invalid link, please only enter a valid telegram group chat"
-                                  "link "
-                                  ".")
-            return False
-    except:
-        bot.send_message(chat_id=update.effective_chat.id,
-                         text="It appears that you have inputted an invalid link, please only enter a valid telegram group chat"
-                              "link "
-                              ".")
-        return False
-
 
 registeredAccountSet = set()
 
@@ -996,9 +878,7 @@ def checkregisteredaccount(chat_id, update):
         return True
 
     else:
-        conn = pg2.connect(host=host, database=database,
-                           user=user_database,
-                           password=password)
+        conn = pg2.connect(DB_URL)
         cur = conn.cursor()
         getChatId = '''
             SELECT chat_id FROM accounts
@@ -1018,6 +898,17 @@ def checkregisteredaccount(chat_id, update):
                          text="Please register before using with /register")
         return False
 
+def convertmodtofaculty(mod, update):
+  if mod[0:3] in ['GEC','GEX','GEA','GEI','GEN','GEH','GER','GES','GET','GEQ']:
+    return 'GE Mods'
+  elif mod[0:2] == "HS":
+    return 'CHS Mods'
+  else:
+    temp = moduleToFaculty[mod]
+    if temp in facultyToCategory:
+      return facultyToCategory[temp]
+    else:
+      return 'Others'
 
 def main():
     # account creator
@@ -1028,30 +919,13 @@ def main():
             FACULTY: [MessageHandler(Filters.text & ~Filters.command, faculty)],
             COURSE: [MessageHandler(Filters.text & ~Filters.command, course)],
             YEAR: [CallbackQueryHandler(year)],
-            MODS1_F: [MessageHandler(Filters.text & ~Filters.command, mods1_f),
-                      CommandHandler('done', done)],
             MODS1: [MessageHandler(Filters.text & ~Filters.command, mods1), CommandHandler('done', done)],
-            MODS2_F: [MessageHandler(Filters.text & ~Filters.command, mods2_f),
-                      CommandHandler('done', done)],
             MODS2: [MessageHandler(Filters.text & ~Filters.command, mods2), CommandHandler('done', done)],
-            MODS3_F: [MessageHandler(Filters.text & ~Filters.command, mods3_f),
-                      CommandHandler('done', done)],
             MODS3: [MessageHandler(Filters.text & ~Filters.command, mods3), CommandHandler('done', done)],
-            MODS4_F: [MessageHandler(Filters.text & ~Filters.command, mods4_f),
-                      CommandHandler('done', done)],
             MODS4: [MessageHandler(Filters.text & ~Filters.command, mods4), CommandHandler('done', done)],
-            MODS5_F: [MessageHandler(Filters.text & ~Filters.command, mods5_f),
-                      CommandHandler('done', done)],
             MODS5: [MessageHandler(Filters.text & ~Filters.command, mods5), CommandHandler('done', done)],
-            MODS6_F: [MessageHandler(Filters.text & ~Filters.command, mods6_f),
-                      CommandHandler('done', done)],
             MODS6: [MessageHandler(Filters.text & ~Filters.command, mods6), CommandHandler('done', done)],
-            MODS7_F: [MessageHandler(Filters.text & ~Filters.command, mods7_f),
-                      CommandHandler('done', done)],
             MODS7: [MessageHandler(Filters.text & ~Filters.command, mods7), CommandHandler('done', done)],
-            MODS8_F: [MessageHandler(Filters.text & ~Filters.command, mods8_f),
-                      CommandHandler('done', done)
-                      ],
             MODS8: [MessageHandler(Filters.text & ~Filters.command, mods8), CommandHandler('done', done)],
         },
         fallbacks=[CommandHandler('cancel', cancel), CommandHandler('back', back)])
@@ -1091,7 +965,6 @@ def main():
     addMod = ConversationHandler(
         entry_points=[CommandHandler('addmod', add_module)],
         states={
-            STATEFACULTIES: [MessageHandler(Filters.text & ~Filters.command, statefaculties)],
             STATEMODULE: [MessageHandler(Filters.text & ~Filters.command, statemodule)]
         },
         fallbacks=[CommandHandler('cancel', cancel)], )

@@ -1,7 +1,8 @@
 import psycopg2 as pg2
+import os
 
-conn = pg2.connect(host='ec2-54-152-185-191.compute-1.amazonaws.com', database='d6qsettok4ol4b', user='rlvttkkwxngrdx',
-                   password='3a31982e046353fd59d17a96a13d65f90ab77b05b0f8469c337c53fe46c2d70b')
+DB_URL = os.environ.get('DATABASE_URL')
+conn = pg2.connect("DB_URL")
 cur = conn.cursor()
 
 account_create = '''
@@ -43,12 +44,26 @@ create_mods = '''
 
 insert_faculties = '''
         INSERT INTO faculties(faculty_name)
-        VALUES ('public policy')
-        
+        VALUES
+        ('biz'),
+        ('computing'),
+        ('chs mods'),
+        ('engineering'),
+        ('fass'),
+        ('ge mods'),
+        ('law'),
+        ('music'),
+        ('public health'),
+        ('public policy'),
+        ('science'),
+        ('sde'),
+        ('others');
         '''
 
+actions = [account_create, create_faculty, create_all_modules, create_mods, insert_faculties]
+for action in actions:
+  cur.execute(action)
 
-cur.execute()
 conn.commit()
 
 
@@ -127,7 +142,7 @@ conn.commit()
 
 
 
-''''''''''''''
+""" 
 account_create = '''
         CREATE TABLE accounts (
             id SERIAL PRIMARY KEY
@@ -159,4 +174,4 @@ insert_faculties = '''
         INSERT INTO faculties(faculty_name)
         VALUES ('science')
         );
-        '''
+        ''' """

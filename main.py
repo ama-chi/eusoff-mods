@@ -170,7 +170,7 @@ def start(update: Update, _: CallbackContext):
     reply_keyboard = [['/register']]
     update.message.reply_text(
         'Welcome to Eusoff Mods, this is a bot to identify a community of Eusoffians taking the same mods, such as GE '
-        'mods, as well as the group chats created, firstly, please register up to 8 mods with /register.',
+        'mods, as well as the group chats created, firstly, please register up to 8 mods with /register. Credits to @chernanigans for creating this bot.',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
 
@@ -790,7 +790,7 @@ def help(update, context):
                               "you have created a group chat for a mod "
                               "\n/addmod - Add additional mod \n/deletemod - Delete mods that are wrongly added "
                               "\n/deleteaccount - Deletes your account \nPM "
-                              "@chernanigans for any help",
+                              "@amadeus_chi for any help",
                               reply_markup=ReplyKeyboardMarkup(replyKeyboardStandard, one_time_keyboard=False))
 
 

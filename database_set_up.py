@@ -2,7 +2,7 @@ import psycopg2 as pg2
 import os
 
 DB_URL = os.environ.get('DATABASE_URL')
-conn = pg2.connect("DB_URL")
+conn = pg2.connect(DB_URL)
 cur = conn.cursor()
 
 account_create = '''
